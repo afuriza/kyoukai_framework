@@ -163,7 +163,7 @@ begin
     end
     else if URIStr = 'ky_icon_nyanpasu.png' then
     begin
-      EncodedStream := TStringStream.Create(base64_nyanpasu_icon);
+      EncodedStream := TStringStream.Create(base64_nyanpasu_icon_35p);
       DecodedStream := TMemoryStream.Create;
       Decoder       := TBase64DecodingStream.Create(EncodedStream);
       DecodedStream.CopyFrom(Decoder, Decoder.Size);

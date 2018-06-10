@@ -16,7 +16,7 @@ function GetErrorInformation(SiteName, SiteLink, AMessage: string;
   const ServeStartTime: TDateTime): string;
 
 const
-  base64_nyanpasu_icon = {$I 'nyanpasu_icon_35p.inc'};
+  base64_nyanpasu_icon_35p = {$I 'nyanpasu_icon_35p.inc'};
 implementation
 
 
