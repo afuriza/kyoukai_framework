@@ -16,14 +16,13 @@
         <Filename Value="src\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="5"/>
+        <TopLine Value="4"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <TopLine Value="155"/>
         <CursorPos X="69" Y="166"/>
@@ -47,8 +46,9 @@
       <Unit5>
         <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
         <UnitName Value="Kyoukai.Standard.DefaultHTML"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="4"/>
+        <TopLine Value="106"/>
         <CursorPos X="27" Y="19"/>
         <UsageCount Value="26"/>
         <Loaded Value="True"/>

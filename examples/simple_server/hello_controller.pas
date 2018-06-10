@@ -28,7 +28,7 @@ end;
 // http://localhost:80/hello/sayhelloworld
 procedure THello.SayHelloWorld;
 begin
-  _echo('Hello, 世界!');
+  _echo('Hello, world!');
   _echo('<br>');
   _echo('- From "'+ClassName+'" module with URI: "'+Request.URI+'"');
 end;
