@@ -1,4 +1,3 @@
-# kyoukai_framework
 <h1 align="center">Kyoukai Framework</h1>
 
 <div align="center">
