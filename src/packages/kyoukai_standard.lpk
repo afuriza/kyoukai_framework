@@ -12,7 +12,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="10">
+    <Files Count="11">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
@@ -53,6 +53,10 @@
         <Filename Value="..\inc\nyanpasu_icon_35p.inc"/>
         <Type Value="Include"/>
       </Item10>
+      <Item11>
+        <Filename Value="..\units\other\kyoukai.other.base64util.pas"/>
+        <UnitName Value="Kyoukai.Other.Base64Util"/>
+      </Item11>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>
