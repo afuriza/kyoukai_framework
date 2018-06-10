@@ -13,7 +13,7 @@ The Kyoukai (境界), A Simplified Pascal Web Framework.
 
 In japanese, kyoukai means boundary, because it's bounds me as my favourite programming language. I make Pascal because I can not find any Pascal web-framework which I really comfort with. Some are too complicated, while some others have too many dependencies. Basically I expect an easy-to-use framework like CodeIgniter in Pascal, even more simpler than CodeIgniter.
 
-This project is too far from a complete framework, it still in the experimental stage, please help me if have any idea, code, and feature requests. Don't too silly to open any issue.
+This project is too far from a complete framework, it still in the experimental stage, please help me if you have any idea, code, and feature request. Don't too silly to open any issue.
 
 Requirement
 ---
