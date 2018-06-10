@@ -23,6 +23,79 @@ Requirements
 * fcl-web
 * lazarus (optional)
 
+Get Started
+---
+
+Create two files:
+
+* `project_kyoukai.lpr`;
+* `unit1.pas`;
+
+In `project_kyoukai.lpr`, type:
+
+```pascal
+program project_kyoukai;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  cthreads,
+  {$ENDIF}{$ENDIF}
+  Classes,
+  kyoukai.standard.HTTPApplication,
+  {You must placed your module units here or Kyoukai can't register anything!}
+  unit1
+  { you can add units after this };
+
+{$R *.res}
+
+begin
+  KyoukaiApp.Port := 80;
+  KyoukaiApp.Active := True;
+end.
+```
+
+In `unit1.pas`, type:
+
+```pascal
+unit uni1;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils,
+  Kyoukai.Standard.WebRouter,
+  Kyoukai.Standard.WebModule;
+
+type
+  THome = class(TKyModule)
+  published
+    procedure MainHandle;
+  end;
+
+implementation
+
+procedure THome.MainHandle;
+begin
+  _echo := 'Hello world!';
+end;
+
+initialization
+Routes['main'] := THome;
+
+end.
+```
+
+Compile and run the project `project_kyoukai.lpr`. Now, in your web browser, access the following URL:
+
+```
+http://localhost/
+```
+
+
 <h3 align="center">Screenshots</h3>
 <h4 align="center">Hello World Demo</h4>
 <div align="center">
