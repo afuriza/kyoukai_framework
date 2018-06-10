@@ -17,7 +17,7 @@ I make Pascal because I can not find any Pascal web-framework which I really com
 
 This project is too far from a complete framework, it still in the experimental stage, please help me if you have any idea, code, and feature request. And, Don't too silly to open any issue.
 
-Requirement
+Requirements
 ---
 * fpc / free pascal compiler, version 3.0.4
 * fcl-web
