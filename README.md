@@ -22,3 +22,29 @@ Requirements
 * fpc / free pascal compiler, version 3.0.4
 * fcl-web
 * lazarus (optional)
+
+<h3 align="center">Screenshots</h3>
+<h4 align="center">Hello World Demo</h4>
+<div align="center">
+  <img src="src/images/helloworld_demo.png" />
+</div>
+
+<h4 align="center">Kyoukai Information Page</h4>
+<div align="center">
+  <img src="src/images/information_page.png" />
+</div>
+
+<h4 align="center">Not Found Default Handler</h4>
+<div align="center">
+  <img src="src/images/notfound_page.png" />
+</div>
+
+<h4 align="center">Routing A Module</h4>
+<div align="center">
+  <img src="src/images/registering_module.png" />
+</div>
+
+<h4 align="center">Section Code To Run HTTP Server Application</h4>
+<div align="center">
+  <img src="src/images/running_application.png" />
+</div>
