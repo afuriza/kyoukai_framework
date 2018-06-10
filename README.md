@@ -80,7 +80,7 @@ implementation
 
 procedure THome.MainHandle;
 begin
-  _echo := 'Hello world!';
+  _echo('Hello world!');
 end;
 
 initialization
