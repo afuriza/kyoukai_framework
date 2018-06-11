@@ -30,11 +30,14 @@ type
     type
       TURICallback = procedure of object;
   private
+    fRouter: TKyRoutes;
     procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
   public
     Constructor Create(AOwner : TComponent); override;
     Destructor Destroy; override;
+  published
+    property Router: TKyRoutes read fRouter write fRouter;
   end;
 
 implementation
@@ -96,9 +99,9 @@ begin
     ExplodedURI.Free;
 
 
-    if Routes.Contains(URIStr) then
+    if Router.Contains(URIStr) then
     begin
-      ModuleWorker := TKyModuleClass(Routes[URIStr]).Create(Self);
+      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self);
       ModuleWorker.Request := ARequest;
       ModuleWorker.Response := AResponse;
         if URIStr2 = '' then
@@ -136,9 +139,9 @@ begin
     end
     else if URIStr = '' then
     begin
-      if Routes.Contains('main') then
+      if Router.Contains('main') then
       begin
-        ModuleWorker := TKyModuleClass(Routes['main']).Create(Self);
+        ModuleWorker := TKyModuleClass(Router['main']).Create(Self);
         ModuleWorker.Request := ARequest;
         ModuleWorker.Response := AResponse;
         if ModuleWorker.MethodAddress('MainHandle') <> nil then
@@ -177,7 +180,7 @@ begin
     end
     else
     begin
-      ModuleWorker := TKyModuleClass(Routes['main']).Create(Self);
+      ModuleWorker := TKyModuleClass(Router['main']).Create(Self);
         ModuleWorker.Request := ARequest;
         ModuleWorker.Response := AResponse;
         if ModuleWorker.MethodAddress(URIStr) <> nil then

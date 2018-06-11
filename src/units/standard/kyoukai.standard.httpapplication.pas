@@ -35,6 +35,7 @@ implementation
 initialization
   Routes := TKyRoutes.Create;
   KyoukaiApp := TKyoukaiApp.Create(nil);
+  KyoukaiApp.Router := Routes;
   WriteLn('Registered into port: ', KyoukaiApp.Port);
 
 finalization

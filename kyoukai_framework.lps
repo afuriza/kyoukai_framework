@@ -9,7 +9,7 @@
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
         <CursorPos X="10" Y="9"/>
-        <UsageCount Value="38"/>
+        <UsageCount Value="39"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
@@ -23,27 +23,24 @@
       <Unit2>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="155"/>
         <CursorPos X="20" Y="176"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
         <UnitName Value="Kyoukai.Standard.WebModule"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="25"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="src\units\standard\kyoukai.standard.webrouter.pas"/>
         <UnitName Value="Kyoukai.Standard.WebRouter"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="81" Y="13"/>
         <UsageCount Value="31"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
@@ -63,18 +60,16 @@
       <Unit7>
         <Filename Value="src\units\other\kyoukai.other.stlutil.pas"/>
         <UnitName Value="Kyoukai.Other.STLUtil"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2"/>
         <UsageCount Value="22"/>
-        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="src\units\other\kyoukai.other.rengemessages.pas"/>
         <UnitName Value="Kyoukai.Other.RengeMessages"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="-1"/>
         <CursorPos X="81" Y="13"/>
         <UsageCount Value="30"/>
-        <Loaded Value="True"/>
       </Unit8>
       <Unit9>
         <Filename Value="examples\simple_server\hello_controller.pas"/>
@@ -121,9 +116,8 @@
       </Unit14>
       <Unit15>
         <Filename Value="examples\simple_server\simple_server.lpr"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="-1"/>
         <UsageCount Value="25"/>
-        <Loaded Value="True"/>
       </Unit15>
       <Unit16>
         <Filename Value="examples\simple_server\simple_server.lps"/>
@@ -147,10 +141,9 @@
         <Filename Value="src\units\other\kyoukai.other.base64util.pas"/>
         <UnitName Value="Kyoukai.Other.Base64Util"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="8"/>
-        <TopLine Value="33"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="44" Y="51"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit18>
       <Unit19>
@@ -161,7 +154,7 @@
         <UsageCount Value="10"/>
       </Unit19>
     </Units>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="5" HistoryIndex="4">
       <Position1>
         <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
         <Caret Line="11" Column="12"/>
@@ -171,21 +164,17 @@
         <Caret Line="239" Column="9" TopLine="5"/>
       </Position2>
       <Position3>
-        <Filename Value="src\units\other\kyoukai.other.rengemessages.pas"/>
-        <Caret Line="14" Column="30" TopLine="13"/>
-      </Position3>
-      <Position4>
         <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
         <Caret Line="14" Column="9"/>
-      </Position4>
-      <Position5>
+      </Position3>
+      <Position4>
         <Filename Value="src\units\other\kyoukai.other.base64util.pas"/>
         <Caret Line="36" Column="29" TopLine="33"/>
-      </Position5>
-      <Position6>
+      </Position4>
+      <Position5>
         <Filename Value="kyoukai_framework.lpr"/>
         <Caret Line="9" Column="36"/>
-      </Position6>
+      </Position5>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
