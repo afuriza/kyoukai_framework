@@ -1,0 +1,13 @@
+.DS_Store
+*.compiled
+*.lps
+*.bak
+*.ppu
+*.o*.dll
+*.exe
+*.bin
+
+lib/
+src/packages/lib/
+build/
+
