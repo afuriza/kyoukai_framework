@@ -1,4 +1,4 @@
-<div><h1 align="center">Kyoukai Framework</h1><img src="src/icons/kyoukai_25p.png"></div>
+<h1 align="center">Kyoukai Framework <img src="src/icons/kyoukai_25p.png"></h1>
 
 <div align="center">
   <img src="src/icons/nyanpasu.png"/>
