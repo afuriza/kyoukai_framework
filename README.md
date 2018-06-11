@@ -1,9 +1,6 @@
 <div align="center">
   <img src="src/images/kyoukai_framework.png"/>
 </div>
-<div align="center">
-  <img src="src/icons/nyanpasu_125p.png"/>
-</div>
 <br/>
 <div align="center">
   <strong>The Boundary, A Simple Framework for A Small Server Application</strong>
@@ -30,8 +27,14 @@ Dependencies
 * kyoukai_framework
 * -> kyoukai_standard.lpk
 
-Get Started
----
+<div align="center">
+  <img src="src/icons/nyanpasu_125p.png"/>
+</div>
+<br/>
+<div align="center">
+  <strong>Let's getting started!</strong>
+</div>
+<br/>
 
 Create two files:
 
