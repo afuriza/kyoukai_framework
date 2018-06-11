@@ -2,7 +2,7 @@
   <img src="src/images/kyoukai_framework.png"/>
 </div>
 <div align="center">
-  <img src="src/icons/nyanpasu.png"/>
+  <img src="src/icons/nyanpasu_125p.png"/>
 </div>
 <br/>
 <div align="center">
