@@ -16,7 +16,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="kyoukai_framework.svg"
-   inkscape:export-filename="D:\Pascal Projects\kyoukai_framework\src\images\kyoukai.png"
+   inkscape:export-filename="D:\Pascal Projects\kyoukai_framework\src\images\kyoukai_framework.png"
    inkscape:export-xdpi="59.865322"
    inkscape:export-ydpi="59.865322">
   <defs
@@ -98,9 +98,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="247.75801"
-     inkscape:cy="182.62627"
+     inkscape:zoom="0.7"
+     inkscape:cx="668.87077"
+     inkscape:cy="115.12807"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1561,5 +1561,21 @@
        d="m 878.44745,847.451 c -4.72705,-1.67132 -7.3528,-5.40981 -7.37475,-10.5001 -0.0308,-7.11629 5.76484,-11.99396 13.01757,-10.95587 7.38361,1.05681 11.63576,9.22826 8.30225,15.95454 -1.3241,2.67174 -3.734,4.72075 -6.53834,5.55923 -1.96271,0.58682 -5.66523,0.55792 -7.40673,-0.0579 z"
        id="path4607"
        inkscape:connector-curvature="0" />
+    <g
+       transform="translate(-80.730983,322.11683)"
+       id="g4358"
+       style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:183.07800293px;line-height:125%;font-family:'Fira Code';-inkscape-font-specification:'Fira Code Medium';letter-spacing:0px;word-spacing:0px;fill:#774e74;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4361"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:183.07800293px;font-family:'Fira Code';-inkscape-font-specification:'Fira Code Medium';fill:#ffffff"
+         d="m 244.47462,550.17996 43.75564,-58.76804 23.43398,0 -44.12179,57.48649 47.60028,68.83733 -1.54585,0 -20.51906,-30.21428 -0.60834,0 20.49879,30.21428 -1.3762,0 -20.51906,-30.21428 -0.69763,0 20.48987,30.21428 -1.7749,0 -20.51906,-30.21428 -0.83156,0 20.62379,30.21428 -1.78692,0 -20.64282,-30.21428 -0.76652,0 20.6678,30.21428 -16.14018,0 z"
+         sodipodi:nodetypes="ccccccccccccccccccccccc" />
+    </g>
+    <path
+       inkscape:connector-curvature="0"
+       id="path4363"
+       d="m 167.20398,939.45538 c -4.72705,-1.67132 -7.3528,-5.40981 -7.37475,-10.5001 -0.0308,-7.11629 5.76484,-11.99396 13.01757,-10.95587 7.38361,1.05681 11.63576,9.22826 8.30225,15.95454 -1.3241,2.67174 -3.734,4.72075 -6.53834,5.55923 -1.96271,0.58682 -5.66523,0.55792 -7.40673,-0.0579 z"
+       style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:#837944;stroke-width:0.08146218;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
   </g>
 </svg>
