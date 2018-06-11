@@ -30,9 +30,8 @@ Dependencies
 <div align="center">
   <img src="src/icons/nyanpasu_125p.png"/>
 </div>
-<br/>
 <div align="center">
-  <h3>Let's getting started!</h3>
+  <h2>Let's getting started!</h2>
 </div>
 
 Create two files:
