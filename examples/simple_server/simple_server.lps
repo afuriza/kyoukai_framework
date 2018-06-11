@@ -4,20 +4,20 @@
     <PathDelim Value="\"/>
     <Version Value="10"/>
     <BuildModes Active="Default"/>
-    <Units Count="22">
+    <Units Count="23">
       <Unit0>
         <Filename Value="simple_server.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="25" Y="19"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos Y="21"/>
         <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_controller.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="7"/>
+        <TopLine Value="22"/>
         <CursorPos X="40" Y="28"/>
         <UsageCount Value="81"/>
         <Loaded Value="True"/>
@@ -170,8 +170,16 @@
         <CursorPos X="3" Y="179"/>
         <UsageCount Value="10"/>
       </Unit21>
+      <Unit22>
+        <Filename Value="..\..\src\units\other\kyoukai.other.base64util.pas"/>
+        <UnitName Value="Kyoukai.Other.Base64Util"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="13"/>
+        <CursorPos X="10" Y="27"/>
+        <UsageCount Value="10"/>
+      </Unit22>
     </Units>
-    <JumpHistory Count="13" HistoryIndex="12">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="simple_server.lpr"/>
         <Caret Line="12" Column="30"/>
@@ -224,6 +232,10 @@
         <Filename Value="hello_controller.pas"/>
         <Caret Line="8" Column="35"/>
       </Position13>
+      <Position14>
+        <Filename Value="main_controller.pas"/>
+        <Caret Line="28" Column="40" TopLine="22"/>
+      </Position14>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

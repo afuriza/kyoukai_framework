@@ -21,7 +21,8 @@ uses
   Classes, SysUtils, fphttp, fphttpserver, httpdefs, base64,
   Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
-  Kyoukai.Standard.DefaultHTML;
+  Kyoukai.Standard.DefaultHTML,
+  Kyoukai.Other.Base64Util;
 
 type
 
@@ -34,10 +35,27 @@ type
     procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
   public
-    Constructor Create(AOwner : TComponent); override;
-    Destructor Destroy; override;
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
   published
     property Router: TKyRoutes read fRouter write fRouter;
+  end;
+
+  TKyServerClass = class of TKyServer;
+
+  TKyServerThread = class(TThread)
+  private
+    fKyServer: TKyServerClass;
+    fRouter: TKyRoutes;
+  public
+    constructor Create(AServer: TKyServerClass);
+    destructor Destroy; override;
+  published
+    property Router: TKyRoutes read fRouter write fRouter;
+  end;
+
+  TKyServerComponents = class(TComponent)
+
   end;
 
 implementation
@@ -81,9 +99,7 @@ var
   CallFunc: TURICallback;
   ModuleWorker: TKyModule;
   StartServeTime: TDateTime;
-  DecodedStream: TMemoryStream;
-  EncodedStream: TStringStream;
-  Decoder: TBase64DecodingStream;
+  DecodedStream: TStream;
 begin
   StartServeTime := Now;
   try
@@ -166,17 +182,12 @@ begin
     end
     else if URIStr = 'ky_icon_nyanpasu.png' then
     begin
-      EncodedStream := TStringStream.Create(base64_nyanpasu_icon_35p);
-      DecodedStream := TMemoryStream.Create;
-      Decoder       := TBase64DecodingStream.Create(EncodedStream);
-      DecodedStream.CopyFrom(Decoder, Decoder.Size);
+      DecodedStream := EncodeBase64StrToStream(base64_nyanpasu_icon_35p);
       AResponse.ContentType := 'image/png';
       AResponse.ContentLength := DecodedStream.Size;
       AResponse.ContentStream := DecodedStream;
       AResponse.SendContent;
       DecodedStream.Free;
-      EncodedStream.Free;
-      Decoder.Free;
     end
     else
     begin
@@ -216,6 +227,18 @@ end;
 destructor TKyServer.Destroy;
 begin
   inherited Destroy;
+end;
+
+// KyServerThread
+
+constructor TKyServerThread.Create(AServer: TKyServerClass);
+begin
+
+end;
+
+destructor TKyServerThread.Destroy;
+begin
+
 end;
 
 initialization
