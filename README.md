@@ -32,7 +32,7 @@ Dependencies
 </div>
 <br/>
 <div align="center">
-  <strong>Let's getting started!</strong>
+  <h3>Let's getting started!</h3>
 </div>
 <br/>
 
