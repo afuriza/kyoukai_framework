@@ -16,9 +16,9 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="kyoukai.svg"
-   inkscape:export-filename="/media/sicher/maren/Bilder/Grafiken/grafik_selbsterstellt/shooting_star.png"
-   inkscape:export-xdpi="36.913086"
-   inkscape:export-ydpi="36.913086">
+   inkscape:export-filename="D:\Pascal Projects\kyoukai_framework\src\icons\kyoukai_25p.png"
+   inkscape:export-xdpi="2.250555"
+   inkscape:export-ydpi="2.250555">
   <defs
      id="defs4">
     <filter
@@ -99,7 +99,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.13687246"
-     inkscape:cx="1499.8159"
+     inkscape:cx="316.23229"
      inkscape:cy="731.53886"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -121,7 +121,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
