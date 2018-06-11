@@ -27,7 +27,7 @@ Requirements
 Dependencies
 ---
 * kyoukai_framework
-** kyoukai_standard.lpk
+* -> kyoukai_standard.lpk
 
 Get Started
 ---
