@@ -6,6 +6,7 @@
 </div>
 <br/>
 
+[![GitHub version](https://badge.fury.io/gh/afuriza%2Fkyoukai_framework.svg)](https://badge.fury.io/gh/afuriza%2Fkyoukai_framework)
 <a href="https://gitter.im/kyoukai_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
 
 The Kyoukai (境界), A Simplified Pascal Web Framework.
