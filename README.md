@@ -6,6 +6,8 @@
 </div>
 <br/>
 
+<a href="https://gitter.im/kyoukai_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
+
 The Kyoukai (境界), A Simplified Pascal Web Framework.
 
 In Japanese, Kyoukai means boundary, because the Pascal, it's bounded me as my favorite programming language, no, not like that. The concept is, Kyoukai can be embedded into your desktop application or just leave it as a separated single program, so you can decide which is better, bound it into your existing application or not.
