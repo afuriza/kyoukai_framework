@@ -1,8 +1,10 @@
-This is the file ModifiedLGPL, it applies to all units of the
-Kyoukai Framework.
+This is the file COPYING.modifiedLGPL, it applies to several units in the
+Lazarus sources distributed by members of the Lazarus Development Team.
+All files contains headers showing the appropriate license. See there if this
+modification can be applied.
 
 These files are distributed under the Library GNU General Public License
-(see the file LICENSE) with the following modification:
+(see the file COPYING.LGPL) with the following modification:
 
 As a special exception, the copyright holders of this library give you
 permission to link this library with independent modules to produce an
@@ -16,7 +18,7 @@ you are not obligated to do so. If you do not wish to do so, delete this
 exception statement from your version.
 
 
-If you didn't receive a copy of the file LICENSE, contact:
+If you didn't receive a copy of the file COPYING.LGPL, contact:
       Free Software Foundation, Inc.,
       675 Mass Ave
       Cambridge, MA  02139
