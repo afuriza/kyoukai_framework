@@ -5,7 +5,7 @@ unit main_controller;
 interface
 
 uses
-  Classes, SysUtils,
+  Classes, SysUtils, httpdefs,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.WebModule;
 

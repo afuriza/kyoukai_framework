@@ -31,6 +31,8 @@ begin
   _echo('Hello, world!');
   _echo('<br>');
   _echo('- From "'+ClassName+'" module with URI: "'+Request.URI+'"');
+  _echo('<br>');
+  _echo('Let''s try to get uriparam: '+_get['what']);
 end;
 
 initialization
