@@ -5,7 +5,7 @@
 <div align="center">
   <strong>The Boundary, A Simple Framework for A Small Server Application</strong>
 </div>
-<br/>
+<br>
 
 The Kyoukai (境界), A Simplified Pascal Web Framework.
 
@@ -34,7 +34,8 @@ Dependencies
 * kyoukai_framework
 * -> kyoukai_standard.lpk
 
-<br/>
+<br>
+<br>
 <div align="center">
   <img src="src/icons/nyanpasu_125p.png"/>
 </div>
