@@ -2,14 +2,13 @@
   <img src="src/images/kyoukai_framework.png"/>
 </div>
 <div align="center">
-  <strong>The Boundary, A Simple Framework for A Small Server Application</strong>
-</div>
-<br/>
-
-<div align="center">
 <a href="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework"><img src="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework.svg" alt="GitHub version" height="18"></a>
 <a href="https://gitter.im/kyoukai_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
 </div>
+<div align="center">
+  <strong>The Boundary, A Simple Framework for A Small Server Application</strong>
+</div>
+<br/>
 
 The Kyoukai (境界), A Simplified Pascal Web Framework.
 
