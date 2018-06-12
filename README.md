@@ -2,6 +2,9 @@
   <img src="src/images/kyoukai_framework.png"/>
 </div>
 <div align="center">
+<a href="https://forthebadge.com"><img src="https://forthebadge.com/images/badges/powered-by-electricity.svg" alt="GitHub version" height="18"></a>
+</div>
+<div align="center">
   <strong>The Boundary, A Simple Framework for A Small Server Application</strong>
 </div>
 <br/>
