@@ -1,9 +1,7 @@
 <div align="center">
   <img src="src/images/kyoukai_framework.png"/>
 </div>
-<div align="center">
-<img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
-</div>
+
 <div align="center">
   <strong>The Boundary, A Simple Framework for A Small Server Application</strong>
 </div>
@@ -16,7 +14,9 @@ In Japanese, Kyoukai means boundary, because the Pascal, it's bounded me as my f
 I make it for Pascal because I can not find any Pascal web-framework which I really comfortable with. Some are too complicated, while some others have too many dependencies. Basically, I expect an easy-to-use framework like CodeIgniter in Pascal, even simpler than CodeIgniter.
 
 This project is too far from a complete framework, it still in the experimental stage, please help me if you have any idea, code, and feature request. And, Don't too silly to open an issue.
-
+<div align="center">
+<img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
+</div>
 <div align="center">
 <a href="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework"><img src="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework.svg" alt="GitHub version" height="18"></a>
 <a href="https://gitter.im/kyoukai_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
