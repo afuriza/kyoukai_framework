@@ -42,7 +42,7 @@ type
     destructor Destroy; override;
   published
     property Router: TKyRoutes read fRouter write fRouter;
-    property FileRouter: TFileRouteMap read fFileRouter write fFileRouter;
+    property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
   end;
 
   TKyServerClass = class of TKyServer;
@@ -268,11 +268,13 @@ end;
 constructor TKyServer.Create(AOwner : TComponent);
 begin
   inherited Create(AOwner);
+  fFileRouter := TFileRouteMap.create;
   OnRequest := @KHandleRequest;
 end;
 
 destructor TKyServer.Destroy;
 begin
+  FreeAndNil(fFileRouter);
   inherited Destroy;
 end;
 

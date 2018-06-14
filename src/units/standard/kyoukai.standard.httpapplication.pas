@@ -34,15 +34,12 @@ implementation
 
 initialization
   Routes := TKyRoutes.Create;
-  FileRoutes := TFileRouteMap.create;
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.Router := Routes;
-  KyoukaiApp.FileRouter := FileRoutes;
   WriteLn('Registered into port: ', KyoukaiApp.Port);
 
 finalization
   FreeAndNil(Routes);
-  FreeAndNil(FileRoutes);
   FreeAndNil(KyoukaiApp);
 
 end.

@@ -16,14 +16,17 @@ uses
 {$R *.res}
 
 begin
-
-  KyoukaiApp.Port := 80;
   KyoukaiApp.MimeTypesFile := ExtractFilePath(ParamStr(0)) + 'mime.types';
+
+  // FileRoutes['assets'] := 'D:\htdocs\assets\';
+
   // http://localhost:80/files/<path and filename>
-  FileRoutes['files'] :=
+  KyoukaiApp.FileRoutes['files'] :=
     ExtractFilePath(ParamStr(0)) + // Extract Executable path
     'files' + // enter folder name "files"
     PathDelim; // delimiter, windows \, unix /
-  // FileRoutes['assets'] := 'D:\htdocs\assets\';
+
+  KyoukaiApp.Port := 80;
+  // Initialize everything before you make server.active = true
   KyoukaiApp.Active := True;
 end.
