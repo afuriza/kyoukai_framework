@@ -31,16 +31,20 @@ type
     type
       TURICallback = procedure of object;
   private
+    fMimeTypesFile: string;
+    KMime: TFPMimeTypes;
     fRouter: TKyRoutes;
     fFileRouter: TFileRouteMap;
+    procedure WriteMimeTypesFile(AFileName: string);
+    function ReadMimeTypesFile: string;
     procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
-    procedure SendFile(Const AFileName : String; AResponse : TResponse);
+    procedure SendFile(Const AFileName : String; var AResponse : TFPHTTPConnectionResponse);
   public
-    MimeTypesFile: string;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
+    property MimeTypesFile: string read ReadMimeTypesFile write WriteMimeTypesFile;
     property Router: TKyRoutes read fRouter write fRouter;
     property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
   end;
@@ -95,14 +99,27 @@ begin
   //Halt; // End of program execution
 end;
 
-procedure TKyServer.SendFile(Const AFileName : String; AResponse : TResponse);
+procedure TKyServer.WriteMimeTypesFile(AFileName: string);
+begin
+  if AFileName <> fMimeTypesFile then
+  begin
+    KMime.LoadFromFile(AFileName);
+    fMimeTypesFile := AFileName;
+  end;
+end;
+
+function TKyServer.ReadMimeTypesFile: string;
+begin
+  Result := fMimeTypesFile;
+end;
+
+procedure TKyServer.SendFile(Const AFileName : String; var AResponse : TFPHTTPConnectionResponse);
 var
-  F : TFileStream;
+  F: TFileStream;
 begin
   if FileExists(AFileName) then
-    begin
-    MimeTypes.LoadFromFile(MimeTypesFile);
-    AResponse.ContentType:=MimeTypes.GetMimeType(ExtractFileExt(AFileName));
+  begin
+    AResponse.ContentType:=KMime.GetMimeType(ExtractFileExt(AFileName));
     if (AResponse.ContentType='') then
       AResponse.ContentType:='Application/octet-stream';
     F:=TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
@@ -112,7 +129,7 @@ begin
       AResponse.SendContent;
       AResponse.ContentStream:=Nil;
     finally
-      F.Free;
+      FreeAndNil(F);
     end;
   end
   else
@@ -269,11 +286,13 @@ constructor TKyServer.Create(AOwner : TComponent);
 begin
   inherited Create(AOwner);
   fFileRouter := TFileRouteMap.create;
+  KMime := TFPMimeTypes.Create(Self);
   OnRequest := @KHandleRequest;
 end;
 
 destructor TKyServer.Destroy;
 begin
+  FreeAndNil(KMime);
   FreeAndNil(fFileRouter);
   inherited Destroy;
 end;

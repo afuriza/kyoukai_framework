@@ -19,7 +19,8 @@ interface
 
 uses
   Classes, SysUtils, fphttpserver, httpdefs, fphttp,
-  Kyoukai.Standard.WebSession;
+  Kyoukai.Standard.WebSession,
+  Kyoukai.Other.KTemplate;
 
 type
 
@@ -43,6 +44,7 @@ type
     Constructor Create(AOwner: TComponent; aRequest: TFPHTTPConnectionRequest;
       aResponse: TFPHTTPConnectionResponse);
     procedure _echo(AMessage: String);
+    procedure Render(ATemplate: TKTemplate);
     procedure StartSession;
     procedure TerminateSession;
     property _get[const AVarName: string]: string read ReadGetVar;
@@ -88,6 +90,11 @@ begin
   Response.SendRedirect(ALocation);
 end;
 
+procedure TKyModule.Render(ATemplate: TKTemplate);
+begin
+  Response.Contents.Text := ATemplate.GetContent;
+end;
+
 procedure TKyModule._echo(AMessage: String);
 begin
   Response.Content := Response.Content + AMessage;
@@ -120,8 +127,16 @@ begin
 end;
 
 destructor TKyModule.destroy;
+var
+  CallFunc: TConstructCallback;
 begin
-   if Assigned(fSession) then
+  if Self.MethodAddress('_done') <> nil then
+  begin
+    TMethod(CallFunc).Code := Self.MethodAddress('_done');
+    TMethod(CallFunc).Data := Self;
+    CallFunc;
+  end;
+  if Assigned(fSession) then
   FreeAndNil(fSession);
   inherited Destroy;
 end;
