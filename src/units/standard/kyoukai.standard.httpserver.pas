@@ -117,38 +117,38 @@ begin
     if Router.Contains(URIStr) then
     begin
       ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self, arequest, aResponse);
-        if URIStr2 = '' then
+      if URIStr2 = '' then
+      begin
+        if ModuleWorker.MethodAddress('MainHandle') <> nil then
         begin
-          if ModuleWorker.MethodAddress('MainHandle') <> nil then
-          begin
-            TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
-            TMethod(CallFunc).Data := ModuleWorker;
-            CallFunc;
-          end
-          else
-          begin
-            AResponse.Code := 404;
-            AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-              'No main handle method found!',
-              StartServeTime);
-          end;
+          TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
+          TMethod(CallFunc).Data := ModuleWorker;
+          CallFunc;
         end
         else
         begin
-          if ModuleWorker.MethodAddress(URIStr2) <> nil then
-          begin
-            TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr2);
-            TMethod(CallFunc).Data := ModuleWorker;
-            CallFunc;
-          end
-          else
-          begin
-            AResponse.Code := 404;
-            AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-              'There''s no handle method with this name: '+ URIStr2 +'!',
-              StartServeTime);
-          end;
+          AResponse.Code := 404;
+          AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
+            'No main handle method found!',
+            StartServeTime);
         end;
+      end
+      else
+      begin
+        if ModuleWorker.MethodAddress(URIStr2) <> nil then
+        begin
+          TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr2);
+          TMethod(CallFunc).Data := ModuleWorker;
+          CallFunc;
+        end
+        else
+        begin
+          AResponse.Code := 404;
+          AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
+            'There''s no handle method with this name: '+ URIStr2 +'!',
+            StartServeTime);
+        end;
+      end;
       AResponse := ModuleWorker.Response;
       FreeAndNil(ModuleWorker);
     end
@@ -181,7 +181,7 @@ begin
     end
     else if URIStr = 'ky_icon_nyanpasu.png' then
     begin
-      DecodedStream := EncodeBase64StrToStream(base64_nyanpasu_icon_35p);
+      DecodedStream := DecodeBase64StrToStream(base64_nyanpasu_icon_35p);
       AResponse.ContentType := 'image/png';
       AResponse.ContentLength := DecodedStream.Size;
       AResponse.ContentStream := DecodedStream;
@@ -191,21 +191,21 @@ begin
     else
     begin
       ModuleWorker := TKyModuleClass(Router['main']).Create(Self, arequest, aResponse);
-        if ModuleWorker.MethodAddress(URIStr) <> nil then
-        begin
-          TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
-          TMethod(CallFunc).Data := ModuleWorker;
-          CallFunc;
-        end
-        else
-        begin
-          AResponse.Code := 404;
-          AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-            'There''s no module or main module method with this name: '+ URIStr +'!',
-            StartServeTime);
-        end;
-        AResponse := ModuleWorker.Response;
-        FreeAndNil(ModuleWorker);
+      if ModuleWorker.MethodAddress(URIStr) <> nil then
+      begin
+        TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
+        TMethod(CallFunc).Data := ModuleWorker;
+        CallFunc;
+      end
+      else
+      begin
+        AResponse.Code := 404;
+        AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
+          'There''s no module or main module method with this name: '+ URIStr +'!',
+          StartServeTime);
+      end;
+      AResponse := ModuleWorker.Response;
+      FreeAndNil(ModuleWorker);
     end;
   except
     on E: Exception do

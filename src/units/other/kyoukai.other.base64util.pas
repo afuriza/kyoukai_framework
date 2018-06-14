@@ -24,10 +24,10 @@ function EncodeBase64Str(const AStr: string): string;
 function DecodeBase64Str(const AStr: string): string;
 
 //function EncodeBase64StreamToStr(var AStream: TStream): string;
-function EncodeBase64StrToStream(const AStr: string): TMemoryStream;
+function DecodeBase64StrToStream(const AStr: string): TMemoryStream;
 { Still thinking to write this...
 function DecodeBase64StreamToStr(var AStream: TStream): string;
-function DecodeBase64StrToStream(const AStr: string): TStream;
+function EncodeBase64StrToStream(const AStr: string): TStream;
 function EncodeBase64FileToStream(const AFileName: string): TStream;
 function EncodeBase64FileToStr(const AFileName: string): string;
 procedure EncodeBase64StrToFile(const AStr, AFileName: string);
@@ -48,7 +48,7 @@ var
 begin
   EncodedStream := TStringStream.Create(AStr);
   DecodedStream := TStringStream.Create('');
-  Decoder       := TBase64EncodingStream.Create(EncodedStream);
+  Decoder := TBase64EncodingStream.Create(EncodedStream);
   DecodedStream.CopyFrom(Decoder, Decoder.Size);
   Result := DecodedStream.DataString;
   DecodedStream.Free;
@@ -64,7 +64,7 @@ var
 begin
   EncodedStream := TStringStream.Create(AStr);
   DecodedStream := TStringStream.Create('');
-  Decoder       := TBase64DecodingStream.Create(EncodedStream);
+  Decoder := TBase64DecodingStream.Create(EncodedStream);
   DecodedStream.CopyFrom(Decoder, Decoder.Size);
   Result := DecodedStream.DataString;
   DecodedStream.Free;
