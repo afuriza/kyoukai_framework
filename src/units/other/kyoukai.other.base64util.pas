@@ -72,7 +72,7 @@ begin
   Decoder.Free;
 end;
 
-function EncodeBase64StrToStream(const AStr: string): TMemoryStream;
+function DecodeBase64StrToStream(const AStr: string): TMemoryStream;
 var
   EncodedStream: TStringStream;
   Decoder: TBase64DecodingStream;

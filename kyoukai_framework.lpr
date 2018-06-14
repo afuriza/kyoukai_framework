@@ -6,10 +6,11 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Classes;
+  Classes, fphttpapp, fpwebfile, Kyoukai.Standard.HTTPApplication;
 
 {$R *.res}
 
 begin
+
 end.
 

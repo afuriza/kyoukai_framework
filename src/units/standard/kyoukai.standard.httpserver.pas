@@ -18,7 +18,7 @@ unit Kyoukai.Standard.HTTPServer;
 interface
 
 uses
-  Classes, SysUtils, fphttp, fphttpserver, httpdefs, base64,
+  Classes, SysUtils, fphttp, fphttpserver, httpdefs, fpmimetypes,
   Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.DefaultHTML,
@@ -27,18 +27,22 @@ uses
 type
 
   TKyServer = Class(TFPHTTPServer)
-  protected
+  private
     type
       TURICallback = procedure of object;
   private
     fRouter: TKyRoutes;
+    fFileRouter: TFileRouteMap;
     procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
+    procedure SendFile(Const AFileName : String; AResponse : TResponse);
   public
+    MimeTypesFile: string;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
     property Router: TKyRoutes read fRouter write fRouter;
+    property FileRouter: TFileRouteMap read fFileRouter write fFileRouter;
   end;
 
   TKyServerClass = class of TKyServer;
@@ -91,6 +95,32 @@ begin
   //Halt; // End of program execution
 end;
 
+procedure TKyServer.SendFile(Const AFileName : String; AResponse : TResponse);
+var
+  F : TFileStream;
+begin
+  if FileExists(AFileName) then
+    begin
+    MimeTypes.LoadFromFile(MimeTypesFile);
+    AResponse.ContentType:=MimeTypes.GetMimeType(ExtractFileExt(AFileName));
+    if (AResponse.ContentType='') then
+      AResponse.ContentType:='Application/octet-stream';
+    F:=TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
+    try
+      AResponse.ContentLength:=F.Size;
+      AResponse.ContentStream:=F;
+      AResponse.SendContent;
+      AResponse.ContentStream:=Nil;
+    finally
+      F.Free;
+    end;
+  end
+  else
+  begin
+    raise Exception.Create('Can''t open file with this name: '+AFileName);
+  end;
+end;
+
 procedure TKyServer.KHandleRequest(Sender: TObject;var ARequest: TFPHTTPConnectionRequest;
   var AResponse: TFPHTTPConnectionResponse);
 var
@@ -100,6 +130,8 @@ var
   ModuleWorker: TKyModule;
   StartServeTime: TDateTime;
   DecodedStream: TStream;
+  URIForFile: string;
+  i: integer;
 begin
   StartServeTime := Now;
   try
@@ -111,6 +143,16 @@ begin
         URIStr := LowerCase(ExplodedURI[1]);
       if ExplodedURI.Count > 2 then
         URIStr2 := LowerCase(ExplodedURI[2]);
+    end;
+    if ExplodedURI.Count > 2 then
+    begin
+      for i := 2 to ExplodedURI.Count - 1 do
+      begin
+        if i <> ExplodedURI.Count - 1 then
+          URIForFile += ExplodedURI[i] + PathDelim
+        else
+          URIForFile += ExplodedURI[i];
+      end;
     end;
     ExplodedURI.Free;
 
@@ -188,7 +230,11 @@ begin
       AResponse.SendContent;
       DecodedStream.Free;
     end
-    else
+    else if fFileRouter.Contains(URIStr) then
+    begin
+      sendfile(fFileRouter[URIStr] + URIForFile, AResponse);
+    end
+    else if Router.Contains('main') then
     begin
       ModuleWorker := TKyModuleClass(Router['main']).Create(Self, arequest, aResponse);
       if ModuleWorker.MethodAddress(URIStr) <> nil then
