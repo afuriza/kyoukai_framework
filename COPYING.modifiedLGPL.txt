@@ -1,5 +1,5 @@
 This is the file COPYING.modifiedLGPL, it applies to several units in the
-Lazarus sources distributed by members of the Lazarus Development Team.
+Kyoukai sources.
 All files contains headers showing the appropriate license. See there if this
 modification can be applied.
 
