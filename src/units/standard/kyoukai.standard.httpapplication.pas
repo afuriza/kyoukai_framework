@@ -3,7 +3,7 @@
                           This is Part of Kyoukai units
                         A Simple Web Framework for Pascal
 
-See the file LICENSE.txt, included in this distribution,
+See the file COPYING.LGPL.txt, included in this distribution,
 for details about the copyright.
 
 This library is distributed in the hope that it will be useful,
@@ -23,7 +23,7 @@ uses
   Kyoukai.Standard.WebRouter;
 
 type
-  TKyoukaiApp = class(TKyServer)
+  TKyoukaiApp = class(TKyHTTPServer)
 
   end;
 

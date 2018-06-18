@@ -22,17 +22,17 @@ implementation
 // http://localhost:80/hello/
 procedure THello.MainHandle;
 begin
-  _echo('Hello, from "'+ClassName+'" module!');
+  echo('Hello, from "'+ClassName+'" module!');
 end;
 
 // http://localhost:80/hello/sayhelloworld
 procedure THello.SayHelloWorld;
 begin
-  _echo('Hello, world!');
-  _echo('<br>');
-  _echo('- From "'+ClassName+'" module with URI: "'+Request.URI+'"');
-  _echo('<br>');
-  _echo('Let''s try to get uriparam: '+_get['what']);
+  echo('Hello, world!');
+  echo('<br>');
+  echo('- From "'+ClassName+'" module with URI: "'+Request.URI+'"');
+  echo('<br>');
+  echo('Let''s try to get uriparam: '+_get['what']);
 end;
 
 initialization

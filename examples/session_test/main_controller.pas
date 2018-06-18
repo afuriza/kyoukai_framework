@@ -26,17 +26,17 @@ procedure THome.MainHandle;
 var
   i : integer;
 begin
-  _echo('Session Example');
+  echo('Session Example');
 
   if _SESSION['exist'] = 'yes' then
   begin
     i := strtoint(_SESSION['count']) + 1;
     _SESSION['count'] := inttostr(i);
-    _echo('<br>you visit this page ' + IntToStr(i) + ' times');
+    echo('<br>you visit this page ' + IntToStr(i) + ' times');
   end
   else
   begin
-    _echo('<br><b>THIS IS FIRST TIME</b>');
+    echo('<br><b>THIS IS FIRST TIME</b>');
     _SESSION['exist'] := 'yes';
     _SESSION['count'] := inttostr(1);
   end;
@@ -47,8 +47,8 @@ begin
     Redirect('./');
   end;
 
-  _echo('<br><br><br>');
-  _echo('<a href="./?op=delete">End Session</a>');
+  echo('<br><br><br>');
+  echo('<a href="./?op=delete">End Session</a>');
 end;
 
 initialization

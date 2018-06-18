@@ -3,7 +3,7 @@
                           This is Part of Kyoukai units
                         A Simple Web Framework for Pascal
 
-See the file LICENSE.txt, included in this distribution,
+See the file COPYING.LGPL.txt, included in this distribution,
 for details about the copyright.
 
 This library is distributed in the hope that it will be useful,
@@ -22,11 +22,12 @@ uses
   Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.DefaultHTML,
-  Kyoukai.Other.Base64Util;
+  Kyoukai.Other.Base64Util,
+  Kyoukai.Other.CommonUtil;
 
 type
 
-  TKyServer = Class(TFPHTTPServer)
+  TKyHTTPServer = Class(TFPHTTPServer)
   private
     type
       TURICallback = procedure of object;
@@ -51,57 +52,26 @@ type
     property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
   end;
 
-  TKyServerClass = class of TKyServer;
+  TKyHTTPServerClass = class of TKyHTTPServer;
 
-  TKyServerThread = class(TThread)
+  TKyHTTPServerThread = class(TThread)
   private
-    fKyServer: TKyServerClass;
+    fKyServer: TKyHTTPServerClass;
     fRouter: TKyRoutes;
   public
-    constructor Create(AServer: TKyServerClass);
+    constructor Create(AServer: TKyHTTPServerClass);
     destructor Destroy; override;
   published
     property Router: TKyRoutes read fRouter write fRouter;
   end;
 
-  TKyServerComponents = class(TComponent)
+  TKyHTTPServerComponents = class(TComponent)
 
   end;
 
 implementation
 
-procedure Split (const Delimiter: Char; Input: string; const Strings: TStrings);
-begin
-   Assert(Assigned(Strings)) ;
-   Strings.Clear;
-   Strings.StrictDelimiter := true;
-   Strings.Delimiter := Delimiter;
-   Strings.DelimitedText := Input;
-end;
-
-function DumpExceptionCallStack(E: Exception): string;
-var
-  I: Integer;
-  Frames: PPointer;
-  Report: string;
-begin
-  Report := 'EXCEPTION ERROR ' + LineEnding +
-    'Stacktrace' + LineEnding;
-  if E <> nil then begin
-    Report := Report + 'Exception class: ' + E.ClassName + LineEnding +
-    'Message: ' + E.Message + LineEnding;
-  end;
-  Report := Report + BackTraceStrFunc(ExceptAddr);
-  Frames := ExceptFrames;
-  for I := 0 to ExceptFrameCount - 1 do
-    Report := Report + LineEnding + BackTraceStrFunc(Frames[I]);
-  Result := Report + LineEnding +
-    'Stacktrace';
-  WriteLn(Report);
-  //Halt; // End of program execution
-end;
-
-procedure TKyServer.WriteMimeTypesFile(AFileName: string);
+procedure TKyHTTPServer.WriteMimeTypesFile(AFileName: string);
 begin
   if AFileName <> fMimeTypesFile then
   begin
@@ -110,12 +80,12 @@ begin
   end;
 end;
 
-function TKyServer.ReadMimeTypesFile: string;
+function TKyHTTPServer.ReadMimeTypesFile: string;
 begin
   Result := fMimeTypesFile;
 end;
 
-procedure TKyServer.Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
+procedure TKyHTTPServer.Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
   var AResponse: TFPHTTPConnectionResponse);
 var
   CallFunc: TURICallback;
@@ -139,7 +109,7 @@ begin
   FreeAndNil(ModuleWorker);
 end;
 
-procedure TKyServer.SendFile(Const AFileName: String; var AResponse: TFPHTTPConnectionResponse);
+procedure TKyHTTPServer.SendFile(Const AFileName: String; var AResponse: TFPHTTPConnectionResponse);
 var
   F: TFileStream;
 begin
@@ -164,7 +134,7 @@ begin
   end;
 end;
 
-procedure TKyServer.KHandleRequest(Sender: TObject;var ARequest: TFPHTTPConnectionRequest;
+procedure TKyHTTPServer.KHandleRequest(Sender: TObject;var ARequest: TFPHTTPConnectionRequest;
   var AResponse: TFPHTTPConnectionResponse);
 var
   URIStr, URIStr2: string;
@@ -313,7 +283,7 @@ begin
 
 end;
 
-constructor TKyServer.Create(AOwner : TComponent);
+constructor TKyHTTPServer.Create(AOwner : TComponent);
 begin
   inherited Create(AOwner);
   fFileRouter := TFileRouteMap.create;
@@ -321,7 +291,7 @@ begin
   OnRequest := @KHandleRequest;
 end;
 
-destructor TKyServer.Destroy;
+destructor TKyHTTPServer.Destroy;
 begin
   FreeAndNil(KMime);
   FreeAndNil(fFileRouter);
@@ -330,12 +300,12 @@ end;
 
 // KyServerThread
 
-constructor TKyServerThread.Create(AServer: TKyServerClass);
+constructor TKyHTTPServerThread.Create(AServer: TKyHTTPServerClass);
 begin
 
 end;
 
-destructor TKyServerThread.Destroy;
+destructor TKyHTTPServerThread.Destroy;
 begin
 
 end;

@@ -3,7 +3,7 @@
                           This is Part of Kyoukai units
                         A Simple Web Framework for Pascal
 
-See the file LICENSE.txt, included in this distribution,
+See the file COPYING.LGPL.txt, included in this distribution,
 for details about the copyright.
 
 This library is distributed in the hope that it will be useful,
@@ -44,7 +44,7 @@ type
     destructor destroy; override;
     Constructor Create(AOwner: TComponent; aRequest: TFPHTTPConnectionRequest;
       aResponse: TFPHTTPConnectionResponse);
-    procedure _echo(AMessage: String);
+    procedure echo(const AMessage: String);
     procedure Render(ATemplate: TKTemplate);
     procedure Render(AView: TKyView);
     procedure StartSession;
@@ -102,7 +102,7 @@ begin
   Response.Contents.Text := AView.GetContent;
 end;
 
-procedure TKyModule._echo(AMessage: String);
+procedure TKyModule.echo(const AMessage: String);
 begin
   Response.Content := Response.Content + AMessage;
 end;

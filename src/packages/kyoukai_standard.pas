@@ -12,7 +12,8 @@ uses
   Kyoukai.Standard.WebRouter, Kyoukai.Standard.DefaultHTML, 
   Kyoukai.Other.KTemplate, Kyoukai.Other.STLUtil, Kyoukai.Other.RengeMessages, 
   Kyoukai.Other.Base64Util, Kyoukai.Standard.WebSession, 
-  Kyoukai.Standard.HTTPServer, Kyoukai.Standard.WebView;
+  Kyoukai.Standard.HTTPServer, Kyoukai.Standard.WebView, 
+  Kyoukai.Other.CommonUtil;
 
 implementation
 

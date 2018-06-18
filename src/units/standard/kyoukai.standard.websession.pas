@@ -5,7 +5,7 @@
 
 Based on Session_Controller from Luri Darmawan
 
-See the file LICENSE.txt, included in this distribution,
+See the file COPYING.LGPL.txt, included in this distribution,
 for details about the copyright.
 
 This library is distributed in the hope that it will be useful,

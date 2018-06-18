@@ -32,7 +32,7 @@ end;
 // Kyoukai will trying to find it in the main module methods
 procedure THome.FunctionFromMainModule;
 begin
-  _echo('Hello, from "'+ClassName+'" module with '+Request.URI+'!');
+  echo('Hello, from "'+ClassName+'" module with '+Request.URI+'!');
 end;
 
 procedure THome.RaiseError;

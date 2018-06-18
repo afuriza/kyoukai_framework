@@ -97,7 +97,7 @@ implementation
 
 procedure THome.MainHandle;
 begin
-  _echo('Hello world!');
+  echo('Hello world!');
 end;
 
 initialization
@@ -127,14 +127,4 @@ http://localhost/
 <h4 align="center">Not Found Default Handler</h4>
 <div align="center">
   <img src="src/images/notfound_page.png" />
-</div>
-
-<h4 align="center">Routing A Module</h4>
-<div align="center">
-  <img src="src/images/registering_module.png" />
-</div>
-
-<h4 align="center">Section Code To Run HTTP Server Application</h4>
-<div align="center">
-  <img src="src/images/running_application.png" />
 </div>
