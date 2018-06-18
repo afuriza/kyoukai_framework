@@ -20,6 +20,7 @@ interface
 uses
   Classes, SysUtils, fphttpserver, httpdefs, fphttp,
   Kyoukai.Standard.WebSession,
+  Kyoukai.Standard.WebView,
   Kyoukai.Other.KTemplate;
 
 type
@@ -45,6 +46,7 @@ type
       aResponse: TFPHTTPConnectionResponse);
     procedure _echo(AMessage: String);
     procedure Render(ATemplate: TKTemplate);
+    procedure Render(AView: TKyView);
     procedure StartSession;
     procedure TerminateSession;
     property _get[const AVarName: string]: string read ReadGetVar;
@@ -93,6 +95,11 @@ end;
 procedure TKyModule.Render(ATemplate: TKTemplate);
 begin
   Response.Contents.Text := ATemplate.GetContent;
+end;
+
+procedure TKyModule.Render(AView: TKyView);
+begin
+  Response.Contents.Text := AView.GetContent;
 end;
 
 procedure TKyModule._echo(AMessage: String);

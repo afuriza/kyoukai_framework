@@ -12,7 +12,7 @@
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
-    <Files Count="12">
+    <Files Count="13">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
@@ -61,6 +61,10 @@
         <Filename Value="..\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
       </Item12>
+      <Item13>
+        <Filename Value="..\units\standard\kyoukai.standard.webview.pas"/>
+        <UnitName Value="Kyoukai.Standard.WebView"/>
+      </Item13>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

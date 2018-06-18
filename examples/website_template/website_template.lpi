@@ -11,7 +11,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="session_test"/>
+      <Title Value="website_template"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
     </General>
@@ -33,7 +33,7 @@
     </RequiredPackages>
     <Units Count="2">
       <Unit0>
-        <Filename Value="session_test.lpr"/>
+        <Filename Value="website_template.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
@@ -46,7 +46,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="build\$(TargetCPU)-$(TargetOS)\session_test"/>
+      <Filename Value="build\$(TargetCPU)-$(TargetOS)\website_template"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
@@ -60,6 +60,7 @@
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <UseHeaptrc Value="True"/>
         <StripSymbols Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>

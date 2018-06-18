@@ -12,7 +12,7 @@ uses
   Kyoukai.Standard.WebRouter, Kyoukai.Standard.DefaultHTML, 
   Kyoukai.Other.KTemplate, Kyoukai.Other.STLUtil, Kyoukai.Other.RengeMessages, 
   Kyoukai.Other.Base64Util, Kyoukai.Standard.WebSession, 
-  Kyoukai.Standard.HTTPServer;
+  Kyoukai.Standard.HTTPServer, Kyoukai.Standard.WebView;
 
 implementation
 

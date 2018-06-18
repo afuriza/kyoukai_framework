@@ -36,10 +36,12 @@ type
     fRouter: TKyRoutes;
     fFileRouter: TFileRouteMap;
     procedure WriteMimeTypesFile(AFileName: string);
+    procedure Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
+      var AResponse: TFPHTTPConnectionResponse);
     function ReadMimeTypesFile: string;
     procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
-    procedure SendFile(Const AFileName : String; var AResponse : TFPHTTPConnectionResponse);
+    procedure SendFile(const AFileName: string; var AResponse: TFPHTTPConnectionResponse);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -113,7 +115,31 @@ begin
   Result := fMimeTypesFile;
 end;
 
-procedure TKyServer.SendFile(Const AFileName : String; var AResponse : TFPHTTPConnectionResponse);
+procedure TKyServer.Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
+  var AResponse: TFPHTTPConnectionResponse);
+var
+  CallFunc: TURICallback;
+  ModuleWorker: TKyModule;
+begin
+  ModuleWorker := TKyModuleClass(Router['404_override']).Create(Self, ARequest, AResponse);
+  if ModuleWorker.MethodAddress('MainHandle') <> nil then
+  begin
+    AResponse.Code := 404;
+    TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
+    TMethod(CallFunc).Data := ModuleWorker;
+    CallFunc;
+  end
+  else
+  begin
+    AResponse.Code := 404;
+    AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
+      'No main handle method found! Did you forget '+
+      'to create MainHandle to override 404 Module?', Now);
+  end;
+  FreeAndNil(ModuleWorker);
+end;
+
+procedure TKyServer.SendFile(Const AFileName: String; var AResponse: TFPHTTPConnectionResponse);
 var
   F: TFileStream;
 begin
@@ -175,7 +201,8 @@ begin
 
     if Router.Contains(URIStr) then
     begin
-      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self, arequest, aResponse);
+      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self, ARequest,
+        AResponse);
       if URIStr2 = '' then
       begin
         if ModuleWorker.MethodAddress('MainHandle') <> nil then
@@ -208,15 +235,14 @@ begin
             StartServeTime);
         end;
       end;
-      AResponse := ModuleWorker.Response;
       FreeAndNil(ModuleWorker);
     end
     else if URIStr = '' then
     begin
       if Router.Contains('main') then
       begin
-        ModuleWorker := TKyModuleClass(Router['main']).Create(Self, arequest, aResponse);
-
+        ModuleWorker := TKyModuleClass(Router['main']).Create(Self, ARequest,
+          AResponse);
         if ModuleWorker.MethodAddress('MainHandle') <> nil then
         begin
           TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
@@ -229,8 +255,14 @@ begin
           AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
             'No main module handle method found!', StartServeTime);
         end;
-        AResponse := ModuleWorker.Response;
         FreeAndNil(ModuleWorker);
+      end
+      else
+      begin
+        AResponse.Code := 204;
+        AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
+          'The server successfully processed the request and is not returning any content!',
+          StartServeTime);
       end;
     end
     else if URIStr = 'kyoukai_info' then
@@ -253,7 +285,8 @@ begin
     end
     else if Router.Contains('main') then
     begin
-      ModuleWorker := TKyModuleClass(Router['main']).Create(Self, arequest, aResponse);
+      ModuleWorker := TKyModuleClass(Router['main']).Create(Self, ARequest,
+        AResponse);
       if ModuleWorker.MethodAddress(URIStr) <> nil then
       begin
         TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
@@ -267,7 +300,6 @@ begin
           'There''s no module or main module method with this name: '+ URIStr +'!',
           StartServeTime);
       end;
-      AResponse := ModuleWorker.Response;
       FreeAndNil(ModuleWorker);
     end;
   except
@@ -275,8 +307,7 @@ begin
     begin
       AResponse.Code := 500;
       AResponse.Content := GetErrorInformation(ARequest.Host, ARequest.URL,
-          DumpExceptionCallStack(E),
-          StartServeTime);
+        DumpExceptionCallStack(E), StartServeTime);
     end;
   end;
 
