@@ -494,8 +494,6 @@ begin
 end;
 
 procedure TSessionController.DeleteKey(const Key: string);
-var
-  i: integer;
 begin
   FIniFile.DeleteKey(_SESSION_DATA, Key);
 end;

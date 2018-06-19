@@ -17,6 +17,7 @@ uses
 
 begin
   KyoukaiApp.Port := 80;
+  KyoukaiApp.Threaded := True;
   KyoukaiApp.Active := True;
 end.
 

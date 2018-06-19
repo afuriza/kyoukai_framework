@@ -27,10 +27,11 @@ uses
 
 type
 
-  TKyHTTPServer = Class(TFPHTTPServer)
+  TKyCustHTTPServer = class(TFPHTTPServer)
   private
     type
-      TURICallback = procedure of object;
+    TURICallback =
+    procedure of object;
   private
     fMimeTypesFile: string;
     KMime: TFPMimeTypes;
@@ -42,7 +43,8 @@ type
     function ReadMimeTypesFile: string;
     procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
-    procedure SendFile(const AFileName: string; var AResponse: TFPHTTPConnectionResponse);
+    procedure SendFile(const AFileName: string;
+      var AResponse: TFPHTTPConnectionResponse);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -52,26 +54,46 @@ type
     property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
   end;
 
-  TKyHTTPServerClass = class of TKyHTTPServer;
+  TKyCustHTTPServerClass = class of TKyCustHTTPServer;
 
-  TKyHTTPServerThread = class(TThread)
+  TKyCustHTTPServerThread = class(TThread)
   private
-    fKyServer: TKyHTTPServerClass;
-    fRouter: TKyRoutes;
+    _Error: string;
   public
-    constructor Create(AServer: TKyHTTPServerClass);
+    fServer: TKyCustHTTPServer;
+    constructor Create(APort: word; ARouter: TKyRoutes; AMimeFileName: string;
+      AFileRouter: TFileRouteMap);
     destructor Destroy; override;
-  published
-    property Router: TKyRoutes read fRouter write fRouter;
+    procedure Execute; override;
+    procedure DoTerminate; override;
+    property Error: string read _Error;
+    property Server: TKyCustHTTPServer read fServer write fServer;
   end;
 
-  TKyHTTPServerComponents = class(TComponent)
-
+  TKyHTTPServer = class(TComponent)
+  private
+    fServerThread: TKyCustHTTPServerThread;
+    fMimeTypesFile: string;
+    fRouter: TKyRoutes;
+    fFileRouter: TFileRouteMap;
+    fPort: word;
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+    // Please write all properties before you're starting server
+    procedure Start;
+    // Just stop the server
+    procedure Stop;
+  published
+    property Port: word read fPort write fPort;
+    property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
+    property Router: TKyRoutes read fRouter write fRouter;
+    property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
   end;
 
 implementation
 
-procedure TKyHTTPServer.WriteMimeTypesFile(AFileName: string);
+procedure TKyCustHTTPServer.WriteMimeTypesFile(AFileName: string);
 begin
   if AFileName <> fMimeTypesFile then
   begin
@@ -80,18 +102,19 @@ begin
   end;
 end;
 
-function TKyHTTPServer.ReadMimeTypesFile: string;
+function TKyCustHTTPServer.ReadMimeTypesFile: string;
 begin
   Result := fMimeTypesFile;
 end;
 
-procedure TKyHTTPServer.Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
+procedure TKyCustHTTPServer.Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
   var AResponse: TFPHTTPConnectionResponse);
 var
   CallFunc: TURICallback;
   ModuleWorker: TKyModule;
 begin
-  ModuleWorker := TKyModuleClass(Router['404_override']).Create(Self, ARequest, AResponse);
+  ModuleWorker := TKyModuleClass(Router['404_override']).Create(Self,
+    ARequest, AResponse);
   if ModuleWorker.MethodAddress('MainHandle') <> nil then
   begin
     AResponse.Code := 404;
@@ -102,40 +125,41 @@ begin
   else
   begin
     AResponse.Code := 404;
-    AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-      'No main handle method found! Did you forget '+
+    AResponse.Content := GetNotFoundInformation(ARequest.Host,
+      ARequest.URL, 'No main handle method found! Did you forget ' +
       'to create MainHandle to override 404 Module?', Now);
   end;
   FreeAndNil(ModuleWorker);
 end;
 
-procedure TKyHTTPServer.SendFile(Const AFileName: String; var AResponse: TFPHTTPConnectionResponse);
+procedure TKyCustHTTPServer.SendFile(const AFileName: string;
+  var AResponse: TFPHTTPConnectionResponse);
 var
   F: TFileStream;
 begin
   if FileExists(AFileName) then
   begin
-    AResponse.ContentType:=KMime.GetMimeType(ExtractFileExt(AFileName));
-    if (AResponse.ContentType='') then
-      AResponse.ContentType:='Application/octet-stream';
-    F:=TFileStream.Create(AFileName,fmOpenRead or fmShareDenyWrite);
+    AResponse.ContentType := KMime.GetMimeType(ExtractFileExt(AFileName));
+    if (AResponse.ContentType = '') then
+      AResponse.ContentType := 'Application/octet-stream';
+    F := TFileStream.Create(AFileName, fmOpenRead or fmShareDenyWrite);
     try
-      AResponse.ContentLength:=F.Size;
-      AResponse.ContentStream:=F;
+      AResponse.ContentLength := F.Size;
+      AResponse.ContentStream := F;
       AResponse.SendContent;
-      AResponse.ContentStream:=Nil;
+      AResponse.ContentStream := nil;
     finally
       FreeAndNil(F);
     end;
   end
   else
   begin
-    raise Exception.Create('Can''t open file with this name: '+AFileName);
+    raise Exception.Create('Can''t open file with this name: ' + AFileName);
   end;
 end;
 
-procedure TKyHTTPServer.KHandleRequest(Sender: TObject;var ARequest: TFPHTTPConnectionRequest;
-  var AResponse: TFPHTTPConnectionResponse);
+procedure TKyCustHTTPServer.KHandleRequest(Sender: TObject;
+  var ARequest: TFPHTTPConnectionRequest; var AResponse: TFPHTTPConnectionResponse);
 var
   URIStr, URIStr2: string;
   ExplodedURI: TStringList;
@@ -149,13 +173,17 @@ begin
   StartServeTime := Now;
   try
     ExplodedURI := TStringList.Create;
-    Split('/',  HTTPDecode(ARequest.PathInfo), ExplodedURI);
+    Split('/', HTTPDecode(ARequest.PathInfo), ExplodedURI);
     if ExplodedURI.Count > 0 then
     begin
       if ExplodedURI.Count > 1 then
         URIStr := LowerCase(ExplodedURI[1]);
       if ExplodedURI.Count > 2 then
         URIStr2 := LowerCase(ExplodedURI[2]);
+    end;
+    if URIStr = '' then
+    begin
+      URIStr := 'main';
     end;
     if ExplodedURI.Count > 2 then
     begin
@@ -171,8 +199,8 @@ begin
 
     if Router.Contains(URIStr) then
     begin
-      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self, ARequest,
-        AResponse);
+      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self,
+        ARequest, AResponse);
       if URIStr2 = '' then
       begin
         if ModuleWorker.MethodAddress('MainHandle') <> nil then
@@ -184,9 +212,9 @@ begin
         else
         begin
           AResponse.Code := 404;
-          AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-            'No main handle method found!',
-            StartServeTime);
+          AResponse.Content :=
+            GetNotFoundInformation(ARequest.Host, ARequest.URL,
+            'No main handle method found!', StartServeTime);
         end;
       end
       else
@@ -200,45 +228,19 @@ begin
         else
         begin
           AResponse.Code := 404;
-          AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-            'There''s no handle method with this name: '+ URIStr2 +'!',
+          AResponse.Content :=
+            GetNotFoundInformation(ARequest.Host, ARequest.URL,
+            'There''s no handle method with this name: ' + URIStr2 + '!',
             StartServeTime);
         end;
       end;
       FreeAndNil(ModuleWorker);
     end
-    else if URIStr = '' then
-    begin
-      if Router.Contains('main') then
-      begin
-        ModuleWorker := TKyModuleClass(Router['main']).Create(Self, ARequest,
-          AResponse);
-        if ModuleWorker.MethodAddress('MainHandle') <> nil then
-        begin
-          TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
-          TMethod(CallFunc).Data := ModuleWorker;
-          CallFunc;
-        end
-        else
-        begin
-          AResponse.Code := 404;
-          AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-            'No main module handle method found!', StartServeTime);
-        end;
-        FreeAndNil(ModuleWorker);
-      end
-      else
-      begin
-        AResponse.Code := 204;
-        AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-          'The server successfully processed the request and is not returning any content!',
-          StartServeTime);
-      end;
-    end
+
     else if URIStr = 'kyoukai_info' then
     begin
-      AResponse.Content := GetKyoukaiInformation(ARequest.Host, ARequest.URL,
-        StartServeTime);
+      AResponse.Content := GetKyoukaiInformation(ARequest.Host,
+        ARequest.URL, StartServeTime);
     end
     else if URIStr = 'ky_icon_nyanpasu.png' then
     begin
@@ -249,14 +251,15 @@ begin
       AResponse.SendContent;
       DecodedStream.Free;
     end
-    else if fFileRouter.Contains(URIStr) then
+    else if fFileRouter.size > 0 then
     begin
-      sendfile(fFileRouter[URIStr] + URIForFile, AResponse);
+      if fFileRouter.Contains(URIStr) then
+        sendfile(fFileRouter[URIStr] + URIForFile, AResponse);
     end
     else if Router.Contains('main') then
     begin
-      ModuleWorker := TKyModuleClass(Router['main']).Create(Self, ARequest,
-        AResponse);
+      ModuleWorker := TKyModuleClass(Router['main']).Create(Self,
+        ARequest, AResponse);
       if ModuleWorker.MethodAddress(URIStr) <> nil then
       begin
         TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
@@ -266,11 +269,18 @@ begin
       else
       begin
         AResponse.Code := 404;
-        AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-          'There''s no module or main module method with this name: '+ URIStr +'!',
-          StartServeTime);
+        AResponse.Content := GetNotFoundInformation(ARequest.Host,
+          ARequest.URL, 'There''s no module or main module method with this name: ' +
+          URIStr + '!', StartServeTime);
       end;
       FreeAndNil(ModuleWorker);
+    end
+    else
+    begin
+      AResponse.Code := 404;
+      AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
+        'There''s no module or main module method with this name: ' + URIStr +
+        '!', StartServeTime);
     end;
   except
     on E: Exception do
@@ -283,15 +293,15 @@ begin
 
 end;
 
-constructor TKyHTTPServer.Create(AOwner : TComponent);
+constructor TKyCustHTTPServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  fFileRouter := TFileRouteMap.create;
+  fFileRouter := TFileRouteMap.Create;
   KMime := TFPMimeTypes.Create(Self);
   OnRequest := @KHandleRequest;
 end;
 
-destructor TKyHTTPServer.Destroy;
+destructor TKyCustHTTPServer.Destroy;
 begin
   FreeAndNil(KMime);
   FreeAndNil(fFileRouter);
@@ -299,15 +309,67 @@ begin
 end;
 
 // KyServerThread
-
-constructor TKyHTTPServerThread.Create(AServer: TKyHTTPServerClass);
+procedure TKyCustHTTPServerThread.Execute;
 begin
-
+  try
+    Server.Active := True;
+  except
+    on E: Exception do
+    begin
+      _Error := E.Message;
+    end;
+  end;
 end;
 
-destructor TKyHTTPServerThread.Destroy;
+procedure TKyCustHTTPServerThread.DoTerminate;
 begin
+  FServer.Active := False;
+  inherited DoTerminate;
+end;
 
+constructor TKyCustHTTPServerThread.Create(APort: word; ARouter: TKyRoutes;
+  AMimeFileName: string; AFileRouter: TFileRouteMap);
+begin
+  inherited Create(True);
+  fServer := TKyCustHTTPServer.Create(nil);
+  fServer.Port := APort;
+  fServer.Router := ARouter;
+  fServer.MimeTypesFile := AMimeFileName;
+  fServer.FileRoutes := AFileRouter;
+  Self.FreeOnTerminate := True;
+  _Error := 'nil';
+end;
+
+destructor TKyCustHTTPServerThread.Destroy;
+begin
+  FreeAndNil(fServer);
+  inherited Destroy;
+end;
+
+// Server component
+
+procedure TKyHTTPServer.Start;
+begin
+  fServerThread := TKyCustHTTPServerThread.Create(fPort, fRouter, fMimeTypesFile,
+    fFileRouter);
+  fServerThread.Start;
+end;
+
+procedure TKyHTTPServer.Stop;
+begin
+  fServerThread.Terminate;
+end;
+
+constructor TKyHTTPServer.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  fPort := 80;
+end;
+
+destructor TKyHTTPServer.Destroy;
+begin
+  fServerThread.Free;
+  inherited Destroy;
 end;
 
 initialization

@@ -11,6 +11,11 @@
         <OtherUnitFiles Value="..\units\standard;..\units\other"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
+      <Other>
+        <Verbosity>
+          <ShoLineNum Value="True"/>
+        </Verbosity>
+      </Other>
     </CompilerOptions>
     <Files Count="14">
       <Item1>

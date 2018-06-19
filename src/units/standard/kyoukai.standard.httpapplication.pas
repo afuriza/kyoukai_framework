@@ -23,7 +23,7 @@ uses
   Kyoukai.Standard.WebRouter;
 
 type
-  TKyoukaiApp = class(TKyHTTPServer)
+  TKyoukaiApp = class(TKyCustHTTPServer)
 
   end;
 

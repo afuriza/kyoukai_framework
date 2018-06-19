@@ -8,71 +8,77 @@
       <Unit0>
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="66" Y="9"/>
-        <UsageCount Value="150"/>
+        <IsVisibleTab Value="True"/>
+        <CursorPos X="36" Y="6"/>
+        <UsageCount Value="154"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="src\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
-        <EditorIndex Value="2"/>
-        <CursorPos X="30" Y="6"/>
-        <UsageCount Value="33"/>
+        <EditorIndex Value="3"/>
+        <CursorPos X="10" Y="18"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
-        <EditorIndex Value="1"/>
-        <CursorPos X="30" Y="6"/>
-        <UsageCount Value="79"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="161"/>
+        <CursorPos Y="17"/>
+        <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
         <UnitName Value="Kyoukai.Standard.WebModule"/>
-        <EditorIndex Value="5"/>
-        <UsageCount Value="54"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="33"/>
+        <CursorPos X="17" Y="45"/>
+        <UsageCount Value="56"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="src\units\standard\kyoukai.standard.webrouter.pas"/>
         <UnitName Value="Kyoukai.Standard.WebRouter"/>
-        <EditorIndex Value="7"/>
-        <CursorPos X="30" Y="6"/>
-        <UsageCount Value="24"/>
+        <EditorIndex Value="8"/>
+        <TopLine Value="32"/>
+        <CursorPos X="20" Y="48"/>
+        <UsageCount Value="26"/>
         <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
         <UnitName Value="Kyoukai.Standard.DefaultHTML"/>
-        <EditorIndex Value="9"/>
-        <CursorPos X="30" Y="6"/>
-        <UsageCount Value="25"/>
+        <EditorIndex Value="10"/>
+        <TopLine Value="16"/>
+        <CursorPos Y="16"/>
+        <UsageCount Value="27"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\units\other\kyoukai.other.ktemplate.pas"/>
         <UnitName Value="Kyoukai.Other.KTemplate"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="30" Y="8"/>
-        <UsageCount Value="42"/>
+        <UsageCount Value="44"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="src\units\other\kyoukai.other.stlutil.pas"/>
         <UnitName Value="Kyoukai.Other.STLUtil"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <CursorPos Y="27"/>
-        <UsageCount Value="33"/>
+        <UsageCount Value="35"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="src\units\other\kyoukai.other.rengemessages.pas"/>
         <UnitName Value="Kyoukai.Other.RengeMessages"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <CursorPos X="30" Y="6"/>
-        <UsageCount Value="19"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -138,24 +144,25 @@
       <Unit17>
         <Filename Value="src\units\other\kyoukai.other.base64util.pas"/>
         <UnitName Value="Kyoukai.Other.Base64Util"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="30" Y="6"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="19"/>
         <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\objpas\classes\classesh.inc"/>
         <EditorIndex Value="-1"/>
-        <TopLine Value="682"/>
-        <CursorPos X="3" Y="603"/>
-        <UsageCount Value="6"/>
+        <TopLine Value="228"/>
+        <CursorPos X="23" Y="240"/>
+        <UsageCount Value="10"/>
       </Unit18>
       <Unit19>
         <Filename Value="src\units\standard\kyoukai.standard.websession.pas"/>
         <UnitName Value="Kyoukai.Standard.WebSession"/>
-        <EditorIndex Value="10"/>
-        <CursorPos X="30" Y="8"/>
-        <UsageCount Value="10"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="480"/>
+        <CursorPos X="59" Y="496"/>
+        <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit19>
       <Unit20>
@@ -195,10 +202,11 @@
       </Unit24>
       <Unit25>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-web\src\base\fpwebfile.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="22"/>
-        <CursorPos X="24" Y="47"/>
-        <UsageCount Value="5"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="58"/>
+        <CursorPos X="6" Y="3"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-base\src\fpmimetypes.pp"/>
@@ -232,10 +240,9 @@
       <Unit30>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
         <UnitName Value="Kyoukai.Standard.WebView"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <CursorPos X="81" Y="13"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="45"/>
         <Loaded Value="True"/>
       </Unit30>
       <Unit31>
@@ -263,133 +270,129 @@
       <Unit34>
         <Filename Value="src\units\other\kyoukai.other.commonutil.pas"/>
         <UnitName Value="Kyoukai.Other.CommonUtil"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <CursorPos X="81" Y="13"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit34>
     </Units>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="56" Column="40" TopLine="42"/>
+        <Caret Line="34" Column="7" TopLine="20"/>
       </Position1>
       <Position2>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="88" Column="32" TopLine="69"/>
+        <Caret Line="75" Column="53" TopLine="60"/>
       </Position2>
       <Position3>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="104" Column="14" TopLine="93"/>
+        <Caret Line="36" Column="43" TopLine="21"/>
       </Position3>
       <Position4>
-        <Filename Value="src\units\other\kyoukai.other.ktemplate.pas"/>
-        <Caret Line="226" Column="16" TopLine="216"/>
+        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
+        <Caret Line="8"/>
       </Position4>
       <Position5>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="93" Column="7" TopLine="72"/>
+        <Caret Line="19" TopLine="19"/>
       </Position5>
       <Position6>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="100" Column="36" TopLine="83"/>
+        <Caret Line="23" Column="39" TopLine="12"/>
       </Position6>
       <Position7>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="36" Column="55" TopLine="24"/>
+        <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
+        <Caret Line="45" Column="55" TopLine="22"/>
       </Position7>
       <Position8>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="44" Column="66" TopLine="32"/>
+        <Filename Value="src\units\standard\kyoukai.standard.webrouter.pas"/>
+        <Caret Line="48" Column="20" TopLine="34"/>
       </Position8>
       <Position9>
         <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="93" Column="36" TopLine="83"/>
+        <Caret Line="18" Column="5" TopLine="14"/>
       </Position9>
       <Position10>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="94" Column="40" TopLine="80"/>
-      </Position10>
-      <Position11>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="68" Column="25" TopLine="50"/>
-      </Position11>
-      <Position12>
-        <Filename Value="src\units\other\kyoukai.other.ktemplate.pas"/>
-        <Caret Line="101" Column="25" TopLine="60"/>
-      </Position12>
-      <Position13>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="102" Column="5" TopLine="89"/>
-      </Position13>
-      <Position14>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="103" Column="31" TopLine="85"/>
-      </Position14>
-      <Position15>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="152" Column="27" TopLine="147"/>
-      </Position15>
-      <Position16>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="53" Column="31" TopLine="36"/>
-      </Position16>
-      <Position17>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="47" Column="55" TopLine="39"/>
-      </Position17>
-      <Position18>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="148" Column="71" TopLine="129"/>
-      </Position18>
-      <Position19>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="34" Column="7" TopLine="20"/>
-      </Position19>
-      <Position20>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="75" Column="53" TopLine="60"/>
-      </Position20>
-      <Position21>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="36" Column="43" TopLine="21"/>
-      </Position21>
-      <Position22>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="8"/>
-      </Position22>
-      <Position23>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="19" TopLine="19"/>
-      </Position23>
-      <Position24>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="23" Column="39" TopLine="12"/>
-      </Position24>
-      <Position25>
-        <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
-        <Caret Line="45" Column="55" TopLine="22"/>
-      </Position25>
-      <Position26>
-        <Filename Value="src\units\standard\kyoukai.standard.webrouter.pas"/>
-        <Caret Line="48" Column="20" TopLine="34"/>
-      </Position26>
-      <Position27>
-        <Filename Value="src\units\standard\kyoukai.standard.webview.pas"/>
-        <Caret Line="18" Column="5" TopLine="14"/>
-      </Position27>
-      <Position28>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <Caret Line="30" Column="16" TopLine="20"/>
-      </Position28>
-      <Position29>
+      </Position10>
+      <Position11>
         <Filename Value="src\units\standard\kyoukai.standard.httpapplication.pas"/>
         <Caret Line="26" Column="30" TopLine="14"/>
-      </Position29>
-      <Position30>
+      </Position11>
+      <Position12>
         <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
         <Caret Line="46" Column="45" TopLine="41"/>
-      </Position30>
+      </Position12>
+      <Position13>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="61" Column="26" TopLine="51"/>
+      </Position13>
+      <Position14>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="305" Column="3" TopLine="291"/>
+      </Position14>
+      <Position15>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="30" Column="20" TopLine="25"/>
+      </Position15>
+      <Position16>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="328" Column="29" TopLine="307"/>
+      </Position16>
+      <Position17>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="351" Column="6" TopLine="338"/>
+      </Position17>
+      <Position18>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="77" Column="54" TopLine="65"/>
+      </Position18>
+      <Position19>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="80" Column="20" TopLine="68"/>
+      </Position19>
+      <Position20>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="362" Column="3" TopLine="342"/>
+      </Position20>
+      <Position21>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="358" Column="5" TopLine="294"/>
+      </Position21>
+      <Position22>
+        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-web\src\base\fpwebfile.pp"/>
+        <Caret Line="47" Column="24" TopLine="22"/>
+      </Position22>
+      <Position23>
+        <Filename Value="kyoukai_framework.lpr"/>
+        <Caret Line="20" Column="24"/>
+      </Position23>
+      <Position24>
+        <Filename Value="src\units\standard\kyoukai.standard.websession.pas"/>
+        <Caret Line="72" Column="5" TopLine="60"/>
+      </Position24>
+      <Position25>
+        <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
+        <Caret Line="27" Column="9" TopLine="14"/>
+      </Position25>
+      <Position26>
+        <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
+        <Caret Line="25" Column="9" TopLine="12"/>
+      </Position26>
+      <Position27>
+        <Filename Value="kyoukai_framework.lpr"/>
+        <Caret Line="6" Column="36"/>
+      </Position27>
+      <Position28>
+        <Filename Value="src\units\standard\kyoukai.standard.websession.pas"/>
+        <Caret Line="496" Column="59" TopLine="480"/>
+      </Position28>
+      <Position29>
+        <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
+        <Caret Line="45" Column="17" TopLine="33"/>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
