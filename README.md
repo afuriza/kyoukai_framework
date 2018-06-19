@@ -41,6 +41,7 @@ To-do
 * making translation file to show server message in other languages
 * fixing bug when embedding into existing application
 * fixing webview memleak with threaded := true
+* add option to produce error message with json or html
 
 <br>
 <br>
