@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <CursorPos X="36" Y="6"/>
         <UsageCount Value="154"/>
         <Loaded Value="True"/>
@@ -24,9 +23,10 @@
       <Unit2>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="161"/>
-        <CursorPos Y="17"/>
+        <TopLine Value="351"/>
+        <CursorPos X="28" Y="371"/>
         <UsageCount Value="81"/>
         <Loaded Value="True"/>
       </Unit2>

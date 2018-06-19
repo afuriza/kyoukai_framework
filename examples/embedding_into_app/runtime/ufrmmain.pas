@@ -40,11 +40,13 @@ begin
   if btnActivateServer.Caption = 'Start' then
   begin
     btnActivateServer.Caption := 'Stop';
+    // Server started
     MyServer.Start;
   end
   else
   begin
     btnActivateServer.Caption := 'Start';
+    // Unable to stop server
     MyServer.Stop;
   end;
 end;

@@ -342,7 +342,7 @@ end;
 
 destructor TKyCustHTTPServerThread.Destroy;
 begin
-  FreeAndNil(fServer);
+  fServer.Free;
   inherited Destroy;
 end;
 
@@ -368,7 +368,7 @@ end;
 
 destructor TKyHTTPServer.Destroy;
 begin
-  fServerThread.Free;
+  FreeAndNil(fServerThread);
   inherited Destroy;
 end;
 
