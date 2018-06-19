@@ -3,9 +3,9 @@ program simple_server;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFNDEF WINDOWS}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes,
   kyoukai.standard.HTTPApplication,
   {You must placed your module units here or Kyoukai can't register anything!}

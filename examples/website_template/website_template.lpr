@@ -3,9 +3,9 @@ program website_template;
 {$mode objfpc}{$H+}
 
 uses
-  {$IFDEF UNIX}{$IFDEF UseCThreads}
+  {$IFNDEF WINDOWS}
   cthreads,
-  {$ENDIF}{$ENDIF}
+  {$ENDIF}
   Classes, SysUtils,
   kyoukai.standard.HTTPApplication,
   {You must placed your module units here or Kyoukai can't register anything!}
