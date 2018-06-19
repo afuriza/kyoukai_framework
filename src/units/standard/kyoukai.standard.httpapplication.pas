@@ -19,7 +19,7 @@ interface
 
 uses
   Classes, SysUtils,
-  Kyoukai.Standard.HTTPServer,
+  Kyoukai.Standard.HTTPServer, custapp,
   Kyoukai.Standard.WebRouter;
 
 type
@@ -27,6 +27,7 @@ type
   TKyoukaiApp = class(TCustomApplication)
   private
     fServer: TKyCustHTTPServer;
+    fMimeTypesFile: string;
     function ReadRouter: TKyRoutes;
     procedure WriteRouter(ARouter: TKyRoutes);
     function ReadFileRoutes: TFileRouteMap;
@@ -43,6 +44,7 @@ type
     property Router: TKyRoutes read ReadRouter write WriteRouter;
     property FileRoutes: TFileRouteMap read ReadFileRoutes write WriteFileRoutes;
     property Active: boolean read ReadIsActive write WriteToActive;
+    property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -99,6 +101,7 @@ end;
 
 procedure TKyoukaiApp.WriteToActive(AState: boolean);
 begin
+  fServer.MimeTypesFile := fMimeTypesFile;
   WriteLn('Registered into port: ', KyoukaiApp.Port);
   fServer.Active := AState;
 end;
