@@ -85,7 +85,7 @@ end.
 In `unit1.pas`, type:
 
 ```pascal
-unit uni1;
+unit unit1;
 
 {$mode objfpc}{$H+}
 
