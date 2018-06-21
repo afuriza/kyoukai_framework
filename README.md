@@ -39,7 +39,7 @@ Dependencies
 To-do
 ---
 - [ ] making translation file to show server message in other languages
-- [x] fixing bug when embedding into existing application. <i>(done with current FPC trunk)</i>
+- [ ] fixing bug when embedding into existing application. 
 - [ ] fixing webview memleak with threaded := true
 - [ ] add option to produce error message with json or html
 
