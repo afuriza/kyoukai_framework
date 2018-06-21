@@ -8,6 +8,7 @@ uses
   {$ENDIF}
   Classes, SysUtils,
   kyoukai.standard.HTTPApplication,
+  Kyoukai.Standard.WebRouter,
   {You must placed your module units here or Kyoukai can't register anything!}
   main_controller
   { you can add units after this };
@@ -20,7 +21,7 @@ begin
   // FileRoutes['assets'] := 'D:\htdocs\assets\';
 
   // http://localhost:80/files/<path and filename>
-  KyoukaiApp.FileRoutes['files'] :=
+  FileRoutes['files'] :=
     ExtractFilePath(ParamStr(0)) + // Extract Executable path
     'files' + // enter folder name "files"
     PathDelim; // delimiter, windows \, unix /

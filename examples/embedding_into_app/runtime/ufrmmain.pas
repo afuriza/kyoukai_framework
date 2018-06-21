@@ -46,7 +46,7 @@ begin
   else
   begin
     btnActivateServer.Caption := 'Start';
-    // Unable to stop server
+    // Need a fake request to stop the server, I don't know why
     MyServer.Stop;
   end;
 end;

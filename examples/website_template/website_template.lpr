@@ -8,6 +8,7 @@ uses
   {$ENDIF}
   Classes, SysUtils,
   kyoukai.standard.HTTPApplication,
+  Kyoukai.Standard.WebRouter,
   {You must placed your module units here or Kyoukai can't register anything!}
   main_controller
   { you can add units after this };
@@ -17,23 +18,23 @@ uses
 begin
   KyoukaiApp.MimeTypesFile := ExtractFilePath(ParamStr(0)) + 'mime.types';
   // localhost/vendor/*
-  KyoukaiApp.FileRoutes['vendor'] :=
+  FileRoutes['vendor'] :=
     ExtractFilePath(ParamStr(0)) +
     'assets' + PathDelim + 'vendor' + PathDelim;
   // localhost/css/*
-  KyoukaiApp.FileRoutes['css'] :=
+  FileRoutes['css'] :=
     ExtractFilePath(ParamStr(0)) +
     'assets' + PathDelim + 'css' + PathDelim;
   // localhost/img/*
-  KyoukaiApp.FileRoutes['img'] :=
+  FileRoutes['img'] :=
     ExtractFilePath(ParamStr(0)) +
     'assets' + PathDelim + 'img' + PathDelim;
   // localhost/js/*
-  KyoukaiApp.FileRoutes['js'] :=
+  FileRoutes['js'] :=
     ExtractFilePath(ParamStr(0)) +
     'assets' + PathDelim + 'js' + PathDelim;
   KyoukaiApp.Port := 80;
-   KyoukaiApp.Threaded := True;
+  // KyoukaiApp.Threaded := True;
   // Threading somehow causes memleak on webview
   KyoukaiApp.Active := True;
 end.

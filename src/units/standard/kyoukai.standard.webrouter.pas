@@ -38,11 +38,11 @@ type
     property Routes[const AURL: String]: TKyModuleClass read GetURL write SetURL;default;
   end;
 
-  TFileRouteMap = specialize TStringHashMap<string>;
+  TKyFileRoutes = specialize TStringHashMap<string>;
 
 var
   Routes: TKyRoutes;
-  FileRoutes: TFileRouteMap;
+  FileRoutes: TKyFileRoutes;
 implementation
 
 function TKyRoutes.GetRouteAliasList: TStringList;

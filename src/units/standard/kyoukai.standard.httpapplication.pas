@@ -30,8 +30,8 @@ type
     fMimeTypesFile: string;
     function ReadRouter: TKyRoutes;
     procedure WriteRouter(ARouter: TKyRoutes);
-    function ReadFileRoutes: TFileRouteMap;
-    procedure WriteFileRoutes(AFileRoute: TFileRouteMap);
+    function ReadFileRoutes: TKyFileRoutes;
+    procedure WriteFileRoutes(AFileRoute: TKyFileRoutes);
     function ReadIsActive: boolean;
     procedure WriteToActive(AState: boolean);
     function ReadPort: word;
@@ -42,7 +42,7 @@ type
     property Threaded: boolean read ReadThreaded write WriteThreaded;
     property Port: word read ReadPort write WritePort;
     property Router: TKyRoutes read ReadRouter write WriteRouter;
-    property FileRoutes: TFileRouteMap read ReadFileRoutes write WriteFileRoutes;
+    property FileRoutes: TKyFileRoutes read ReadFileRoutes write WriteFileRoutes;
     property Active: boolean read ReadIsActive write WriteToActive;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
     constructor Create(AOwner: TComponent); override;
@@ -74,14 +74,14 @@ begin
   fServer.Router := ARouter;
 end;
 
-function TKyoukaiApp.ReadFileRoutes: TFileRouteMap;
+function TKyoukaiApp.ReadFileRoutes: TKyFileRoutes;
 begin
-  Result := fServer.FileRoutes;
+  Result := fServer.FileRouter;
 end;
 
-procedure TKyoukaiApp.WriteFileRoutes(AFileRoute: TFileRouteMap);
+procedure TKyoukaiApp.WriteFileRoutes(AFileRoute: TKyFileRoutes);
 begin
-  fServer.FileRoutes := AFileRoute;
+  fServer.FileRouter := AFileRoute;
 end;
 
 function TKyoukaiApp.ReadIsActive: boolean;
@@ -120,11 +120,14 @@ end;
 
 initialization
   Routes := TKyRoutes.Create;
+  FileRoutes := TKyFileRoutes.create;
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.Router := Routes;
+  KyoukaiApp.FileRoutes := FileRoutes;
 
 finalization
   FreeAndNil(Routes);
+  FreeAndNil(FileRoutes);
   FreeAndNil(KyoukaiApp);
 
 end.

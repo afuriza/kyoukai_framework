@@ -18,7 +18,8 @@ unit Kyoukai.Standard.HTTPServer;
 interface
 
 uses
-  Classes, SysUtils, fphttp, fphttpserver, httpdefs, fpmimetypes,
+  Classes, SysUtils, fphttp, fphttpserver, httpdefs,
+  fpmimetypes, fphttpclient,
   Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.DefaultHTML,
@@ -36,7 +37,7 @@ type
     fMimeTypesFile: string;
     KMime: TFPMimeTypes;
     fRouter: TKyRoutes;
-    fFileRouter: TFileRouteMap;
+    fFileRouter: TKyFileRoutes;
     procedure WriteMimeTypesFile(AFileName: string);
     procedure Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
@@ -51,7 +52,7 @@ type
   published
     property MimeTypesFile: string read ReadMimeTypesFile write WriteMimeTypesFile;
     property Router: TKyRoutes read fRouter write fRouter;
-    property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
+    property FileRouter: TKyFileRoutes read fFileRouter write fFileRouter;
   end;
 
   TKyCustHTTPServerClass = class of TKyCustHTTPServer;
@@ -59,15 +60,16 @@ type
   TKyCustHTTPServerThread = class(TThread)
   private
     _Error: string;
+
+  protected
+    procedure Execute; override;
   public
     fServer: TKyCustHTTPServer;
     constructor Create(APort: word; ARouter: TKyRoutes; AMimeFileName: string;
-      AFileRouter: TFileRouteMap);
+      var AFileRouter: TKyFileRoutes);
     destructor Destroy; override;
-    procedure Execute; override;
-    procedure DoTerminate; override;
     property Error: string read _Error;
-    property Server: TKyCustHTTPServer read fServer write fServer;
+    //property Server: TKyCustHTTPServer read fServer write fServer;
   end;
 
   TKyHTTPServer = class(TComponent)
@@ -75,7 +77,7 @@ type
     fServerThread: TKyCustHTTPServerThread;
     fMimeTypesFile: string;
     fRouter: TKyRoutes;
-    fFileRouter: TFileRouteMap;
+    fFileRouter: TKyFileRoutes;
     fPort: word;
   public
     constructor Create(AOwner: TComponent); override;
@@ -88,7 +90,7 @@ type
     property Port: word read fPort write fPort;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
     property Router: TKyRoutes read fRouter write fRouter;
-    property FileRoutes: TFileRouteMap read fFileRouter write fFileRouter;
+    property FileRoutes: TKyFileRoutes read fFileRouter write fFileRouter;
   end;
 
 implementation
@@ -251,10 +253,13 @@ begin
       AResponse.SendContent;
       DecodedStream.Free;
     end
-    else if fFileRouter.size > 0 then
+    else if Assigned(fFileRouter) then
     begin
-      if fFileRouter.Contains(URIStr) then
-        sendfile(fFileRouter[URIStr] + URIForFile, AResponse);
+      if fFileRouter.size > 0 then
+      begin
+        if fFileRouter.Contains(URIStr) then
+          sendfile(fFileRouter[URIStr] + URIForFile, AResponse);
+      end;
     end
     else if Router.Contains('main') then
     begin
@@ -296,7 +301,6 @@ end;
 constructor TKyCustHTTPServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  fFileRouter := TFileRouteMap.Create;
   KMime := TFPMimeTypes.Create(Self);
   OnRequest := @KHandleRequest;
 end;
@@ -304,7 +308,6 @@ end;
 destructor TKyCustHTTPServer.Destroy;
 begin
   FreeAndNil(KMime);
-  FreeAndNil(fFileRouter);
   inherited Destroy;
 end;
 
@@ -312,7 +315,11 @@ end;
 procedure TKyCustHTTPServerThread.Execute;
 begin
   try
-    Server.Active := True;
+    try
+      fServer.Active := True;
+    finally
+      FreeAndNil(fServer);
+    end;
   except
     on E: Exception do
     begin
@@ -321,28 +328,21 @@ begin
   end;
 end;
 
-procedure TKyCustHTTPServerThread.DoTerminate;
-begin
-  FServer.Active := False;
-  inherited DoTerminate;
-end;
-
 constructor TKyCustHTTPServerThread.Create(APort: word; ARouter: TKyRoutes;
-  AMimeFileName: string; AFileRouter: TFileRouteMap);
+  AMimeFileName: string; var AFileRouter: TKyFileRoutes);
 begin
-  inherited Create(True);
+  inherited Create(False);
   fServer := TKyCustHTTPServer.Create(nil);
   fServer.Port := APort;
   fServer.Router := ARouter;
   fServer.MimeTypesFile := AMimeFileName;
-  fServer.FileRoutes := AFileRouter;
+  fServer.FileRouter := AFileRouter;
   Self.FreeOnTerminate := True;
   _Error := 'nil';
 end;
 
 destructor TKyCustHTTPServerThread.Destroy;
 begin
-  fServer.Free;
   inherited Destroy;
 end;
 
@@ -350,26 +350,28 @@ end;
 
 procedure TKyHTTPServer.Start;
 begin
+
   fServerThread := TKyCustHTTPServerThread.Create(fPort, fRouter, fMimeTypesFile,
     fFileRouter);
-  fServerThread.Start;
 end;
 
 procedure TKyHTTPServer.Stop;
 begin
-  fServerThread.Terminate;
+  // need to create a fake request to stop this?
+  fServerThread.fServer.Active := False;
 end;
 
 constructor TKyHTTPServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   fPort := 80;
+  //fFileRouter := TKyFileRoutes.Create;
 end;
 
 destructor TKyHTTPServer.Destroy;
 begin
-  FreeAndNil(fServerThread);
   inherited Destroy;
+  //FreeAndNil(fFileRouter);
 end;
 
 initialization

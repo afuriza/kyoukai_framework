@@ -9,7 +9,7 @@
         <Filename Value="simple_server.lpr"/>
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
-        <CursorPos X="24" Y="19"/>
+        <CursorPos X="25" Y="19"/>
         <UsageCount Value="102"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -17,7 +17,7 @@
         <Filename Value="main_controller.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="9"/>
+        <TopLine Value="37"/>
         <CursorPos X="3" Y="35"/>
         <UsageCount Value="102"/>
         <Loaded Value="True"/>
