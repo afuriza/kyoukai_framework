@@ -34,14 +34,14 @@ Requirements
 Dependencies
 ---
 * kyoukai_framework
-* -> kyoukai_standard.lpk
+  * kyoukai_standard.lpk
 
 To-do
 ---
-* making translation file to show server message in other languages
-* fixing bug when embedding into existing application
-* fixing webview memleak with threaded := true
-* add option to produce error message with json or html
+- [ ] making translation file to show server message in other languages
+- [x] fixing bug when embedding into existing application. <i>(done with current FPC trunk)</i>
+- [ ] fixing webview memleak with threaded := true
+- [ ] add option to produce error message with json or html
 
 <br>
 <br>
