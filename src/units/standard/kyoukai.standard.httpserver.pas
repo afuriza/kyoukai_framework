@@ -183,9 +183,13 @@ begin
       if ExplodedURI.Count > 2 then
         URIStr2 := LowerCase(ExplodedURI[2]);
     end;
-    if URIStr = '' then
+    if (URIStr = '') or (URIStr = 'index') then
     begin
       URIStr := 'main';
+    end;
+    if URIStr2 = 'index' then
+    begin
+      URIStr2 := '';
     end;
     if ExplodedURI.Count > 2 then
     begin
