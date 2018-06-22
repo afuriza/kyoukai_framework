@@ -39,7 +39,7 @@ Dependencies
 Roadmap
 ---
 - [ ] making translation file to show server message in other languages
-- [ ] add onoption to produce error message with json or html
+- [ ] add an option to produce error message with json or html
 - [ ] Ultibo HTTP Server support
 - [ ] CGI App support
 - [ ] FastCGI App support
