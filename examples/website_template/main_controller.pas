@@ -12,8 +12,9 @@ uses
 
 type
   THome = class(TKyModule)
-  private
+  protected
     View: TKyView;
+  private
     procedure DoParseShortAbout;
   published
     procedure _prepare;
@@ -61,7 +62,7 @@ end;
 
 procedure THome._done;
 begin
-  View.Free;
+  FreeAndNil(View);
 end;
 
 initialization

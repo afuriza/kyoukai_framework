@@ -55,8 +55,9 @@ type
   TKyView = class(TObject)
   private
     fKTemplate: TFPTemplate;
-    fValueList: TStringList;
-    fValuesMap: TDataItemMap;
+    fDataItem: TStringList;
+    fDataItemsTagList: TStringList;
+    fDataItems: TDataItemMap;
     function ReadDataItem(AName: string): string;
     procedure WriteDataItem(AName, AValue: string);
     function ReadDataItems(AName: string): TDataItems;
@@ -113,12 +114,12 @@ end;
 
 function TKyView.ReadDataItem(AName: string): string;
 begin
-  Result := fValueList.Values[AName];
+  Result := fDataItem.Values[AName];
 end;
 
 procedure TKyView.WriteDataItem(AName, AValue: string);
 begin
-  fValueList.Values[AName] := AValue;
+  fDataItem.Values[AName] := AValue;
 end;
 
 procedure TKyView.ReplaceTag(Sender : TObject; Const TagString : String;
@@ -127,43 +128,44 @@ var
   ParamNames, ParamValues: array of string;
   i, j: integer;
 begin
-  if fValuesMap.contains(TagString) then
+  if fDataItems.contains(TagString) then
   begin
-    if fValuesMap[TagString].count > 0 then
-    for i:= 0 to fValuesMap[TagString].items[0].count - 1 do
+    fDataItemsTagList.Add(TagString);
+    if fDataItems[TagString].count > 0 then
+    for i:= 0 to fDataItems[TagString].items[0].count - 1 do
     begin
       SetLength(ParamNames, i+1);
       SetLength(ParamValues, i+1);
-      ParamNames[i] := fValuesMap[TagString].items[0].Names[i];
+      ParamNames[i] := fDataItems[TagString].items[0].Names[i];
     end;
     with TKItems.Create(TagParams.Values['iterable']) do
     begin
-      for i := 0 to fValuesMap[TagString].count - 1 do
+      for i := 0 to fDataItems[TagString].count - 1 do
       begin
         for j := 0 to Length(ParamValues)-1 do
         begin
-          ParamValues[j] := fValuesMap[TagString].items[i].Values[j];
+          ParamValues[j] := fDataItems[TagString].items[i].Values[j];
         end;
         Add(ParamNames, ParamValues);
         ReplaceText := Text;
-        fValuesMap[TagString].items[i].Free;
+        fDataItems[TagString].items[i].Free;
       end;
     end;
   end
   else
   begin
-    ReplaceText := fValueList.Values[TagString];
+    ReplaceText := fDataItem.Values[TagString];
   end;
 end;
 
 function TKyView.ReadDataItems(AName: string): TDataItems;
 begin
-  Result := fValuesMap[AName];
+  Result := fDataItems[AName];
 end;
 
 procedure TKyView.WriteDataItems(AName: string; AValues: TDataItems);
 begin
-  fValuesMap[AName] := AValues;
+  fDataItems[AName] := AValues;
 end;
 
 function TKyView.GetContent: string;
@@ -174,8 +176,9 @@ end;
 constructor TKyView.Create(const AFileName: String);
 begin
   fKTemplate := TFPTemplate.Create;
-  fValueList := TStringList.Create;
-  fValuesMap := TDataItemMap.Create;
+  fDataItem := TStringList.Create;
+  fDataItems := TDataItemMap.Create;
+  fDataItemsTagList := TStringList.Create;
 
   fKTemplate.StartDelimiter := '{+';
   fKTemplate.EndDelimiter := '+}';
@@ -189,10 +192,17 @@ begin
 end;
 
 destructor TKyView.Destroy;
+var
+  i, j: integer;
 begin
-  FreeAndNil(fValuesMap);
+  for i := 0 to fDataItemsTagList.Count-1 do
+  begin
+    fDataItems[fDataItemsTagList[i]].FreeObjects := True;
+  end;
+  FreeAndNil(fDataItemsTagList);
+  FreeAndNil(fDataItems);
   FreeAndNil(fKTemplate);
-  FreeAndNil(fValueList);
+  FreeAndNil(fDataItem);
   inherited Destroy;
 end;
 end.

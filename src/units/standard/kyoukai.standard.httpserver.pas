@@ -257,14 +257,6 @@ begin
       AResponse.SendContent;
       DecodedStream.Free;
     end
-    else if Assigned(fFileRouter) then
-    begin
-      if fFileRouter.size > 0 then
-      begin
-        if fFileRouter.Contains(URIStr) then
-          sendfile(fFileRouter[URIStr] + URIForFile, AResponse);
-      end;
-    end
     else if Router.Contains('main') then
     begin
       ModuleWorker := TKyModuleClass(Router['main']).Create(Self,
@@ -277,10 +269,28 @@ begin
       end
       else
       begin
-        AResponse.Code := 404;
-        AResponse.Content := GetNotFoundInformation(ARequest.Host,
-          ARequest.URL, 'There''s no module or main module method with this name: ' +
-          URIStr + '!', StartServeTime);
+        if Assigned(fFileRouter) then
+        begin
+          if fFileRouter.size > 0 then
+          begin
+            if fFileRouter.Contains(URIStr) then
+              sendfile(fFileRouter[URIStr] + URIForFile, AResponse)
+            else
+            begin
+              AResponse.Code := 404;
+              AResponse.Content := GetNotFoundInformation(ARequest.Host,
+              ARequest.URL, 'There''s no module or main module method with this name: ' +
+              URIStr + '!', StartServeTime);
+            end;
+          end;
+        end
+        else
+        begin
+          AResponse.Code := 404;
+          AResponse.Content := GetNotFoundInformation(ARequest.Host,
+            ARequest.URL, 'There''s no module or main module method with this name: ' +
+            URIStr + '!', StartServeTime);
+        end;
       end;
       FreeAndNil(ModuleWorker);
     end
@@ -363,6 +373,15 @@ procedure TKyHTTPServer.Stop;
 begin
   // need to create a fake request to stop this?
   fServerThread.fServer.Active := False;
+
+  with TFPHTTPClient.Create(nil) do
+  begin
+    try
+      Get('http://localhost:'+IntToStr(fPort)+'/kyoukai_info');
+    except
+      // silently ignore an error
+    end;
+  end;
 end;
 
 constructor TKyHTTPServer.Create(AOwner: TComponent);

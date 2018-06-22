@@ -20,7 +20,7 @@ unit Kyoukai.Standard.WebSession;
 interface
 
 uses
-  fpcgi, md5, IniFiles, fpjson, fphttpserver,
+  fpcgi, md5, IniFiles, fpjson, fphttpserver, httpdefs,
   Classes, SysUtils;
 
 const
@@ -42,8 +42,8 @@ type
   TSessionController = class(TObject)
   private
   var
-    fRequest: TFPHTTPConnectionRequest;
-    fResponse: TFPHTTPConnectionResponse;
+    fRequest: TRequest;
+    fResponse: TResponse;
   private
     FIniFile: TMemInifile;
     FLastAccess: TDateTime;
@@ -74,7 +74,7 @@ type
     function StartSessionWithFile: boolean;
   public
     Storage: integer;
-    constructor Create(ARequest: TFPHTTPConnectionRequest);
+    constructor Create(ARequest: TRequest);
     destructor Destroy; override;
     property Values[variable: string]: string read GetValue write SetValue; default;
     property CookieID: string read FCookieID;
@@ -101,8 +101,8 @@ type
     function _DateTimeDiff(const ANow, AThen: TDateTime): TDateTime;
     function GetData(): string;
   public
-    property Request: TFPHTTPConnectionRequest read fRequest;
-    property Response: TFPHTTPConnectionResponse read fResponse;
+    property Request: TRequest read fRequest;
+    property Response: TResponse read fResponse;
   end;
 
 
@@ -376,7 +376,7 @@ begin
     Result.Add(Str);
 end;
 
-constructor TSessionController.Create(ARequest: TFPHTTPConnectionRequest);
+constructor TSessionController.Create(ARequest: TRequest);
 var
   lstr: TStrings;
 begin

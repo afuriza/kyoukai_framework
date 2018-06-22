@@ -30,8 +30,8 @@ type
     type
       TConstructCallback = procedure of object;
   var
-    fRequest: TFPHTTPConnectionRequest;
-    fResponse: TFPHTTPConnectionResponse;
+    fRequest: TRequest;
+    fResponse: TResponse;
   private
     fSession: TSessionController;
     fWebWritings: string;
@@ -42,8 +42,8 @@ type
   public
     procedure redirect(const ALocation: string);
     destructor destroy; override;
-    Constructor Create(AOwner: TComponent; aRequest: TFPHTTPConnectionRequest;
-      aResponse: TFPHTTPConnectionResponse);
+    Constructor Create(AOwner: TComponent; aRequest: TRequest;
+      aResponse: TResponse);
     procedure echo(const AMessage: String);
     procedure Render(ATemplate: TKTemplate);
     procedure Render(AView: TKyView);
@@ -56,8 +56,8 @@ type
   published
     property Session: TSessionController read fSession write fSession;
     property WebWritings: string read fWebWritings write fWebWritings;
-    property Request: TFPHTTPConnectionRequest read fRequest write fRequest;
-    property Response: TFPHTTPConnectionResponse read fResponse write fResponse;
+    property Request: TRequest read fRequest write fRequest;
+    property Response: TResponse read fResponse write fResponse;
   end;
 
   TKyModuleClass = class of TKyModule;
@@ -118,7 +118,7 @@ begin
 end;
 
 Constructor TKyModule.Create(AOwner: TComponent;
-  aRequest: TFPHTTPConnectionRequest; aResponse: TFPHTTPConnectionResponse);
+  aRequest: TRequest; aResponse: TResponse);
 var
   CallFunc: TConstructCallback;
 begin
@@ -144,7 +144,7 @@ begin
     CallFunc;
   end;
   if Assigned(fSession) then
-  FreeAndNil(fSession);
+    FreeAndNil(fSession);
   inherited Destroy;
 end;
 

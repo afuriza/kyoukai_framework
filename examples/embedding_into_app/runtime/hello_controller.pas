@@ -12,7 +12,7 @@ uses
 type
   THello = class(TKyModule)
   published
-    //must be published your you get an error!
+    //must be published or you get an error!
     procedure MainHandle;
     procedure SayHelloWorld;
   end;

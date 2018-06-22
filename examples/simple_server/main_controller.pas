@@ -5,7 +5,7 @@ unit main_controller;
 interface
 
 uses
-  Classes, SysUtils, httpdefs,
+  Classes, SysUtils, httpdefs, fphttpclient,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.WebModule;
 
@@ -31,8 +31,19 @@ end;
 // if there's no module name like this,
 // Kyoukai will trying to find it in the main module methods
 procedure THome.FunctionFromMainModule;
+var
+  test: string;
 begin
+  try
+    with TFPHTTPClient.Create(Self) do
+    begin
+      test := Get('http://localhost:80/kyoukai_info');
+    end;
+  except
+    // silently ignore error
+  end;
   echo('Hello, from "'+ClassName+'" module with '+Request.URI+'!');
+  echo('<br>'+test);
 end;
 
 procedure THome.RaiseError;

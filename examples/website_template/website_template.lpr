@@ -34,7 +34,7 @@ begin
     ExtractFilePath(ParamStr(0)) +
     'assets' + PathDelim + 'js' + PathDelim;
   KyoukaiApp.Port := 80;
-  // KyoukaiApp.Threaded := True;
+   KyoukaiApp.Threaded := True;
   // Threading somehow causes memleak on webview
   KyoukaiApp.Active := True;
 end.
