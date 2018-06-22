@@ -36,12 +36,19 @@ Dependencies
 * kyoukai_framework
   * kyoukai_standard.lpk
 
-To-do
+Roadmap
 ---
 - [ ] making translation file to show server message in other languages
+- [ ] add onoption to produce error message with json or html
+- [ ] Ultibo HTTP Server support
+- [ ] CGI App support
+- [ ] FastCGI App support
+- [ ] Lazarus Project Wizard
+
+Known errors
+---
 - [ ] fixing bug when embedding into existing application. 
 - [ ] fixing webview memleak with threaded := true
-- [ ] add option to produce error message with json or html
 
 <br>
 <br>
