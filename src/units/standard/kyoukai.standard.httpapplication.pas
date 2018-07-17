@@ -39,7 +39,7 @@ type
     function ReadThreaded: boolean;
     procedure WriteThreaded(IsThreaded: boolean);
   public
-    property Threaded: boolean read ReadThreaded write WriteThreaded;
+    property Threaded: boolean read ReadThreaded write WriteThreaded; experimental;
     property Port: word read ReadPort write WritePort;
     property Router: TKyRoutes read ReadRouter write WriteRouter;
     property FileRoutes: TKyFileRoutes read ReadFileRoutes write WriteFileRoutes;
