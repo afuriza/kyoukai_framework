@@ -18,8 +18,8 @@ unit Kyoukai.Standard.HTTPApplication;
 interface
 
 uses
-  Classes, SysUtils,
-  Kyoukai.Standard.HTTPServer, custapp,
+  Classes, SysUtils, custapp,
+  Kyoukai.Standard.HTTPServer,
   Kyoukai.Standard.WebRouter;
 
 type
@@ -45,6 +45,7 @@ type
     property FileRoutes: TKyFileRoutes read ReadFileRoutes write WriteFileRoutes;
     property Active: boolean read ReadIsActive write WriteToActive;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
+    procedure Run;
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   end;
@@ -82,6 +83,11 @@ end;
 procedure TKyoukaiApp.WriteFileRoutes(AFileRoute: TKyFileRoutes);
 begin
   fServer.FileRouter := AFileRoute;
+end;
+
+procedure TKyoukaiApp.Run;
+begin
+  Active := True;
 end;
 
 function TKyoukaiApp.ReadIsActive: boolean;

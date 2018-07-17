@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="4">
+    <PathDelim Value="\"/>
+    <Name Value="kyoukai_ideintf"/>
+    <Type Value="RunAndDesignTime"/>
+    <CompilerOptions>
+      <Version Value="11"/>
+      <PathDelim Value="\"/>
+      <SearchPaths>
+        <IncludeFiles Value="..\ideintf"/>
+        <OtherUnitFiles Value="..\ideintf"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
+      </SearchPaths>
+    </CompilerOptions>
+    <Files Count="6">
+      <Item1>
+        <Filename Value="..\ideintf\kyfrmnewproject.lfm"/>
+        <Type Value="LFM"/>
+      </Item1>
+      <Item2>
+        <Filename Value="..\ideintf\kyfrmnewproject.pas"/>
+        <UnitName Value="KyfrmNewProject"/>
+      </Item2>
+      <Item3>
+        <Filename Value="kyoukai_ideintf.pas"/>
+        <UnitName Value="kyoukai_ideintf"/>
+      </Item3>
+      <Item4>
+        <Filename Value="..\ideintf\kyoukai_projectutil.pas"/>
+        <UnitName Value="kyoukai_projectutil"/>
+      </Item4>
+      <Item5>
+        <Filename Value="..\ideintf\kyoukai_projectconsts.pas"/>
+        <UnitName Value="kyoukai_projectconsts"/>
+      </Item5>
+      <Item6>
+        <Filename Value="..\ideintf\kyoukai_dirstructures.pas"/>
+        <UnitName Value="kyoukai_dirstructures"/>
+      </Item6>
+    </Files>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="IDEIntf"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="FCL"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

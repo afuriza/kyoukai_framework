@@ -31,6 +31,7 @@ type
     function GetURL(const AURL: string): TKyModuleClass;
     procedure SetURL(const AURL: string; AValue: TKyModuleClass);
   public
+    class function MakeOther: TKyRoutes;
     function GetRouteAliasList: TStringList;
     function Contains(AKey: string): Boolean;
     constructor Create;
@@ -38,12 +39,19 @@ type
     property Routes[const AURL: String]: TKyModuleClass read GetURL write SetURL;default;
   end;
 
+  TKyRoutesClass = class of TKyRoutes;
+
   TKyFileRoutes = specialize TStringHashMap<string>;
 
 var
   Routes: TKyRoutes;
   FileRoutes: TKyFileRoutes;
 implementation
+
+class function TKyRoutes.MakeOther: TKyRoutes;
+begin
+  Result := Create;
+end;
 
 function TKyRoutes.GetRouteAliasList: TStringList;
 begin

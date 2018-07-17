@@ -54,8 +54,11 @@
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <Checks>
+        <StackChecks Value="True"/>
+      </Checks>
       <Optimizations>
-        <OptimizationLevel Value="4"/>
+        <OptimizationLevel Value="3"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>

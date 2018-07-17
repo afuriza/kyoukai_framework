@@ -18,7 +18,7 @@ unit Kyoukai.Standard.WebModule;
 interface
 
 uses
-  Classes, SysUtils, fphttpserver, httpdefs, fphttp,
+  Classes, SysUtils, fphttpserver, httpdefs, fphttp, TypInfo,
   Kyoukai.Standard.WebSession,
   Kyoukai.Standard.WebView,
   Kyoukai.Other.KTemplate;
@@ -29,10 +29,10 @@ type
   private
     type
       TConstructCallback = procedure of object;
-  var
+
+  private
     fRequest: TRequest;
     fResponse: TResponse;
-  private
     fSession: TSessionController;
     fWebWritings: string;
     function ReadGetVar(const AVarName: string): string;
@@ -43,12 +43,14 @@ type
     procedure redirect(const ALocation: string);
     destructor destroy; override;
     Constructor Create(AOwner: TComponent; aRequest: TRequest;
-      aResponse: TResponse);
+      aResponse: TResponse); reintroduce; overload;
     procedure echo(const AMessage: String);
     procedure Render(ATemplate: TKTemplate);
     procedure Render(AView: TKyView);
     procedure StartSession;
     procedure TerminateSession;
+    property InputGet[const AVarName: string]: string read ReadGetVar;
+    property InputPost[const AVarName: string]: string read ReadPostVar;
     property _get[const AVarName: string]: string read ReadGetVar;
     property _post[const AVarName: string]: string read ReadPostVar;
     property _session[const ASessionName: string]: string read ReadSessionVar
@@ -145,6 +147,8 @@ begin
   end;
   if Assigned(fSession) then
     FreeAndNil(fSession);
+  fResponse := nil;
+  fRequest := nil;
   inherited Destroy;
 end;
 

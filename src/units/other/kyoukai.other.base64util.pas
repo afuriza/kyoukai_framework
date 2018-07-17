@@ -51,9 +51,9 @@ begin
   Decoder := TBase64EncodingStream.Create(EncodedStream);
   DecodedStream.CopyFrom(Decoder, Decoder.Size);
   Result := DecodedStream.DataString;
-  DecodedStream.Free;
-  EncodedStream.Free;
-  Decoder.Free;
+  FreeAndNil(DecodedStream);
+  FreeAndNil(EncodedStream);
+  FreeAndNil(Decoder);
 end;
 
 function DecodeBase64Str(const AStr: string): string;
@@ -67,9 +67,9 @@ begin
   Decoder := TBase64DecodingStream.Create(EncodedStream);
   DecodedStream.CopyFrom(Decoder, Decoder.Size);
   Result := DecodedStream.DataString;
-  DecodedStream.Free;
-  EncodedStream.Free;
-  Decoder.Free;
+  FreeAndNil(DecodedStream);
+  FreeAndNil(EncodedStream);
+  FreeAndNil(Decoder);
 end;
 
 function DecodeBase64StrToStream(const AStr: string): TMemoryStream;
@@ -81,8 +81,8 @@ begin
   Result := TMemoryStream.Create;
   Decoder := TBase64DecodingStream.Create(EncodedStream);
   Result.CopyFrom(Decoder, Decoder.Size);
-  EncodedStream.Free;
-  Decoder.Free;
+  FreeAndNil(EncodedStream);
+  FreeAndNil(Decoder);
 end;
 
 end.

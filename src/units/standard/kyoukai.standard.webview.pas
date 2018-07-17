@@ -44,7 +44,7 @@ type
     property Count: integer read ReadCount;
     property Names[Position: integer]: string read ReadNames;
     property Values[Position: integer]: string read ReadValue;
-    property KVals[AName: string]: string read ReadIterateData write
+    property NameValues[AName: string]: string read ReadIterateData write
      WriteIterateData; default;
   end;
 
@@ -148,7 +148,7 @@ begin
         end;
         Add(ParamNames, ParamValues);
         ReplaceText := Text;
-        fDataItems[TagString].items[i].Free;
+        //fDataItems[TagString].items[i].Free;
       end;
     end;
   end
@@ -197,7 +197,11 @@ var
 begin
   for i := 0 to fDataItemsTagList.Count-1 do
   begin
-    fDataItems[fDataItemsTagList[i]].FreeObjects := True;
+    for j := 0 to fDataItems[fDataItemsTagList[i]].count-1 do
+    begin
+      fDataItems[fDataItemsTagList[i]].items[j].Free;
+    end;
+
   end;
   FreeAndNil(fDataItemsTagList);
   FreeAndNil(fDataItems);

@@ -33,19 +33,21 @@ type
     type
     TURICallback =
     procedure of object;
-  private
+  protected
     fMimeTypesFile: string;
     KMime: TFPMimeTypes;
     fRouter: TKyRoutes;
     fFileRouter: TKyFileRoutes;
+    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     procedure WriteMimeTypesFile(AFileName: string);
     procedure Cust404Handle(var ARequest: TFPHTTPConnectionRequest;
       var AResponse: TFPHTTPConnectionResponse);
     function ReadMimeTypesFile: string;
-    procedure KHandleRequest(Sender: TObject; var ARequest: TFPHTTPConnectionRequest;
-      var AResponse: TFPHTTPConnectionResponse);
     procedure SendFile(const AFileName: string;
       var AResponse: TFPHTTPConnectionResponse);
+
+    procedure HandleRequest(var ARequest: TFPHTTPConnectionRequest;
+      var AResponse: TFPHTTPConnectionResponse); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -95,6 +97,17 @@ type
 
 implementation
 
+procedure TKyCustHTTPServer.Notification(AComponent: TComponent; Operation: TOperation);
+begin
+  inherited Notification(AComponent, Operation);
+  if (Operation = opRemove) and (AComponent.ClassParent.ClassName = 'TKyModule') then
+  begin
+    WriteLn('someone free: ' + AComponent.ClassName + ', parent: ' +
+      AComponent.ClassParent.ClassName);
+  end;
+
+end;
+
 procedure TKyCustHTTPServer.WriteMimeTypesFile(AFileName: string);
 begin
   if AFileName <> fMimeTypesFile then
@@ -115,23 +128,28 @@ var
   CallFunc: TURICallback;
   ModuleWorker: TKyModule;
 begin
-  ModuleWorker := TKyModuleClass(Router['404_override']).Create(Self,
+  ModuleWorker := TKyModuleClass(Router['404_override']).Create(nil,
     ARequest, AResponse);
-  if ModuleWorker.MethodAddress('MainHandle') <> nil then
-  begin
-    AResponse.Code := 404;
-    TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
-    TMethod(CallFunc).Data := ModuleWorker;
-    CallFunc;
-  end
-  else
-  begin
-    AResponse.Code := 404;
-    AResponse.Content := GetNotFoundInformation(ARequest.Host,
-      ARequest.URL, 'No main handle method found! Did you forget ' +
-      'to create MainHandle to override 404 Module?', Now);
+  try
+    if ModuleWorker.MethodAddress('MainHandle') <> nil then
+    begin
+      AResponse.Code := 404;
+      TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
+      TMethod(CallFunc).Data := ModuleWorker;
+      CallFunc;
+    end
+    else
+    begin
+      AResponse.Code := 404;
+      AResponse.Content := GetNotFoundInformation(ARequest.Host,
+        ARequest.URL, 'No main handle method found! Did you forget ' +
+        'to create MainHandle to override 404 Module?', Now);
+    end;
+
+  finally
+    FreeAndNil(ModuleWorker);
   end;
-  FreeAndNil(ModuleWorker);
+
 end;
 
 procedure TKyCustHTTPServer.SendFile(const AFileName: string;
@@ -160,8 +178,8 @@ begin
   end;
 end;
 
-procedure TKyCustHTTPServer.KHandleRequest(Sender: TObject;
-  var ARequest: TFPHTTPConnectionRequest; var AResponse: TFPHTTPConnectionResponse);
+procedure TKyCustHTTPServer.HandleRequest(var ARequest: TFPHTTPConnectionRequest;
+  var AResponse: TFPHTTPConnectionResponse);
 var
   URIStr, URIStr2: string;
   ExplodedURI: TStringList;
@@ -173,6 +191,7 @@ var
   i: integer;
 begin
   StartServeTime := Now;
+
   try
     ExplodedURI := TStringList.Create;
     Split('/', HTTPDecode(ARequest.PathInfo), ExplodedURI);
@@ -183,13 +202,9 @@ begin
       if ExplodedURI.Count > 2 then
         URIStr2 := LowerCase(ExplodedURI[2]);
     end;
-    if (URIStr = '') or (URIStr = 'index') then
+    if (URIStr = '') then
     begin
       URIStr := 'main';
-    end;
-    if URIStr2 = 'index' then
-    begin
-      URIStr2 := '';
     end;
     if ExplodedURI.Count > 2 then
     begin
@@ -201,46 +216,51 @@ begin
           URIForFile += ExplodedURI[i];
       end;
     end;
-    ExplodedURI.Free;
+    FreeAndNil(ExplodedURI);
 
     if Router.Contains(URIStr) then
     begin
-      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(Self,
+      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(nil,
         ARequest, AResponse);
-      if URIStr2 = '' then
-      begin
-        if ModuleWorker.MethodAddress('MainHandle') <> nil then
+      try
+        if URIStr2 = '' then
         begin
-          TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
-          TMethod(CallFunc).Data := ModuleWorker;
-          CallFunc;
+          if ModuleWorker.MethodAddress('MainHandle') <> nil then
+          begin
+            TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
+            TMethod(CallFunc).Data := ModuleWorker;
+            CallFunc;
+          end
+          else
+          begin
+            AResponse.Code := 404;
+            AResponse.Content :=
+              GetNotFoundInformation(ARequest.Host, ARequest.URL,
+              'No main handle method found!', StartServeTime);
+          end;
         end
         else
         begin
-          AResponse.Code := 404;
-          AResponse.Content :=
-            GetNotFoundInformation(ARequest.Host, ARequest.URL,
-            'No main handle method found!', StartServeTime);
+          if ModuleWorker.MethodAddress(URIStr2) <> nil then
+          begin
+            TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr2);
+            TMethod(CallFunc).Data := ModuleWorker;
+            CallFunc;
+          end
+          else
+          begin
+            AResponse.Code := 404;
+            AResponse.Content :=
+              GetNotFoundInformation(ARequest.Host, ARequest.URL,
+              'There''s no handle method with this name: ' + URIStr2 +
+              '!', StartServeTime);
+          end;
         end;
-      end
-      else
-      begin
-        if ModuleWorker.MethodAddress(URIStr2) <> nil then
-        begin
-          TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr2);
-          TMethod(CallFunc).Data := ModuleWorker;
-          CallFunc;
-        end
-        else
-        begin
-          AResponse.Code := 404;
-          AResponse.Content :=
-            GetNotFoundInformation(ARequest.Host, ARequest.URL,
-            'There''s no handle method with this name: ' + URIStr2 + '!',
-            StartServeTime);
-        end;
+
+      finally
+        FreeAndNil(ModuleWorker);
       end;
-      FreeAndNil(ModuleWorker);
+
     end
 
     else if URIStr = 'kyoukai_info' then
@@ -255,52 +275,60 @@ begin
       AResponse.ContentLength := DecodedStream.Size;
       AResponse.ContentStream := DecodedStream;
       AResponse.SendContent;
-      DecodedStream.Free;
+      FreeAndNil(DecodedStream);
     end
     else if Router.Contains('main') then
     begin
-      ModuleWorker := TKyModuleClass(Router['main']).Create(Self,
+      ModuleWorker := TKyModuleClass(Router['main']).Create(nil,
         ARequest, AResponse);
-      if ModuleWorker.MethodAddress(URIStr) <> nil then
-      begin
-        TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
-        TMethod(CallFunc).Data := ModuleWorker;
-        CallFunc;
-      end
-      else
-      begin
-        if Assigned(fFileRouter) then
+      try
+        if ModuleWorker.MethodAddress(URIStr) <> nil then
         begin
-          if fFileRouter.size > 0 then
-          begin
-            if fFileRouter.Contains(URIStr) then
-              sendfile(fFileRouter[URIStr] + URIForFile, AResponse)
-            else
-            begin
-              AResponse.Code := 404;
-              AResponse.Content := GetNotFoundInformation(ARequest.Host,
-              ARequest.URL, 'There''s no module or main module method with this name: ' +
-              URIStr + '!', StartServeTime);
-            end;
-          end;
+          TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
+          TMethod(CallFunc).Data := ModuleWorker;
+          CallFunc;
         end
         else
         begin
-          AResponse.Code := 404;
-          AResponse.Content := GetNotFoundInformation(ARequest.Host,
-            ARequest.URL, 'There''s no module or main module method with this name: ' +
-            URIStr + '!', StartServeTime);
+          if Assigned(fFileRouter) then
+          begin
+            if fFileRouter.size > 0 then
+            begin
+              if fFileRouter.Contains(URIStr) then
+                sendfile(fFileRouter[URIStr] + URIForFile, AResponse)
+              else
+              begin
+                AResponse.Code := 404;
+                AResponse.Content :=
+                  GetNotFoundInformation(ARequest.Host, ARequest.URL,
+                  'There''s no module or main module method with this name: ' +
+                  URIStr + '!', StartServeTime);
+              end;
+            end;
+          end
+          else
+          begin
+            AResponse.Code := 404;
+            AResponse.Content :=
+              GetNotFoundInformation(ARequest.Host, ARequest.URL,
+              'There''s no module or main module method with this name: ' +
+              URIStr + '!', StartServeTime);
+          end;
         end;
+
+      finally
+        FreeAndNil(ModuleWorker);
       end;
-      FreeAndNil(ModuleWorker);
+
     end
     else
     begin
       AResponse.Code := 404;
-      AResponse.Content := GetNotFoundInformation(ARequest.Host, ARequest.URL,
-        'There''s no module or main module method with this name: ' + URIStr +
-        '!', StartServeTime);
+      AResponse.Content := GetNotFoundInformation(ARequest.Host,
+        ARequest.URL, 'There''s no module or main module method with this name: ' +
+        URIStr + '!', StartServeTime);
     end;
+
   except
     on E: Exception do
     begin
@@ -316,7 +344,6 @@ constructor TKyCustHTTPServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   KMime := TFPMimeTypes.Create(Self);
-  OnRequest := @KHandleRequest;
 end;
 
 destructor TKyCustHTTPServer.Destroy;
@@ -365,8 +392,8 @@ end;
 procedure TKyHTTPServer.Start;
 begin
 
-  fServerThread := TKyCustHTTPServerThread.Create(fPort, fRouter, fMimeTypesFile,
-    fFileRouter);
+  fServerThread := TKyCustHTTPServerThread.Create(fPort, fRouter,
+    fMimeTypesFile, fFileRouter);
 end;
 
 procedure TKyHTTPServer.Stop;
@@ -377,7 +404,7 @@ begin
   with TFPHTTPClient.Create(nil) do
   begin
     try
-      Get('http://localhost:'+IntToStr(fPort)+'/kyoukai_info');
+      Get('http://localhost:' + IntToStr(fPort) + '/kyoukai_info');
     except
       // silently ignore an error
     end;

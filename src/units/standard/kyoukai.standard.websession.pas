@@ -41,10 +41,8 @@ type
 
   TSessionController = class(TObject)
   private
-  var
     fRequest: TRequest;
     fResponse: TResponse;
-  private
     FIniFile: TMemInifile;
     FLastAccess: TDateTime;
     FSessionTimeout: integer;
