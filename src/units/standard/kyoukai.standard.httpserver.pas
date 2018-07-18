@@ -92,7 +92,7 @@ type
     property Port: word read fPort write fPort;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
     property Router: TKyRoutes read fRouter write fRouter;
-    property FileRoutes: TKyFileRoutes read fFileRouter write fFileRouter;
+    property FileRouter: TKyFileRoutes read fFileRouter write fFileRouter;
   end;
 
 implementation

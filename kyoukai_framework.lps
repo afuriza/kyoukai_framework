@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="4"/>
         <CursorPos X="27" Y="22"/>
         <UsageCount Value="213"/>
@@ -21,16 +20,18 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="KyfrmNewProject"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
+        <TopLine Value="22"/>
         <CursorPos X="21"/>
-        <UsageCount Value="94"/>
+        <UsageCount Value="95"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="src\ideintf\kyoukai.ideintf.registerkyoukai.pas"/>
         <UnitName Value="Kyoukai.IDEIntf.RegisterKyoukai"/>
-        <EditorIndex Value="11"/>
+        <EditorIndex Value="12"/>
         <CursorPos X="32" Y="8"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
@@ -46,10 +47,11 @@
       <Unit4>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="281"/>
-        <CursorPos X="31" Y="297"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="175"/>
+        <CursorPos X="11" Y="227"/>
         <UsageCount Value="110"/>
+        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
         <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
@@ -226,14 +228,14 @@
       <Unit28>
         <Filename Value="src\ideintf\kyoukai.ideintf.pkgutil.pas"/>
         <UnitName Value="Kyoukai.IDEIntf.PkgUtil"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <CursorPos Y="10"/>
         <UsageCount Value="12"/>
         <Loaded Value="True"/>
       </Unit28>
       <Unit29>
         <Filename Value="D:\LazPkg\fastplaz-development\tools\src\fastplaz_tools_register.pas"/>
-        <EditorIndex Value="6"/>
+        <EditorIndex Value="7"/>
         <TopLine Value="19"/>
         <CursorPos X="32" Y="30"/>
         <UsageCount Value="11"/>
@@ -241,7 +243,7 @@
       </Unit29>
       <Unit30>
         <Filename Value="src\packages\kyoukai_ideintf.pas"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="3"/>
         <CursorPos X="60" Y="11"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -249,7 +251,7 @@
       <Unit31>
         <Filename Value="C:\lazarus\components\ideintf\newitemintf.pas"/>
         <UnitName Value="NewItemIntf"/>
-        <EditorIndex Value="10"/>
+        <EditorIndex Value="11"/>
         <TopLine Value="16"/>
         <CursorPos X="3" Y="35"/>
         <UsageCount Value="11"/>
@@ -257,7 +259,7 @@
       </Unit31>
       <Unit32>
         <Filename Value="D:\LazPkg\fastplaz-development\tools\src\project_lib.pas"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <TopLine Value="163"/>
         <CursorPos X="39" Y="8"/>
         <UsageCount Value="11"/>
@@ -265,7 +267,7 @@
       </Unit32>
       <Unit33>
         <Filename Value="src\ideintf\kyoukai_projectutil.pas"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="5"/>
         <TopLine Value="76"/>
         <CursorPos X="45" Y="38"/>
         <UsageCount Value="11"/>
@@ -273,14 +275,14 @@
       </Unit33>
       <Unit34>
         <Filename Value="src\ideintf\kyoukai_projectconsts.pas"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="4"/>
         <CursorPos X="27"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
       </Unit34>
       <Unit35>
         <Filename Value="D:\LazPkg\fastplaz-development\tools\src\webstructure_lib.pas"/>
-        <EditorIndex Value="9"/>
+        <EditorIndex Value="10"/>
         <TopLine Value="124"/>
         <CursorPos X="6"/>
         <UsageCount Value="11"/>
@@ -288,7 +290,7 @@
       </Unit35>
       <Unit36>
         <Filename Value="src\ideintf\kyoukai_dirstructures.pas"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="6"/>
         <CursorPos Y="6"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
@@ -303,7 +305,7 @@
       </Unit37>
       <Unit38>
         <Filename Value="D:\LazPkg\fastplaz-development\tools\src\modsimple_lib.pas"/>
-        <EditorIndex Value="8"/>
+        <EditorIndex Value="9"/>
         <CursorPos X="3" Y="42"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
