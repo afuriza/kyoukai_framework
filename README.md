@@ -41,7 +41,7 @@ Roadmap
 - [ ] making translation file to show server message in other languages
 - [ ] add an option to produce error message with json or html
 - [ ] Ultibo HTTP Server support
-- [*] CGI App support
+- [x] CGI App support
 - [ ] FastCGI App support
 - [ ] Lazarus Project Wizard
 
