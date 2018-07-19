@@ -8,7 +8,7 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\units\standard;..\inc"/>
-        <OtherUnitFiles Value="..\units\standard;..\units\other"/>
+        <OtherUnitFiles Value="..\units\standard;..\units\other;..\units\dblib"/>
         <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
       <Other>
@@ -17,7 +17,7 @@
         </Verbosity>
       </Other>
     </CompilerOptions>
-    <Files Count="16">
+    <Files Count="17">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
@@ -82,6 +82,10 @@
         <Filename Value="..\units\standard\kyoukai.standard.cgiapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.CGIApplication"/>
       </Item16>
+      <Item17>
+        <Filename Value="..\units\dblib\kyoukai.dblib.sqldb.pas"/>
+        <UnitName Value="Kyoukai.DBLib.SQLDB"/>
+      </Item17>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

@@ -46,7 +46,7 @@
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="build\$(TargetCPU)-$(TargetOS)\website_template"/>
+      <Filename Value="D:\pfiles\xampp\htdocs\cgi_template\website_template"/>
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
