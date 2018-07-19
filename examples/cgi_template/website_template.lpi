@@ -11,7 +11,7 @@
       </Flags>
       <SessionStorage Value="InProjectDir"/>
       <MainUnit Value="0"/>
-      <Title Value="kyoukai_framework"/>
+      <Title Value="website_template"/>
       <ResourceType Value="res"/>
       <UseXPManifest Value="True"/>
     </General>
@@ -20,77 +20,54 @@
     </BuildModes>
     <PublishOptions>
       <Version Value="2"/>
-      <DestinationDirectory Value="$(ProjPath)\published\"/>
-      <IgnoreBinaries Value="False"/>
-      <UseIncludeFileFilter Value="False"/>
-      <UseExcludeFileFilter Value="True"/>
-      <ExcludeFileFilter Value="*.(bak|ppu|ppl|a|o|so);*~;backup;build;lib"/>
     </PublishOptions>
     <RunParams>
       <local>
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="3">
+    <RequiredPackages Count="1">
       <Item1>
-        <PackageName Value="weblaz"/>
-      </Item1>
-      <Item2>
-        <PackageName Value="FCL"/>
-      </Item2>
-      <Item3>
         <PackageName Value="kyoukai_standard"/>
-      </Item3>
+      </Item1>
     </RequiredPackages>
-    <Units Count="4">
+    <Units Count="2">
       <Unit0>
-        <Filename Value="kyoukai_framework.lpr"/>
+        <Filename Value="website_template.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
       <Unit1>
-        <Filename Value="src\units\standard\kyoukai.standard.cgiutil.pas"/>
+        <Filename Value="main_controller.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="Kyoukai.Standard.CGIUtil"/>
       </Unit1>
-      <Unit2>
-        <Filename Value="src\inc\nyanpasu_icon_35p.inc"/>
-        <IsPartOfProject Value="True"/>
-      </Unit2>
-      <Unit3>
-        <Filename Value="src\units\standard\kyoukai.standard.cgiapplication.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="Kyoukai.Standard.CGIApplication"/>
-      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
     <Version Value="11"/>
     <PathDelim Value="\"/>
     <Target>
-      <Filename Value="build\$(TargetCPU)-$(TargetOS)\kyoukai_framework"/>
+      <Filename Value="build\$(TargetCPU)-$(TargetOS)\website_template"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir);src\inc"/>
-      <OtherUnitFiles Value="src\units\standard"/>
+      <IncludeFiles Value="$(ProjOutDir)"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>
       <SmartLinkUnit Value="True"/>
+      <Checks>
+        <StackChecks Value="True"/>
+      </Checks>
       <Optimizations>
-        <OptimizationLevel Value="4"/>
+        <OptimizationLevel Value="3"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>
       <Debugging>
+        <GenerateDebugInfo Value="False"/>
         <StripSymbols Value="True"/>
         <UseExternalDbgSyms Value="True"/>
       </Debugging>
       <LinkSmart Value="True"/>
-      <Options>
-        <Win32>
-          <GraphicApplication Value="True"/>
-        </Win32>
-      </Options>
     </Linking>
     <Other>
       <Verbosity>
@@ -99,4 +76,17 @@
       </Verbosity>
     </Other>
   </CompilerOptions>
+  <Debugging>
+    <Exceptions Count="3">
+      <Item1>
+        <Name Value="EAbort"/>
+      </Item1>
+      <Item2>
+        <Name Value="ECodetoolError"/>
+      </Item2>
+      <Item3>
+        <Name Value="EFOpenError"/>
+      </Item3>
+    </Exceptions>
+  </Debugging>
 </CONFIG>

@@ -42,8 +42,8 @@ type
     property Threaded: boolean read ReadThreaded write WriteThreaded; experimental;
     property Port: word read ReadPort write WritePort;
     property Router: TKyRoutes read ReadRouter write WriteRouter;
-    property FileRoutes: TKyFileRoutes read ReadFileRoutes write WriteFileRoutes;
-    property Active: boolean read ReadIsActive write WriteToActive;
+    property FileRouter: TKyFileRoutes read ReadFileRoutes write WriteFileRoutes;
+    property Active: boolean read ReadIsActive write WriteToActive; deprecated;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
     procedure Run;
     constructor Create(AOwner: TComponent); override;
@@ -87,7 +87,7 @@ end;
 
 procedure TKyoukaiApp.Run;
 begin
-  Active := True;
+  fServer.Active := True;
 end;
 
 function TKyoukaiApp.ReadIsActive: boolean;
@@ -129,7 +129,7 @@ initialization
   FileRoutes := TKyFileRoutes.create;
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.Router := Routes;
-  KyoukaiApp.FileRoutes := FileRoutes;
+  KyoukaiApp.FileRouter := FileRoutes;
 
 finalization
   FreeAndNil(Routes);

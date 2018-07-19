@@ -13,7 +13,8 @@ uses
   Kyoukai.Other.KTemplate, Kyoukai.Other.STLUtil, Kyoukai.Other.RengeMessages, 
   Kyoukai.Other.Base64Util, Kyoukai.Standard.WebSession, 
   Kyoukai.Standard.HTTPServer, Kyoukai.Standard.WebView, 
-  Kyoukai.Other.CommonUtil;
+  Kyoukai.Other.CommonUtil, Kyoukai.Standard.CGIUtil, 
+  Kyoukai.Standard.CGIApplication;
 
 implementation
 

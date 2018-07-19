@@ -8,16 +8,17 @@
       <Unit0>
         <Filename Value="simple_server.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
-        <CursorPos Y="2"/>
+        <CursorPos X="5" Y="22"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_controller.pas"/>
         <IsPartOfProject Value="True"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="52" Y="40"/>
+        <TopLine Value="43"/>
+        <CursorPos X="3" Y="28"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit1>

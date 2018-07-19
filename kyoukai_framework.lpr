@@ -14,12 +14,14 @@ uses
   Kyoukai.Other.RengeMessages,
   Kyoukai.Other.STLUtil,
   { Standard Framework Units }
+  Kyoukai.Standard.CGIUtil,
   Kyoukai.Standard.DefaultHTML,
   Kyoukai.Standard.HTTPApplication,
   Kyoukai.Standard.HTTPServer,
   Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
-  Kyoukai.Standard.WebView
+  Kyoukai.Standard.WebView,
+  Kyoukai.Standard.CGIApplication
   { Kyoukai IDEIntf Units }
   ;
 

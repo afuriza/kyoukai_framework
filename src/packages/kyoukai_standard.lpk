@@ -17,7 +17,7 @@
         </Verbosity>
       </Other>
     </CompilerOptions>
-    <Files Count="14">
+    <Files Count="16">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
@@ -74,6 +74,14 @@
         <Filename Value="..\units\other\kyoukai.other.commonutil.pas"/>
         <UnitName Value="Kyoukai.Other.CommonUtil"/>
       </Item14>
+      <Item15>
+        <Filename Value="..\units\standard\kyoukai.standard.cgiutil.pas"/>
+        <UnitName Value="Kyoukai.Standard.CGIUtil"/>
+      </Item15>
+      <Item16>
+        <Filename Value="..\units\standard\kyoukai.standard.cgiapplication.pas"/>
+        <UnitName Value="Kyoukai.Standard.CGIApplication"/>
+      </Item16>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>
