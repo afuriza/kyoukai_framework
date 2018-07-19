@@ -28,7 +28,7 @@ procedure THome._prepare;
 begin
   // load a template
   View := TKyView.Create(ExtractFilePath(ParamStr(0)) +
-    'assets' + PathDelim + 'views' + PathDelim + 'index.html');
+    'views' + PathDelim + 'index.html');
 end;
 
 procedure THome.DoParseShortAbout;

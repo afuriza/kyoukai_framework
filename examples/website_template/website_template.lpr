@@ -33,7 +33,7 @@ begin
   FileRoutes['js'] :=
     ExtractFilePath(ParamStr(0)) +
     'assets' + PathDelim + 'js' + PathDelim;
-  KyoukaiApp.Port := 8080;
+  KyoukaiApp.Port := 80;
    KyoukaiApp.Threaded := True;
   // Threading somehow causes memleak on webview or webmodule
   KyoukaiApp.Run;

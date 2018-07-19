@@ -262,7 +262,7 @@ begin
   '  <title>$title</title>'+ LineEnding +
   '</head><body>'+ LineEnding +
   '  <div class="content-outer">'+ LineEnding +
-  '<img src="/ky_icon_nyanpasu.png" alt="Nyanpasu!" align="right" '+ LineEnding +
+  '<img src="data:image/png;base64, '+base64_nyanpasu_icon_35p+'" alt="Nyanpasu!" align="right" '+ LineEnding +
   'title="Renge found a something interesting!"> <h3>$heading_text</h3> '+ LineEnding +
   '<strong>Rechon says: </strong><i>'+KataRenge+'</i>'+ LineEnding +
   '  <div class="header"></div>'+ LineEnding +

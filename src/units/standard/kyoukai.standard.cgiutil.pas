@@ -310,7 +310,7 @@ begin
   inherited Create(AOwner);
   KMime := TFPMimeTypes.Create(Self);
   fKyoukaiCGI := TKyoukaiCGIWrapper.Create(self);
-  HTTPRouter.RegisterRoute('*path',rmall,@HandleRequest,True);
+  HTTPRouter.RegisterRoute('*',rmall,@HandleRequest,True);
 end;
 
 destructor TKyCustCGIHandler.Destroy;

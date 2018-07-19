@@ -147,8 +147,6 @@ begin
   end;
   if Assigned(fSession) then
     FreeAndNil(fSession);
-  fResponse := nil;
-  fRequest := nil;
   inherited Destroy;
 end;
 
