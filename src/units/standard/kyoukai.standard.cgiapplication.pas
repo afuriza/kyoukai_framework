@@ -18,13 +18,10 @@ var
 implementation
 
 initialization
-  Routes := TKyRoutes.Create;
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.Router := Routes;
 
 finalization
-  FreeAndNil(Routes);
-  FreeAndNil(KyoukaiApp);
 
 end.
 

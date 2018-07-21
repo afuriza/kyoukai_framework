@@ -6,12 +6,8 @@ interface
 
 uses
   Classes, SysUtils, fpcgi, httpdefs, fpmimetypes, custcgi, httproute,
-  Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
-  Kyoukai.Standard.DefaultHTML,
-  Kyoukai.Standard.WebHandler,
-  Kyoukai.Other.Base64Util,
-  Kyoukai.Other.CommonUtil;
+  Kyoukai.Standard.WebHandler;
 
 type
   TKyoukaiCGIWrapper = TCustomCGIApplication;

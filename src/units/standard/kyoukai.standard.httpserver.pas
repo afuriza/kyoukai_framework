@@ -21,8 +21,7 @@ uses
   Classes, SysUtils, fphttp, fphttpserver, httpdefs,
   fpmimetypes, fphttpclient,
   Kyoukai.Standard.WebRouter,
-  Kyoukai.Standard.WebHandler,
-  Kyoukai.Other.CommonUtil;
+  Kyoukai.Standard.WebHandler;
 
 type
 

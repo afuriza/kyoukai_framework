@@ -8,7 +8,6 @@
       <Unit0>
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <TopLine Value="5"/>
         <CursorPos X="9" Y="11"/>
         <UsageCount Value="213"/>
@@ -18,10 +17,10 @@
         <Filename Value="src\units\standard\kyoukai.standard.cgiutil.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Kyoukai.Standard.CGIUtil"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="296"/>
-        <CursorPos X="5" Y="47"/>
+        <EditorIndex Value="4"/>
+        <CursorPos X="30" Y="10"/>
         <UsageCount Value="24"/>
+        <Loaded Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="src\inc\nyanpasu_icon_35p.inc"/>
@@ -36,10 +35,10 @@
         <Filename Value="src\units\standard\kyoukai.standard.cgiapplication.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="Kyoukai.Standard.CGIApplication"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="2"/>
-        <CursorPos X="15" Y="20"/>
+        <EditorIndex Value="5"/>
+        <CursorPos Y="23"/>
         <UsageCount Value="23"/>
+        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="src\ideintf\kyfrmnewproject.pas"/>
@@ -62,17 +61,20 @@
       <Unit6>
         <Filename Value="src\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="17" Y="90"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="111"/>
+        <CursorPos X="13" Y="134"/>
         <UsageCount Value="70"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPServer"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="362"/>
-        <CursorPos X="6" Y="357"/>
+        <EditorIndex Value="2"/>
+        <TopLine Value="12"/>
+        <CursorPos X="31" Y="24"/>
         <UsageCount Value="110"/>
+        <Loaded Value="True"/>
       </Unit7>
       <Unit8>
         <Filename Value="src\units\standard\kyoukai.standard.webmodule.pas"/>
@@ -85,18 +87,21 @@
       <Unit9>
         <Filename Value="src\units\standard\kyoukai.standard.webrouter.pas"/>
         <UnitName Value="Kyoukai.Standard.WebRouter"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="32"/>
-        <CursorPos X="20" Y="48"/>
+        <EditorIndex Value="3"/>
+        <TopLine Value="70"/>
+        <CursorPos X="5" Y="78"/>
         <UsageCount Value="61"/>
+        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
         <UnitName Value="Kyoukai.Standard.DefaultHTML"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="17"/>
-        <CursorPos X="31" Y="32"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <TopLine Value="13"/>
+        <CursorPos X="9" Y="27"/>
         <UsageCount Value="62"/>
+        <Loaded Value="True"/>
       </Unit10>
       <Unit11>
         <Filename Value="src\units\other\kyoukai.other.ktemplate.pas"/>
@@ -343,7 +348,7 @@
         <UsageCount Value="10"/>
       </Unit44>
     </Units>
-    <JumpHistory Count="4" HistoryIndex="3">
+    <JumpHistory Count="8" HistoryIndex="7">
       <Position1>
         <Filename Value="kyoukai_framework.lpr"/>
         <Caret Line="22" Column="27" TopLine="4"/>
@@ -360,6 +365,22 @@
         <Filename Value="kyoukai_framework.lpr"/>
         <Caret Line="20" Column="31"/>
       </Position4>
+      <Position5>
+        <Filename Value="kyoukai_framework.lpr"/>
+        <Caret Line="11" Column="9" TopLine="5"/>
+      </Position5>
+      <Position6>
+        <Filename Value="src\units\standard\kyoukai.standard.defaulthtml.pas"/>
+        <Caret Line="27" Column="9" TopLine="13"/>
+      </Position6>
+      <Position7>
+        <Filename Value="src\units\standard\kyoukai.standard.httpserver.pas"/>
+        <Caret Line="24" Column="31" TopLine="11"/>
+      </Position7>
+      <Position8>
+        <Filename Value="src\units\standard\kyoukai.standard.cgiutil.pas"/>
+        <Caret Line="10" Column="30"/>
+      </Position8>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

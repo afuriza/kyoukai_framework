@@ -127,15 +127,11 @@ begin
 end;
 
 initialization
-  Routes := TKyRoutes.Create;
-  FileRoutes := TKyFileRoutes.create;
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.Router := Routes;
   KyoukaiApp.FileRouter := FileRoutes;
 
 finalization
-  FreeAndNil(Routes);
-  FreeAndNil(FileRoutes);
   FreeAndNil(KyoukaiApp);
 
 end.

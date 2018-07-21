@@ -88,5 +88,12 @@ begin
   inherited;
 end;
 
+initialization
+  Routes := TKyRoutes.Create;
+  FileRoutes := TKyFileRoutes.create;
+finalization
+  FreeAndNil(Routes);
+  FreeAndNil(FileRoutes);
+
 end.
 
