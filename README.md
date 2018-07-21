@@ -36,6 +36,12 @@ Dependencies
 * kyoukai_framework
   * kyoukai_standard.lpk
 
+People Involved
+---
+* Dio Affriza - Main Author
+* Luri Darmawan - Many Suggestion and Collaboration with ported FastPlaz unit into Kyoukai
+* Are you next? Get Involved!
+
 Roadmap
 ---
 - [ ] making translation file to show server message in other languages
