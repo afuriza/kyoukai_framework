@@ -20,6 +20,10 @@ interface
 uses
   Classes, SysUtils;
 
+type
+  TURICallback = procedure of object;
+
+
 procedure Split (const Delimiter: Char; Input: string; const Strings: TStrings);
 function DumpExceptionCallStack(E: Exception): string;
 

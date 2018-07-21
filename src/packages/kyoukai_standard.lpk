@@ -17,7 +17,7 @@
         </Verbosity>
       </Other>
     </CompilerOptions>
-    <Files Count="17">
+    <Files Count="18">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
@@ -86,6 +86,10 @@
         <Filename Value="..\units\dblib\kyoukai.dblib.sqldb.pas"/>
         <UnitName Value="Kyoukai.DBLib.SQLDB"/>
       </Item17>
+      <Item18>
+        <Filename Value="..\units\standard\kyoukai.standard.webhandler.pas"/>
+        <UnitName Value="Kyoukai.Standard.WebHandler"/>
+      </Item18>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

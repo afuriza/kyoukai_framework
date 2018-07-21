@@ -87,6 +87,8 @@ end;
 
 procedure TKyoukaiApp.Run;
 begin
+  fServer.MimeTypesFile := fMimeTypesFile;
+  WriteLn('Registered into port: ', KyoukaiApp.Port);
   fServer.Active := True;
 end;
 

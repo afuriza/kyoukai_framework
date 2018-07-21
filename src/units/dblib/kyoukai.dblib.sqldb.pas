@@ -7,7 +7,7 @@ interface
 
 uses
   Classes, SysUtils, sqldb, db, sqldblib, mysql50conn, mysql51conn, mysql55conn,
-  mysql56conn, mysql57conn, mssqlconn;
+  mysql56conn, mysql57conn, mssqlconn, sqlite3conn;
 
 type
   TKySQL = class(TObject)
@@ -57,6 +57,7 @@ begin
     'mysql56': MySQLConnection := TMySQL56Connection.Create(nil);
     'mysql57': MySQLConnection := TMySQL57Connection.Create(nil);
     'sqlserver': MySQLConnection := TMSSQLConnection.Create(nil);
+    'sqlite3': MySQLConnection := TSQLite3Connection.Create(nil);
   end;
 
   SQLTransaction := TSQLTransaction.Create(nil);
