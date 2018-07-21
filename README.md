@@ -85,7 +85,7 @@ uses
 
 begin
   KyoukaiApp.Port := 80;
-  KyoukaiApp.Active := True;
+  KyoukaiApp.Run;
 end.
 ```
 
