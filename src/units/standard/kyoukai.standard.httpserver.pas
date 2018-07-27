@@ -18,7 +18,7 @@ unit Kyoukai.Standard.HTTPServer;
 interface
 
 uses
-  Classes, SysUtils, fphttp, fphttpserver, httpdefs,
+  cmem, Classes, SysUtils, fphttp, fphttpserver, httpdefs,
   fpmimetypes, fphttpclient,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.WebHandler;
