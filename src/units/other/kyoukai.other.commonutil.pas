@@ -21,7 +21,7 @@ uses
   Classes, SysUtils;
 
 type
-  TURICallback = procedure of object;
+  TProcCallback = procedure of object;
 
 
 procedure Split (const Delimiter: Char; Input: string; const Strings: TStrings);
@@ -60,4 +60,3 @@ begin
 end;
 
 end.
-
