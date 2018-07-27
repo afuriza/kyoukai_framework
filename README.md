@@ -53,8 +53,8 @@ Roadmap
 
 Known errors
 ---
-- [ ] fixing bug when embedding into existing application. 
-- [ ] fixing webview memleak with threaded := true
+- [ ] fixing bug when embedding into existing application. (partially fixed)
+- [x] ~~fixing webview memleak with threaded := true~~ (partially fixed)
 
 <br>
 <br>
