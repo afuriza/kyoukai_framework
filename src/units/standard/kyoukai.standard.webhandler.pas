@@ -55,18 +55,24 @@ end;
 procedure TKyCustHTTPHandler.Cust404Handle(var ARequest: TRequest;
   var AResponse: TResponse);
 var
-  CallFunc: TURICallback;
+  CallProc: TProcCallback;
   ModuleWorker: TKyModule;
 begin
   ModuleWorker := TKyModuleClass(Router['404_override']).Create(nil,
     ARequest, AResponse);
   try
+    if ModuleWorker.MethodAddress('_prepare') <> nil then
+    begin
+      TMethod(CallProc).Code := ModuleWorker.MethodAddress('_prepare');
+      TMethod(CallProc).Data := ModuleWorker;
+      CallProc;
+    end;
     if ModuleWorker.MethodAddress('MainHandle') <> nil then
     begin
       AResponse.Code := 404;
-      TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
-      TMethod(CallFunc).Data := ModuleWorker;
-      CallFunc;
+      TMethod(CallProc).Code := ModuleWorker.MethodAddress('MainHandle');
+      TMethod(CallProc).Data := ModuleWorker;
+      CallProc;
     end
     else
     begin
@@ -77,6 +83,12 @@ begin
     end;
 
   finally
+    if ModuleWorker.MethodAddress('_done') <> nil then
+    begin
+      TMethod(CallProc).Code := ModuleWorker.MethodAddress('_done');
+      TMethod(CallProc).Data := ModuleWorker;
+      CallProc;
+    end;
     FreeAndNil(ModuleWorker);
   end;
 
@@ -113,11 +125,11 @@ procedure TKyCustHTTPHandler.DoHandleRequest(ARequest: TRequest;
 var
   URIStr, URIStr2: string;
   ExplodedURI: TStringList;
-  CallFunc: TURICallback;
+  CallProc: TProcCallback;
   ModuleWorker: TKyModule;
   StartServeTime: TDateTime;
   DecodedStream: TStream;
-  URIForFile: string;
+  URIForFile: string = '';
   i: integer;
 begin
   StartServeTime := Now;
@@ -153,13 +165,19 @@ begin
       ModuleWorker := TKyModuleClass(Router[URIStr]).Create(nil,
         ARequest, AResponse);
       try
+        if ModuleWorker.MethodAddress('_prepare') <> nil then
+        begin
+          TMethod(CallProc).Code := ModuleWorker.MethodAddress('_prepare');
+          TMethod(CallProc).Data := ModuleWorker;
+          CallProc;
+        end;
         if URIStr2 = '' then
         begin
           if ModuleWorker.MethodAddress('MainHandle') <> nil then
           begin
-            TMethod(CallFunc).Code := ModuleWorker.MethodAddress('MainHandle');
-            TMethod(CallFunc).Data := ModuleWorker;
-            CallFunc;
+            TMethod(CallProc).Code := ModuleWorker.MethodAddress('MainHandle');
+            TMethod(CallProc).Data := ModuleWorker;
+            CallProc;
           end
           else
           begin
@@ -173,9 +191,9 @@ begin
         begin
           if ModuleWorker.MethodAddress(URIStr2) <> nil then
           begin
-            TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr2);
-            TMethod(CallFunc).Data := ModuleWorker;
-            CallFunc;
+            TMethod(CallProc).Code := ModuleWorker.MethodAddress(URIStr2);
+            TMethod(CallProc).Data := ModuleWorker;
+            CallProc;
           end
           else
           begin
@@ -188,6 +206,12 @@ begin
         end;
 
       finally
+        if ModuleWorker.MethodAddress('_done') <> nil then
+        begin
+          TMethod(CallProc).Code := ModuleWorker.MethodAddress('_done');
+          TMethod(CallProc).Data := ModuleWorker;
+          CallProc;
+        end;
         FreeAndNil(ModuleWorker);
       end;
 
@@ -212,11 +236,17 @@ begin
       ModuleWorker := TKyModuleClass(Router['main']).Create(nil,
         ARequest, AResponse);
       try
+        if ModuleWorker.MethodAddress('_prepare') <> nil then
+        begin
+          TMethod(CallProc).Code := ModuleWorker.MethodAddress('_prepare');
+          TMethod(CallProc).Data := ModuleWorker;
+          CallProc;
+        end;
         if ModuleWorker.MethodAddress(URIStr) <> nil then
         begin
-          TMethod(CallFunc).Code := ModuleWorker.MethodAddress(URIStr);
-          TMethod(CallFunc).Data := ModuleWorker;
-          CallFunc;
+          TMethod(CallProc).Code := ModuleWorker.MethodAddress(URIStr);
+          TMethod(CallProc).Data := ModuleWorker;
+          CallProc;
         end
         else
         begin
@@ -247,6 +277,12 @@ begin
         end;
 
       finally
+        if ModuleWorker.MethodAddress('_done') <> nil then
+        begin
+          TMethod(CallProc).Code := ModuleWorker.MethodAddress('_done');
+          TMethod(CallProc).Data := ModuleWorker;
+          CallProc;
+        end;
         FreeAndNil(ModuleWorker);
       end;
 
@@ -282,4 +318,3 @@ begin
 end;
 
 end.
-
