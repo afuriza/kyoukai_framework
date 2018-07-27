@@ -27,10 +27,6 @@ type
 
   TKyModule = class(TComponent)
   private
-    type
-      TConstructCallback = procedure of object;
-
-  private
     fRequest: TRequest;
     fResponse: TResponse;
     fSession: TSessionController;
@@ -121,34 +117,18 @@ end;
 
 Constructor TKyModule.Create(AOwner: TComponent;
   aRequest: TRequest; aResponse: TResponse);
-var
-  CallFunc: TConstructCallback;
 begin
   inherited Create(AOwner);
   fRequest := ARequest;
   fResponse := AResponse;
-  if Self.MethodAddress('_prepare') <> nil then
-  begin
-    TMethod(CallFunc).Code := Self.MethodAddress('_prepare');
-    TMethod(CallFunc).Data := Self;
-    CallFunc;
-  end;
+
 end;
 
 destructor TKyModule.destroy;
-var
-  CallFunc: TConstructCallback;
 begin
-  if Self.MethodAddress('_done') <> nil then
-  begin
-    TMethod(CallFunc).Code := Self.MethodAddress('_done');
-    TMethod(CallFunc).Data := Self;
-    CallFunc;
-  end;
   if Assigned(fSession) then
     FreeAndNil(fSession);
   inherited Destroy;
 end;
 
 end.
-
