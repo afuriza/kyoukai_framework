@@ -21,16 +21,21 @@ uses
   Classes, SysUtils, fphttpserver, httpdefs, fphttp, TypInfo,
   Kyoukai.Standard.WebSession,
   Kyoukai.Standard.WebView,
-  Kyoukai.Other.KTemplate;
+  Kyoukai.Other.KTemplate,
+  Kyoukai.Standard.CGIDefs;
 
 type
 
   TKyModule = class(TComponent)
   private
+
+    fcgirootpath: string;
+
     fRequest: TRequest;
     fResponse: TResponse;
     fSession: TSessionController;
     fWebWritings: string;
+    fErrorMsg: string;
     function ReadGetVar(const AVarName: string): string;
     function ReadPostVar(const AVarName: string): string;
     function ReadSessionVar(const AVarName: string): string;
@@ -40,9 +45,12 @@ type
     destructor destroy; override;
     Constructor Create(AOwner: TComponent; aRequest: TRequest;
       aResponse: TResponse); reintroduce; overload;
+    Constructor Create(AOwner: TComponent; aRequest: TRequest;
+      aResponse: TResponse; ErrorStr: string); reintroduce; overload;
     procedure echo(const AMessage: String);
     procedure Render(ATemplate: TKTemplate);
     procedure Render(AView: TKyView);
+    procedure Render(AView: TKyView; AGlobalViewName: String);
     procedure StartSession;
     procedure TerminateSession;
     property InputGet[const AVarName: string]: string read ReadGetVar;
@@ -52,10 +60,13 @@ type
     property _session[const ASessionName: string]: string read ReadSessionVar
       write WriteSessionVar;
   published
+    property ErrorString: string read fErrorMsg;
     property Session: TSessionController read fSession write fSession;
     property WebWritings: string read fWebWritings write fWebWritings;
     property Request: TRequest read fRequest write fRequest;
     property Response: TResponse read fResponse write fResponse;
+
+    property MainPath: string read fCGIROOTPath;
   end;
 
   TKyModuleClass = class of TKyModule;
@@ -95,9 +106,14 @@ begin
   Response.Contents.Text := ATemplate.GetContent;
 end;
 
+procedure TKyModule.Render(AView: TKyView; AGlobalViewName: String);
+begin
+  Response.Content := Response.Content + AView.GetContent(AGlobalViewName);
+end;
+
 procedure TKyModule.Render(AView: TKyView);
 begin
-  Response.Contents.Text := AView.GetContent;
+  Response.Content := Response.Content + AView.GetContent;
 end;
 
 procedure TKyModule.echo(const AMessage: String);
@@ -121,6 +137,16 @@ begin
   inherited Create(AOwner);
   fRequest := ARequest;
   fResponse := AResponse;
+  fcgirootpath := CGIROOTPath;
+end;
+
+Constructor TKyModule.Create(AOwner: TComponent; aRequest: TRequest;
+      aResponse: TResponse; ErrorStr: string);
+begin
+  inherited Create(AOwner);
+  fRequest := ARequest;
+  fResponse := AResponse;
+  fErrorMsg := ErrorStr;
 
 end;
 

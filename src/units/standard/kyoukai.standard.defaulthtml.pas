@@ -17,7 +17,8 @@ unit Kyoukai.Standard.DefaultHTML;
 
 interface
 uses
-  Classes, SysUtils, DateUtils, Kyoukai.Other.RengeMessages;
+  Classes, SysUtils, DateUtils,
+  Kyoukai.Other.RengeMessages;
 
 function GetDefaultHTML(SiteName, SiteLink, Title, HeadingText, Content: string;
   const ServeStartTime: TDateTime): string;

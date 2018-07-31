@@ -1,16 +1,17 @@
 unit Kyoukai.Standard.CGIUtil;
-
 {$mode objfpc}{$H+}
 
 interface
 
 uses
   Classes, SysUtils, fpcgi, httpdefs, fpmimetypes, custcgi, httproute,
+  cgiprotocol,
   Kyoukai.Standard.WebRouter,
-  Kyoukai.Standard.WebHandler;
+  Kyoukai.Standard.WebHandler,
+  Kyoukai.Standard.CGIDefs;
 
 type
-  TKyoukaiCGIWrapper = TCustomCGIApplication;
+  TKyoukaiCGIWrapper = TCGIHandler;
 
   TKyCustCGIHandler = class(TComponent)
   private
@@ -69,19 +70,32 @@ end;
 
 procedure TKyCustCGIHandler.HandleRequest(ARequest: TRequest;
   AResponse: TResponse);
+var
+  APPROOT: string;
+  URISTR: string;
 begin
+  APPROOT := ExtractFilePath(StringReplace(GetEnvironmentVariable('SCRIPT_FILENAME'),
+    GetEnvironmentVariable('DOCUMENT_ROOT'), '', [rfReplaceAll]));
+  URISTR := StringReplace('/'+ StringReplace(GetEnvironmentVariable('REQUEST_URI'),
+    APPROOT, '', [rfIgnoreCase]), '//', '/', [rfReplaceAll]);
+  if (ARequest.URI = '') or (ARequest.URL = '') then
+  begin
+    ARequest.URI := URISTR;
+    ARequest.URL := GetEnvironmentVariable('REQUEST_URI');
+  end;
+  CGIROOTPath := APPROOT;
   fWebHandler.DoHandleRequest(ARequest, AResponse);
 end;
 
 procedure TKyCustCGIHandler.Run;
 begin
-  fKyoukaiCGI.Initialize;
+  //fKyoukaiCGI.Initialize;
   fKyoukaiCGI.Run;
 end;
 
 procedure TKyCustCGIHandler.Terminate;
 begin
-  fKyoukaiCGI.Terminate;
+  //fKyoukaiCGI.Terminate;
 end;
 
 constructor TKyCustCGIHandler.Create(AOwner: TComponent);

@@ -10,7 +10,8 @@ uses
   Kyoukai.Other.CommonUtil,
   Kyoukai.Other.Base64Util,
   Kyoukai.Standard.DefaultHTML,
-  Kyoukai.Standard.WebRouter;
+  Kyoukai.Standard.WebRouter,
+  Kyoukai.Standard.CGIDefs;
 
 type
   TKyCustHTTPHandler = class(TObject)
@@ -22,7 +23,9 @@ type
     procedure WriteMimeTypesFile(AFileName: string);
     function ReadMimeTypesFile: string;
     procedure Cust404Handle(var ARequest: TRequest;
-      var AResponse: TResponse);
+      var AResponse: TResponse; var StartServeTime: TDateTime);
+    procedure Cust500Handle(var ARequest: TRequest;
+      var AResponse: TResponse; const ErrorStr: string);
     procedure SendFile(const AFileName: string;
       var AResponse: TResponse);
   public
@@ -53,13 +56,75 @@ begin
 end;
 
 procedure TKyCustHTTPHandler.Cust404Handle(var ARequest: TRequest;
-  var AResponse: TResponse);
+  var AResponse: TResponse; var StartServeTime: TDateTime);
+var
+  CallProc: TProcCallback;
+  ModuleWorker404: TKyModule;
+  SiteLink: string;
+begin
+  if CGIROOTPath = '' then
+    SiteLink := ARequest.URL
+  else
+    SiteLink := CGIRootPath;
+  if Router.Contains('404_override') then
+  begin
+    ModuleWorker404 := TKyModuleClass(Router['404_override']).Create(nil,
+      ARequest, AResponse);
+    try
+      if ModuleWorker404.MethodAddress('_prepare') <> nil then
+      begin
+        TMethod(CallProc).Code := ModuleWorker404.MethodAddress('_prepare');
+        TMethod(CallProc).Data := ModuleWorker404;
+        CallProc;
+      end;
+      if ModuleWorker404.MethodAddress('MainHandle') <> nil then
+      begin
+        AResponse.Code := 404;
+        TMethod(CallProc).Code := ModuleWorker404.MethodAddress('MainHandle');
+        TMethod(CallProc).Data := ModuleWorker404;
+        CallProc;
+      end
+      else
+      begin
+        AResponse.Code := 404;
+        AResponse.Content := GetNotFoundInformation(ARequest.Host,
+          SiteLink, 'No main handle method found! Did you forget ' +
+          'to create MainHandle to override 404 Module?', Now);
+      end;
+
+    finally
+      if ModuleWorker404.MethodAddress('_done') <> nil then
+      begin
+        TMethod(CallProc).Code := ModuleWorker404.MethodAddress('_done');
+        TMethod(CallProc).Data := ModuleWorker404;
+        CallProc;
+      end;
+      FreeAndNil(ModuleWorker404);
+    end;
+  end
+  else
+  begin
+    AResponse.Code := 404;
+    AResponse.Content := GetNotFoundInformation(ARequest.Host,
+      SiteLink, 'There''s no module or method related with this URL: "' +
+      ARequest.URL + '"!', StartServeTime);
+  end;
+
+end;
+
+procedure TKyCustHTTPHandler.Cust500Handle(var ARequest: TRequest;
+  var AResponse: TResponse; const ErrorStr: string);
 var
   CallProc: TProcCallback;
   ModuleWorker: TKyModule;
+  SiteLink: string;
 begin
-  ModuleWorker := TKyModuleClass(Router['404_override']).Create(nil,
-    ARequest, AResponse);
+  if CGIROOTPath = '' then
+    SiteLink := ARequest.URL
+  else
+    SiteLink := CGIRootPath;
+  ModuleWorker := TKyModuleClass(Router['500_override']).Create(nil,
+    ARequest, AResponse, ErrorStr);
   try
     if ModuleWorker.MethodAddress('_prepare') <> nil then
     begin
@@ -69,17 +134,17 @@ begin
     end;
     if ModuleWorker.MethodAddress('MainHandle') <> nil then
     begin
-      AResponse.Code := 404;
+      AResponse.Code := 500;
       TMethod(CallProc).Code := ModuleWorker.MethodAddress('MainHandle');
       TMethod(CallProc).Data := ModuleWorker;
       CallProc;
     end
     else
     begin
-      AResponse.Code := 404;
+      AResponse.Code := 500;
       AResponse.Content := GetNotFoundInformation(ARequest.Host,
-        ARequest.URL, 'No main handle method found! Did you forget ' +
-        'to create MainHandle to override 404 Module?', Now);
+        SiteLink, 'No main handle method found! Did you forget ' +
+        'to create MainHandle to override 500 Module?', Now);
     end;
 
   finally
@@ -131,7 +196,12 @@ var
   DecodedStream: TStream;
   URIForFile: string = '';
   i: integer;
+  SiteLink: string;
 begin
+  if CGIROOTPath = '' then
+    SiteLink := ARequest.URL
+  else
+    SiteLink := CGIRootPath;
   StartServeTime := Now;
 
   try
@@ -181,10 +251,7 @@ begin
           end
           else
           begin
-            AResponse.Code := 404;
-            AResponse.Content :=
-              GetNotFoundInformation(ARequest.Host, ARequest.URL,
-              'No main handle method found!', StartServeTime);
+            Cust404Handle(ARequest, AResponse, StartServeTime);
           end;
         end
         else
@@ -197,11 +264,7 @@ begin
           end
           else
           begin
-            AResponse.Code := 404;
-            AResponse.Content :=
-              GetNotFoundInformation(ARequest.Host, ARequest.URL,
-              'There''s no handle method with this name: ' + URIStr2 +
-              '!', StartServeTime);
+            Cust404Handle(ARequest, AResponse, StartServeTime);
           end;
         end;
 
@@ -220,7 +283,7 @@ begin
     else if URIStr = 'kyoukai_info' then
     begin
       AResponse.Content := GetKyoukaiInformation(ARequest.Host,
-        ARequest.URL, StartServeTime);
+        SiteLink, StartServeTime);
     end
     else if URIStr = 'ky_icon_nyanpasu.png' then
     begin
@@ -258,21 +321,13 @@ begin
                 sendfile(fFileRouter[URIStr] + URIForFile, AResponse)
               else
               begin
-                AResponse.Code := 404;
-                AResponse.Content :=
-                  GetNotFoundInformation(ARequest.Host, ARequest.URL,
-                  'There''s no module or main module method with this name: ' +
-                  URIStr + '!', StartServeTime);
+                Cust404Handle(ARequest, AResponse, StartServeTime);
               end;
             end;
           end
           else
           begin
-            AResponse.Code := 404;
-            AResponse.Content :=
-              GetNotFoundInformation(ARequest.Host, ARequest.URL,
-              'There''s no module or main module method with this name: ' +
-              URIStr + '!', StartServeTime);
+            Cust404Handle(ARequest, AResponse, StartServeTime);
           end;
         end;
 
@@ -289,18 +344,22 @@ begin
     end
     else
     begin
-      AResponse.Code := 404;
-      AResponse.Content := GetNotFoundInformation(ARequest.Host,
-        ARequest.URL, 'There''s no module or main module method with this name: ' +
-        URIStr + '!', StartServeTime);
+      Cust404Handle(ARequest, AResponse, StartServeTime);
     end;
 
   except
     on E: Exception do
     begin
-      AResponse.Code := 500;
-      AResponse.Content := GetErrorInformation(ARequest.Host, ARequest.URL,
-        DumpExceptionCallStack(E), StartServeTime);
+      if Router.Contains('500_override') then
+      begin
+        Cust500Handle(ARequest, AResponse, DumpExceptionCallStack(E));
+      end
+      else
+      begin
+        AResponse.Code := 500;
+        AResponse.Content := GetErrorInformation(ARequest.Host, SiteLink,
+          DumpExceptionCallStack(E), StartServeTime);
+      end;
     end;
   end;
 end;

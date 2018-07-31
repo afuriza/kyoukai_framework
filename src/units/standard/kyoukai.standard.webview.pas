@@ -70,10 +70,38 @@ type
     property DataItems[AName: string]: TDataItems read ReadDataItems write
       WriteDataItems;
     function GetContent: string;
+    function GetContent(GlobalViewName: string): string;
     constructor Create(const AFileName: String);
     destructor Destroy; override;
   end;
 
+  TKyGlobalView = class(TObject)
+  private
+    fContent: string;
+    fKTemplate: TFPTemplate;
+    fDataItem: TStringList;
+    fDataItemsTagList: TStringList;
+    fDataItems: TDataItemMap;
+    function ReadDataItem(AName: string): string;
+    procedure WriteDataItem(AName, AValue: string);
+    function ReadDataItems(AName: string): TDataItems;
+    procedure WriteDataItems(AName: string; AValues: TDataItems);
+    procedure ReplaceTag(Sender : TObject; Const TagString : String;
+      TagParams:TStringList; Out ReplaceText : String);
+  public
+    property DataItem[AName: string]: string read ReadDataItem write
+      WriteDataItem;
+    property DataItems[AName: string]: TDataItems read ReadDataItems write
+      WriteDataItems;
+    function GetContent(AContent: string): string;
+    constructor Create(const AFileName: String);
+    destructor Destroy; override;
+  end;
+
+  TGlobalViewMap = specialize TStringHashMap<TKyGlobalView>;
+
+var
+  GlobalView: TGlobalViewMap;
 implementation
 
 function TDataItem.ReadCount: integer;
@@ -112,6 +140,8 @@ begin
   inherited Destroy;
 end;
 
+{view}
+
 function TKyView.ReadDataItem(AName: string): string;
 begin
   Result := fDataItem.Values[AName];
@@ -148,7 +178,6 @@ begin
         end;
         Add(ParamNames, ParamValues);
         ReplaceText := Text;
-        //fDataItems[TagString].items[i].Free;
       end;
     end;
   end
@@ -171,6 +200,11 @@ end;
 function TKyView.GetContent: string;
 begin
   Result := fKTemplate.GetContent;
+end;
+
+function TKyView.GetContent(GlobalViewName: string): string;
+begin
+  Result := GlobalView[GlobalViewName].GetContent(fKTemplate.GetContent);
 end;
 
 constructor TKyView.Create(const AFileName: String);
@@ -209,5 +243,116 @@ begin
   FreeAndNil(fDataItem);
   inherited Destroy;
 end;
+
+{ globalview }
+
+{view}
+
+function TKyGlobalView.ReadDataItem(AName: string): string;
+begin
+  Result := fDataItem.Values[AName];
+end;
+
+procedure TKyGlobalView.WriteDataItem(AName, AValue: string);
+begin
+  fDataItem.Values[AName] := AValue;
+end;
+
+procedure TKyGlobalView.ReplaceTag(Sender : TObject; Const TagString : String;
+      TagParams:TStringList; Out ReplaceText : String);
+var
+  ParamNames, ParamValues: array of string;
+  i, j: integer;
+begin
+  if fDataItems.contains(TagString) then
+  begin
+    fDataItemsTagList.Add(TagString);
+    if fDataItems[TagString].count > 0 then
+    for i:= 0 to fDataItems[TagString].items[0].count - 1 do
+    begin
+      SetLength(ParamNames, i+1);
+      SetLength(ParamValues, i+1);
+      ParamNames[i] := fDataItems[TagString].items[0].Names[i];
+    end;
+    with TKItems.Create(TagParams.Values['iterable']) do
+    begin
+      for i := 0 to fDataItems[TagString].count - 1 do
+      begin
+        for j := 0 to Length(ParamValues)-1 do
+        begin
+          ParamValues[j] := fDataItems[TagString].items[i].Values[j];
+        end;
+        Add(ParamNames, ParamValues);
+        ReplaceText := Text;
+      end;
+    end;
+  end
+  else
+  begin
+    ReplaceText := fDataItem.Values[TagString];
+  end;
+  if TagString = 'view_container' then
+  begin
+    ReplaceText := fContent;
+  end;
+end;
+
+function TKyGlobalView.ReadDataItems(AName: string): TDataItems;
+begin
+  Result := fDataItems[AName];
+end;
+
+procedure TKyGlobalView.WriteDataItems(AName: string; AValues: TDataItems);
+begin
+  fDataItems[AName] := AValues;
+end;
+
+function TKyGlobalView.GetContent(AContent: string): string;
+begin
+  fContent := AContent;
+  Result := fKTemplate.GetContent;
+end;
+
+constructor TKyGlobalView.Create(const AFileName: String);
+begin
+  fKTemplate := TFPTemplate.Create;
+  fDataItem := TStringList.Create;
+  fDataItems := TDataItemMap.Create;
+  fDataItemsTagList := TStringList.Create;
+
+  fKTemplate.StartDelimiter := '{+';
+  fKTemplate.EndDelimiter := '+}';
+  fKTemplate.ParamStartDelimiter := '#';
+  fKTemplate.ParamValueSeparator := '[';
+  fKTemplate.ParamEndDelimiter := ']#';
+  fKTemplate.FileName := AFileName;
+
+  fKTemplate.AllowTagParams := true;
+  fKTemplate.OnReplaceTag := @ReplaceTag;
+end;
+
+destructor TKyGlobalView.Destroy;
+var
+  i, j: integer;
+begin
+  for i := 0 to fDataItemsTagList.Count-1 do
+  begin
+    for j := 0 to fDataItems[fDataItemsTagList[i]].count-1 do
+    begin
+      fDataItems[fDataItemsTagList[i]].items[j].Free;
+    end;
+
+  end;
+  FreeAndNil(fDataItemsTagList);
+  FreeAndNil(fDataItems);
+  FreeAndNil(fKTemplate);
+  FreeAndNil(fDataItem);
+  inherited Destroy;
+end;
+
+initialization
+  GlobalView := TGlobalViewMap.create;
+finalization
+  FreeAndNil(GlobalView);
 end.
 

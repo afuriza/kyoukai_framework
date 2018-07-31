@@ -1,5 +1,4 @@
 unit Kyoukai.Standard.CGIApplication;
-
 {$mode objfpc}{$H+}
 
 interface
