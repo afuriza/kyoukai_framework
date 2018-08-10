@@ -9,8 +9,7 @@
 
 The Kyoukai (境界), A Simplified Pascal Web Framework.
 
-This project will be suspended and archived until the unknown time.
-I'm so depressed recently, so I can't maintain this project for now.
+This project will be slowly updated until the unknown time.
 
 In Japanese, Kyoukai means boundary, because the Pascal, it's bounded me as my favorite programming language, no, not like that. The concept is, Kyoukai can be embedded into your desktop application or just leave it as a separated single program, so you can decide which is better, bound it into your existing application or not.
 
@@ -48,7 +47,7 @@ People Involved
 Roadmap
 ---
 - [ ] making translation file to show server message in other languages
-- [ ] add an option to produce error message with json or html
+- [x] ~~add an option to produce error message with json or html~~ (an implemented alternative with 505_override and 404_override)
 - [ ] Ultibo HTTP Server support
 - [x] CGI App support
 - [ ] FastCGI App support
@@ -57,7 +56,7 @@ Roadmap
 Known errors
 ---
 - [ ] fixing bug when embedding into existing application. (partially fixed)
-- [x] ~~fixing webview memleak with threaded := true~~ (partially fixed)
+- [x] ~~fixing webview memleak with threaded := true~~ (partially fixed, looks I have trouble with RTTI method)
 
 <br>
 <br>
