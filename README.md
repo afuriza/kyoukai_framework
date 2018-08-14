@@ -152,3 +152,7 @@ http://localhost/
 <div align="center">
   <img src="src/images/notfound_page.png" />
 </div>
+
+#### Send a tip
+* :dollar: **Bitcoin**: `15ZPqBk6oxAfRNqYwDo4LpW9SkV7j8cZyd`
+* :pound: **Pascalcoin**: `589616-80`
