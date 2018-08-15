@@ -18,6 +18,8 @@ I make it for Pascal because I can not find any Pascal web-framework which I rea
 <b><i>This project is too far from a complete framework, it still in the experimental stage, very unstable and full of dragons, it may destroy your house or kill your kitten, because everything can be changed in this version (0.0.0).</i></b>
 Please help me if you have any idea, code, and feature request. And, Don't too silly to open an issue.
 
+<a href="#tiprenchon">Tip Renchon</a>
+
 <div align="center">
 <img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
 </div>
@@ -153,6 +155,7 @@ http://localhost/
   <img src="src/images/notfound_page.png" />
 </div>
 
-#### Send a tip
+<h4 id="tiprenchon"> Send a tip</h4>
+
 * :dollar: **Bitcoin**: `15ZPqBk6oxAfRNqYwDo4LpW9SkV7j8cZyd`
 * :pound: **Pascalcoin**: `589616-80`
