@@ -19,6 +19,7 @@ implementation
 initialization
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.Router := Routes;
+  KyoukaiApp.FileRouter := FileRoutes;
 
 finalization
 

@@ -17,6 +17,7 @@
         </Verbosity>
       </Other>
     </CompilerOptions>
+    <Version Release="1"/>
     <Files Count="19">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>

@@ -69,7 +69,8 @@ begin
   if Router.Contains('404_override') then
   begin
     ModuleWorker404 := TKyModuleClass(Router['404_override']).Create(nil,
-      ARequest, AResponse);
+      ARequest, AResponse, 'There''s no module or method related with this URL: "' +
+      ARequest.URL + '"!');
     try
       if ModuleWorker404.MethodAddress('_prepare') <> nil then
       begin
@@ -234,6 +235,7 @@ begin
     begin
       ModuleWorker := TKyModuleClass(Router[URIStr]).Create(nil,
         ARequest, AResponse);
+      ModuleWorker.Handled := True;
       try
         if ModuleWorker.MethodAddress('_prepare') <> nil then
         begin
@@ -245,9 +247,12 @@ begin
         begin
           if ModuleWorker.MethodAddress('MainHandle') <> nil then
           begin
-            TMethod(CallProc).Code := ModuleWorker.MethodAddress('MainHandle');
-            TMethod(CallProc).Data := ModuleWorker;
-            CallProc;
+            if ModuleWorker.Handled then
+            begin
+              TMethod(CallProc).Code := ModuleWorker.MethodAddress('MainHandle');
+              TMethod(CallProc).Data := ModuleWorker;
+              CallProc;
+            end;
           end
           else
           begin
@@ -258,9 +263,12 @@ begin
         begin
           if ModuleWorker.MethodAddress(URIStr2) <> nil then
           begin
-            TMethod(CallProc).Code := ModuleWorker.MethodAddress(URIStr2);
-            TMethod(CallProc).Data := ModuleWorker;
-            CallProc;
+            if ModuleWorker.Handled then
+            begin
+              TMethod(CallProc).Code := ModuleWorker.MethodAddress(URIStr2);
+              TMethod(CallProc).Data := ModuleWorker;
+              CallProc;
+            end;
           end
           else
           begin
@@ -298,6 +306,7 @@ begin
     begin
       ModuleWorker := TKyModuleClass(Router['main']).Create(nil,
         ARequest, AResponse);
+      ModuleWorker.Handled := True;
       try
         if ModuleWorker.MethodAddress('_prepare') <> nil then
         begin
@@ -307,9 +316,12 @@ begin
         end;
         if ModuleWorker.MethodAddress(URIStr) <> nil then
         begin
-          TMethod(CallProc).Code := ModuleWorker.MethodAddress(URIStr);
-          TMethod(CallProc).Data := ModuleWorker;
-          CallProc;
+          if ModuleWorker.Handled then
+          begin
+            TMethod(CallProc).Code := ModuleWorker.MethodAddress(URIStr);
+            TMethod(CallProc).Data := ModuleWorker;
+            CallProc;
+          end;
         end
         else
         begin
@@ -323,6 +335,10 @@ begin
               begin
                 Cust404Handle(ARequest, AResponse, StartServeTime);
               end;
+            end
+            else
+            begin
+              Cust404Handle(ARequest, AResponse, StartServeTime);
             end;
           end
           else

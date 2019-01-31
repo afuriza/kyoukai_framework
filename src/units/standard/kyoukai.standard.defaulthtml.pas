@@ -265,7 +265,7 @@ begin
   '  <div class="content-outer">'+ LineEnding +
   '<img src="data:image/png;base64, '+base64_nyanpasu_icon_35p+'" alt="Nyanpasu!" align="right" '+ LineEnding +
   'title="Renge found a something interesting!"> <h3>$heading_text</h3> '+ LineEnding +
-  '<strong>Rechon says: </strong><i>'+KataRenge+'</i>'+ LineEnding +
+  '<strong>Renchon says: </strong><i>'+KataRenge+'</i>'+ LineEnding +
   '  <div class="header"></div>'+ LineEnding +
   '  <div class="content">'+ LineEnding +
   '<!--- ### generated content start here ### --->'+ LineEnding +
@@ -277,6 +277,7 @@ begin
   '  <div class="footer">'+ LineEnding +
   '    This page is served in $serving_time ms by '+ LineEnding +
   '    <strong><a href="http://freepascal.org" target="_blank">Free Pascal</a>'+
+  ' and <strong><a href="https://github.com/afuriza/kyoukai_framework" target="_blank">Kyoukai Framework</a>'+
   '</strong>.<br>'+ LineEnding +
   '    Courtesy of '+ LineEnding +
   '    <a href="$site_link">$site_name</a><br>'+ LineEnding +

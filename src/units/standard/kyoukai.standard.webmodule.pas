@@ -28,7 +28,7 @@ type
 
   TKyModule = class(TComponent)
   private
-
+    HandleMethod: Boolean;
     fcgirootpath: string;
 
     fRequest: TRequest;
@@ -55,6 +55,8 @@ type
     procedure TerminateSession;
     property InputGet[const AVarName: string]: string read ReadGetVar;
     property InputPost[const AVarName: string]: string read ReadPostVar;
+    property SessionVar[const ASessionName: string]: string read ReadSessionVar
+      write WriteSessionVar;
     property _get[const AVarName: string]: string read ReadGetVar;
     property _post[const AVarName: string]: string read ReadPostVar;
     property _session[const ASessionName: string]: string read ReadSessionVar
@@ -65,7 +67,7 @@ type
     property WebWritings: string read fWebWritings write fWebWritings;
     property Request: TRequest read fRequest write fRequest;
     property Response: TResponse read fResponse write fResponse;
-
+    property Handled: Boolean read HandleMethod write HandleMethod;
     property MainPath: string read fCGIROOTPath;
   end;
 
@@ -147,7 +149,6 @@ begin
   fRequest := ARequest;
   fResponse := AResponse;
   fErrorMsg := ErrorStr;
-
 end;
 
 destructor TKyModule.destroy;

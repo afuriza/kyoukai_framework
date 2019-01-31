@@ -42,34 +42,46 @@ implementation
 
 function EncodeBase64Str(const AStr: string): string;
 var
-  DecodedStream: TStringStream;
-  EncodedStream: TStringStream;
-  Decoder: TBase64EncodingStream;
+  Outstream : TStringStream;
+  Encoder   : TBase64EncodingStream;
 begin
-  EncodedStream := TStringStream.Create(AStr);
-  DecodedStream := TStringStream.Create('');
-  Decoder := TBase64EncodingStream.Create(EncodedStream);
-  DecodedStream.CopyFrom(Decoder, Decoder.Size);
-  Result := DecodedStream.DataString;
-  FreeAndNil(DecodedStream);
-  FreeAndNil(EncodedStream);
-  FreeAndNil(Decoder);
+  Outstream:=TStringStream.Create('');
+  try
+    Encoder:=TBase64EncodingStream.create(outstream);
+    try
+      Encoder.Write(AStr[1],Length(AStr));
+    finally
+      Encoder.Free;
+      end;
+    Result:=Outstream.DataString;
+  finally
+    Outstream.free;
+  end;
 end;
 
 function DecodeBase64Str(const AStr: string): string;
 var
-  DecodedStream: TStringStream;
-  EncodedStream: TStringStream;
-  Decoder: TBase64DecodingStream;
+  Instream,
+  Outstream : TStringStream;
+  Decoder   : TBase64DecodingStream;
 begin
-  EncodedStream := TStringStream.Create(AStr);
-  DecodedStream := TStringStream.Create('');
-  Decoder := TBase64DecodingStream.Create(EncodedStream);
-  DecodedStream.CopyFrom(Decoder, Decoder.Size);
-  Result := DecodedStream.DataString;
-  FreeAndNil(DecodedStream);
-  FreeAndNil(EncodedStream);
-  FreeAndNil(Decoder);
+  Instream:=TStringStream.Create(AStr);
+  try
+    Outstream:=TStringStream.Create('');
+    try
+      Decoder:=TBase64DecodingStream.Create(Instream,bdmMIME);
+      try
+         Outstream.CopyFrom(Decoder,Decoder.Size);
+         Result:=Outstream.DataString;
+      finally
+        Decoder.Free;
+      end;
+    finally
+     Outstream.Free;
+     end;
+  finally
+    Instream.Free;
+  end;
 end;
 
 function DecodeBase64StrToStream(const AStr: string): TMemoryStream;

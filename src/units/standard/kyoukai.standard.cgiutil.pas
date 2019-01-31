@@ -77,7 +77,7 @@ begin
   APPROOT := ExtractFilePath(StringReplace(GetEnvironmentVariable('SCRIPT_FILENAME'),
     GetEnvironmentVariable('DOCUMENT_ROOT'), '', [rfReplaceAll]));
   URISTR := StringReplace('/'+ StringReplace(GetEnvironmentVariable('REQUEST_URI'),
-    APPROOT, '', [rfIgnoreCase]), '//', '/', [rfReplaceAll]);
+    APPROOT, '', [rfIgnoreCase]), '//', '/', [rfIgnoreCase,rfReplaceAll]);
   if (ARequest.URI = '') or (ARequest.URL = '') then
   begin
     ARequest.URI := URISTR;
@@ -88,8 +88,15 @@ begin
 end;
 
 procedure TKyCustCGIHandler.Run;
+var
+  UploadPath: string;
 begin
   //fKyoukaiCGI.Initialize;
+  UploadPath := ExtractFilePath(ParamStr(0)) +
+    'kyoukai_temp\uploadedfiles';
+  If Not DirectoryExists(UploadPath) then
+    CreateDir(UploadPath);
+  fKyoukaiCGI.Request.DefaultRequestUploadDir := UploadPath;
   fKyoukaiCGI.Run;
 end;
 

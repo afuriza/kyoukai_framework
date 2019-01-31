@@ -35,9 +35,7 @@ procedure THome.DoParseShortAbout;
 var
   Data: TDataItem;
 begin
-  // we have a problem here, there's memory leak when FPHTTPServer.Threaded := true;
-  View.DataItems['shortabout'] := TDataItems.Create; // create items container
-  // you can do loop here
+
   Data := TDataItem.Create; // create an item
   Data['firstname'] := 'dio';
   Data['lastname'] := 'affriza';
@@ -46,6 +44,14 @@ begin
   Data['phonenumber'] := '+6285785851539';
   Data['email'] := 'dioaffriza@gmail.com';
   Data['shortinfo'] := 'Linux + Lazarus Free Pascal Rocks!';
+  View.DataItems['shortabout'].Add(Data); // insert into view
+
+  Data := TDataItem.Create; // create an item
+  Data['firstname'] := 'Ilyas';
+  Data['lastname'] := 'Fikri';
+  Data['address'] := 'Jember';
+  Data['city'] := 'Jember';
+
   View.DataItems['shortabout'].Add(Data); // insert into view
   // to here
 

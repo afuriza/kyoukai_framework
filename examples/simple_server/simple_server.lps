@@ -8,7 +8,7 @@
       <Unit0>
         <Filename Value="simple_server.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="5" Y="22"/>
+        <CursorPos X="24" Y="19"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -17,7 +17,7 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="43"/>
+        <TopLine Value="25"/>
         <CursorPos X="3" Y="28"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>

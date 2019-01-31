@@ -174,7 +174,11 @@ begin
       begin
         for j := 0 to Length(ParamValues)-1 do
         begin
+          try
           ParamValues[j] := fDataItems[TagString].items[i].Values[j];
+
+          except
+          end;
         end;
         Add(ParamNames, ParamValues);
         ReplaceText := Text;
@@ -188,13 +192,30 @@ begin
 end;
 
 function TKyView.ReadDataItems(AName: string): TDataItems;
+var
+  ffDataItems: TDataItems;
 begin
-  Result := fDataItems[AName];
+  if fDataItems.contains(AName) then
+    Result := fDataItems[AName]
+  else
+  begin
+    ffDataItems := TDataItems.Create;
+    fDataItems[AName] := ffDataItems;
+    Result := fDataItems[AName];
+  end;
 end;
 
 procedure TKyView.WriteDataItems(AName: string; AValues: TDataItems);
+var
+  ffDataItems: TDataItems;
 begin
-  fDataItems[AName] := AValues;
+  if fDataItems.contains(AName) then
+    fDataItems[AName] := AValues
+  else
+  begin
+    ffDataItems := TDataItems.Create;
+    fDataItems[AName] := ffDataItems;
+  end;
 end;
 
 function TKyView.GetContent: string;
@@ -229,14 +250,7 @@ destructor TKyView.Destroy;
 var
   i, j: integer;
 begin
-  for i := 0 to fDataItemsTagList.Count-1 do
-  begin
-    for j := 0 to fDataItems[fDataItemsTagList[i]].count-1 do
-    begin
-      fDataItems[fDataItemsTagList[i]].items[j].Free;
-    end;
 
-  end;
   FreeAndNil(fDataItemsTagList);
   FreeAndNil(fDataItems);
   FreeAndNil(fKTemplate);

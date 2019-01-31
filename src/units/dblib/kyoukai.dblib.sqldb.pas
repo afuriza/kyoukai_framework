@@ -10,6 +10,13 @@ uses
   mysql56conn, mysql57conn, mssqlconn, sqlite3conn;
 
 type
+  TKySQLConnection = record
+    hostname: string;
+    username: string;
+    password: string;
+    database: string;
+  end;
+
   TKySQL = class(TObject)
      SQLQuery: TSQLQuery;
   private
@@ -23,6 +30,7 @@ type
      constructor Create(const ConnectionType: string);
      destructor Destroy; override;
      procedure Connect(const hostname, uname, passwd, DatabaseName: string);
+     procedure Connect(AKySQLConnection: TKySQLConnection);
      procedure Open;
      procedure Close;
      procedure Next;
@@ -33,18 +41,15 @@ type
      property SQL: string read fSQL write fSQL;
   end;
 
-var
-  DBLib: TSQLDBLibraryLoader;
-
 implementation
 
-procedure InitSQL(const AConnectionType, ALibName: string);
-begin
-  dblib.LibraryName:= ALibName;
-  dblib.ConnectionType:= AConnectionType;
-  dblib.Enabled:= true;
-  dblib.LoadLibrary;
-end;
+//procedure InitSQL(const AConnectionType, ALibName: string);
+//begin
+//  dblib.LibraryName:= ALibName;
+//  dblib.ConnectionType:= AConnectionType;
+//  dblib.Enabled:= true;
+//  dblib.LoadLibrary;
+//end;
 
 constructor TKySQL.Create(const ConnectionType: string);
 begin
@@ -56,6 +61,7 @@ begin
     'mysql55': MySQLConnection := TMySQL55Connection.Create(nil);
     'mysql56': MySQLConnection := TMySQL56Connection.Create(nil);
     'mysql57': MySQLConnection := TMySQL57Connection.Create(nil);
+    'mysql': MySQLConnection := TMySQL56Connection.Create(nil);
     'sqlserver': MySQLConnection := TMSSQLConnection.Create(nil);
     'sqlite3': MySQLConnection := TSQLite3Connection.Create(nil);
   end;
@@ -121,7 +127,18 @@ begin
   MySQLConnection.UserName := uname;
   MySQLConnection.Password := passwd;
   MySQLConnection.DatabaseName := DatabaseName;
-  MySQLConnection.Open;
+  if not MySQLConnection.Connected then
+    MySQLConnection.Connected:=True;
+end;
+
+procedure TKySQL.Connect(AKySQLConnection: TKySQLConnection);
+begin
+  MySQLConnection.HostName := AKySQLConnection.hostname;
+  MySQLConnection.UserName := AKySQLConnection.username;
+  MySQLConnection.Password := AKySQLConnection.password;
+  MySQLConnection.DatabaseName := AKySQLConnection.database;
+  if not MySQLConnection.Connected then
+    MySQLConnection.Connected:=True;
 end;
 
 end.

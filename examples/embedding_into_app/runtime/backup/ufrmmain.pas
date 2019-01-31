@@ -57,7 +57,7 @@ begin
   MyRouter := TKyRoutes.Create;
   MyRouter['hello'] := THello;
   MyServer.Router := MyRouter;
-  MyServer.Port := 9000;
+  MyServer.Port := 8010;
 end;
 
 procedure TForm1.FormDestroy(Sender: TObject);

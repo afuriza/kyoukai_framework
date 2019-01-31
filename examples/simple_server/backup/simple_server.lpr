@@ -16,7 +16,7 @@ uses
 {$R *.res}
 
 begin
-  KyoukaiApp.Port := 30;
+  KyoukaiApp.Port := 80;
   KyoukaiApp.Threaded := True;
   KyoukaiApp.Active := True;
 end.
