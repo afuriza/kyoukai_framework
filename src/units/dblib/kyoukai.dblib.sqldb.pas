@@ -1,4 +1,13 @@
-unit Kyoukai.DBLib.SQLDB;
+{*******************************************************************************
+                          This is Part of Kyoukai units
+                        A Simple Web Framework for Pascal
+See the file COPYING.LGPL.txt, included in this distribution,
+for details about the copyright.
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+*******************************************************************************}
+unit Kyoukai.DBLib.SQLDB; 
 
 {$mode objfpc}{$H+}
 //{$LinkLib libmysqlclient.so}
@@ -6,8 +15,11 @@ unit Kyoukai.DBLib.SQLDB;
 interface
 
 uses
-  Classes, SysUtils, sqldb, db, sqldblib, mysql50conn, mysql51conn, mysql55conn,
-  mysql56conn, mysql57conn, mssqlconn, sqlite3conn;
+  Classes, SysUtils, sqldb, db,
+  {connectors}
+  mysql50conn, mysql51conn, mysql55conn, mysql56conn, mysql57conn, mssqlconn,
+  sqlite3conn
+  {/connectors};
 
 type
   TKySQLConnection = record
@@ -17,10 +29,12 @@ type
     database: string;
   end;
 
+  { Wrapper Class }
+
   TKySQL = class(TObject)
      SQLQuery: TSQLQuery;
+     SQLConnection: TSQLConnection;
   private
-     MySQLConnection: TSQLConnection;
      SQLTransaction: TSQLTransaction;
      fSQL: string;
      function GetEOF: Boolean;
@@ -56,28 +70,30 @@ begin
   inherited Create;
   SQLQuery := TSQLQuery.Create(nil);
   case ConnectionType of
-    'mysql50': MySQLConnection := TMySQL50Connection.Create(nil);
-    'mysql51': MySQLConnection := TMySQL51Connection.Create(nil);
-    'mysql55': MySQLConnection := TMySQL55Connection.Create(nil);
-    'mysql56': MySQLConnection := TMySQL56Connection.Create(nil);
-    'mysql57': MySQLConnection := TMySQL57Connection.Create(nil);
-    'mysql': MySQLConnection := TMySQL56Connection.Create(nil);
-    'sqlserver': MySQLConnection := TMSSQLConnection.Create(nil);
-    'sqlite3': MySQLConnection := TSQLite3Connection.Create(nil);
+    'mysql50': SQLConnection := TMySQL50Connection.Create(nil);
+    'mysql51': SQLConnection := TMySQL51Connection.Create(nil);
+    'mysql55': SQLConnection := TMySQL55Connection.Create(nil);
+    'mysql56': SQLConnection := TMySQL56Connection.Create(nil);
+    'mysql57': SQLConnection := TMySQL57Connection.Create(nil);
+    'mysql': SQLConnection := TMySQL56Connection.Create(nil);
+    'sqlserver': SQLConnection := TMSSQLConnection.Create(nil);
+    'sqlite3': SQLConnection := TSQLite3Connection.Create(nil);
   end;
-
+  {$IFDEF ANDROID}
+  TConnectionName(SQLConnection).SkipLibraryVersionCheck := True;
+  {$ENDIF}
   SQLTransaction := TSQLTransaction.Create(nil);
-  SQLQuery.SQLConnection := MySQLConnection;
-  SQLTransaction.DataBase := MySQLConnection;
+  SQLQuery.SQLConnection := SQLConnection;
+  SQLTransaction.DataBase := SQLConnection;
   SQLQuery.Transaction := SQLTransaction;
 end;
 
 destructor TKySQL.Destroy;
 begin
-  
-  MySQLConnection.Close();
+
+  SQLConnection.Close();
   SQLQuery.Free;
-  MySQLConnection.Free;
+  SQLConnection.Free;
   SQLTransaction.Free;
 
   inherited Destroy;
@@ -118,29 +134,56 @@ end;
 
 function TKySQL.GetFieldValues(FieldName: string): Variant;
 begin
-  Result := SQLQuery.Fields.FieldByName(FieldName).AsString;
+  if not SQLQuery.Fields.FieldByName(FieldName).IsNull then
+    Result := SQLQuery.Fields.FieldByName(FieldName).AsString;
 end;
 
 procedure TKySQL.Connect(const hostname, uname, passwd, DatabaseName: string);
+var
+  IsChanged: Boolean = False;
 begin
-  MySQLConnection.HostName := hostname;
-  MySQLConnection.UserName := uname;
-  MySQLConnection.Password := passwd;
-  MySQLConnection.DatabaseName := DatabaseName;
-  if not MySQLConnection.Connected then
-    MySQLConnection.Connected:=True;
+  if (Hostname <> SQLConnection.HostName) or
+    (DatabaseName <> SQLConnection.DatabaseName) then
+    IsChanged := True;
+  SQLConnection.HostName := hostname;
+  SQLConnection.UserName := uname;
+  SQLConnection.Password := passwd;
+  SQLConnection.DatabaseName := DatabaseName;
+  if not SQLConnection.Connected then
+    SQLConnection.Connected:=True
+  else
+  begin
+    if isChanged then
+    begin
+      SQLConnection.Connected := False;
+      SQLConnection.Connected := True;
+    end;
+  end;
 end;
 
 procedure TKySQL.Connect(AKySQLConnection: TKySQLConnection);
+var
+  IsChanged: Boolean = False;
 begin
-  MySQLConnection.HostName := AKySQLConnection.hostname;
-  MySQLConnection.UserName := AKySQLConnection.username;
-  MySQLConnection.Password := AKySQLConnection.password;
-  MySQLConnection.DatabaseName := AKySQLConnection.database;
-  if not MySQLConnection.Connected then
-    MySQLConnection.Connected:=True;
+  if (AKySQLConnection.hostname <> SQLConnection.HostName) or
+    (AKySQLConnection.database <> SQLConnection.DatabaseName) then
+    IsChanged := True;
+  SQLConnection.HostName := AKySQLConnection.hostname;
+  SQLConnection.UserName := AKySQLConnection.username;
+  SQLConnection.Password := AKySQLConnection.password;
+  SQLConnection.DatabaseName := AKySQLConnection.database;
+  if not SQLConnection.Connected then
+    SQLConnection.Connected:=True
+  else
+  begin
+    if isChanged then
+    begin
+      SQLConnection.Connected := False;
+      SQLConnection.Connected := True;
+    end;
+  end;
 end;
 
 end.
 
-
+                                        
