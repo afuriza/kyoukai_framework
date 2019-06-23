@@ -91,8 +91,6 @@ uses
   unit1
   { you can add units after this };
 
-{$R *.res}
-
 begin
   KyoukaiApp.Port := 80;
   KyoukaiApp.Run;
