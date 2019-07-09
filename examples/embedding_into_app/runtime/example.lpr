@@ -10,8 +10,6 @@ uses
   Forms, ufrmmain
   { you can add units after this };
 
-{$R *.res}
-
 begin
   RequireDerivedFormResource := True;
   Application.Initialize;

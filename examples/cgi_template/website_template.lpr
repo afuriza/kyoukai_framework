@@ -10,11 +10,10 @@ uses
   // New CGI Support
   kyoukai.standard.CGIApplication,
   Kyoukai.Standard.WebRouter,
-  {You must placed your module units here or Kyoukai can't register anything!}
+  {You must place your module units here or Kyoukai can't register anything!}
   main_controller
   { you can add units after this };
 
-{$R *.res}
 
 begin
   KyoukaiApp.Run;

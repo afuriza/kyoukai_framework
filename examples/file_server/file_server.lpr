@@ -9,11 +9,10 @@ uses
   Classes, SysUtils,
   kyoukai.standard.HTTPApplication,
   Kyoukai.Standard.WebRouter,
-  {You must placed your module units here or Kyoukai can't register anything!}
+  {You must place your module units here or Kyoukai can't register anything!}
   main_controller
   { you can add units after this };
 
-{$R *.res}
 
 begin
   KyoukaiApp.MimeTypesFile := ExtractFilePath(ParamStr(0)) + 'mime.types';
