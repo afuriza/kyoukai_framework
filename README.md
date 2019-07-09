@@ -21,12 +21,7 @@ Please help me if you have any idea, code, and feature request. And, Don't too s
 <a href="#tiprenchon">Tip Renchon</a>
 
 <div align="center">
-<img src="https://forthebadge.com/images/badges/powered-by-electricity.svg">
-</div>
-<div align="center">
 <a href="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework"><img src="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework.svg" alt="GitHub version" height="18"></a>
-<a href="https://gitter.im/kyoukai_framework?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge"><img src="https://badges.gitter.im/Join Chat.svg" alt="Gitter"></a>
-</div>
 
 Requirements
 ---
