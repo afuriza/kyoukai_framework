@@ -22,6 +22,7 @@ Please help me if you have any idea, code, and feature request. And, Don't too s
 
 <div align="center">
 <a href="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework"><img src="https://badge.fury.io/gh/afuriza%2Fkyoukai_framework.svg" alt="GitHub version" height="18"></a>
+</div>
 
 Requirements
 ---
