@@ -66,7 +66,7 @@ Known errors
   <img src="src/icons/nyanpasu_125p.png"/>
 </div>
 <div align="center">
-  <h2>Let's getting started!</h2>
+  <h2>Let's get started!</h2>
 </div>
 
 Create two files:
@@ -87,11 +87,9 @@ uses
   {$ENDIF}{$ENDIF}
   Classes,
   kyoukai.standard.HTTPApplication,
-  {You must placed your module units here or Kyoukai can't register anything!}
+  {You must place your module units here or Kyoukai can't register anything!}
   unit1
   { you can add units after this };
-
-{$R *.res}
 
 begin
   KyoukaiApp.Port := 80;
