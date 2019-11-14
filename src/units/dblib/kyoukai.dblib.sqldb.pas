@@ -79,9 +79,9 @@ begin
     'sqlserver': SQLConnection := TMSSQLConnection.Create(nil);
     'sqlite3': SQLConnection := TSQLite3Connection.Create(nil);
   end;
-  {$IFDEF ANDROID}
+
   TConnectionName(SQLConnection).SkipLibraryVersionCheck := True;
-  {$ENDIF}
+
   SQLTransaction := TSQLTransaction.Create(nil);
   SQLQuery.SQLConnection := SQLConnection;
   SQLTransaction.DataBase := SQLConnection;
