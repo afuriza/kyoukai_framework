@@ -18,7 +18,7 @@
       </Other>
     </CompilerOptions>
     <Version Release="1"/>
-    <Files Count="19">
+    <Files Count="20">
       <Item1>
         <Filename Value="..\units\standard\kyoukai.standard.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Standard.HTTPApplication"/>
@@ -95,6 +95,10 @@
         <Filename Value="..\units\standard\kyoukai.standard.cgidefs.pas"/>
         <Type Value="Include"/>
       </Item19>
+      <Item20>
+        <Filename Value="..\units\dblib\kyoukai.dblib.sqlbuilder.pas"/>
+        <UnitName Value="kyoukai.dblib.sqlbuilder"/>
+      </Item20>
     </Files>
     <RequiredPkgs Count="1">
       <Item1>

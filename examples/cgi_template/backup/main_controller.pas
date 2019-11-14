@@ -20,7 +20,6 @@ type
     procedure _prepare;
     procedure _done;
     procedure MainHandle;
-    procedure test123;
   end;
 
 implementation
@@ -68,11 +67,6 @@ begin
   // Then render the view to the web page
   Self.Render(View);
   echo('test');
-end;
-
-procedure THome.test123;
-begin
-  echo('Ini test 124');
 end;
 
 procedure THome._done;

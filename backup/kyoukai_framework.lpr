@@ -23,8 +23,7 @@ uses
   Kyoukai.Standard.WebView,
   Kyoukai.Standard.CGIApplication,
   { DBLib Units }
-  Kyoukai.DBLib.SQLBuilder,
-  Kyoukai.DBLib.SQLDB
+
   { Kyoukai IDEIntf Units }
   ;
 

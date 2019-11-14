@@ -90,14 +90,30 @@ end;
 procedure TKyCustCGIHandler.Run;
 var
   UploadPath: string;
+  ErrorLog: string;
+  ErrorFile: TStringList;
 begin
   //fKyoukaiCGI.Initialize;
-  UploadPath := ExtractFilePath(ParamStr(0)) +
-    'kyoukai_temp\uploadedfiles';
-  If Not DirectoryExists(UploadPath) then
-    CreateDir(UploadPath);
-  fKyoukaiCGI.Request.DefaultRequestUploadDir := UploadPath;
-  fKyoukaiCGI.Run;
+  try
+    UploadPath := ExtractFilePath(ParamStr(0)) +
+      'kyoukai_temp'+PathDelim+'uploadedfiles';
+    If Not DirectoryExists(UploadPath) then
+      CreateDir(UploadPath);
+    fKyoukaiCGI.Request.DefaultRequestUploadDir := UploadPath;
+    fKyoukaiCGI.Run;
+  except
+    on e: exception do
+    begin
+      errorlog := ExtractFilePath(ParamStr(0)) +
+        'kyoukai_temp'+PathDelim+'log.txt';
+      ErrorFile := TStringList.Create;
+      if FileExists(ErrorLog) then
+        ErrorFile.LoadFromFile(ErrorLog);
+      ErrorFile.Add(e.Message);
+      ErrorFile.SaveToFile(ErrorLog);
+      ErrorFile.Free;
+    end;
+  end;
 end;
 
 procedure TKyCustCGIHandler.Terminate;

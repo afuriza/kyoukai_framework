@@ -2,23 +2,24 @@
 <CONFIG>
   <ProjectSession>
     <PathDelim Value="\"/>
-    <Version Value="10"/>
+    <Version Value="11"/>
     <BuildModes Active="Default"/>
     <Units Count="32">
       <Unit0>
         <Filename Value="simple_server.lpr"/>
         <IsPartOfProject Value="True"/>
-        <CursorPos X="24" Y="19"/>
+        <IsVisibleTab Value="True"/>
+        <TopLine Value="2"/>
+        <CursorPos X="29" Y="20"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="main_controller.pas"/>
         <IsPartOfProject Value="True"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
-        <TopLine Value="25"/>
-        <CursorPos X="3" Y="28"/>
+        <TopLine Value="47"/>
+        <CursorPos X="28" Y="57"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit1>
@@ -26,8 +27,8 @@
         <Filename Value="hello_controller.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="2"/>
-        <TopLine Value="15"/>
-        <CursorPos X="27" Y="15"/>
+        <TopLine Value="24"/>
+        <CursorPos Y="41"/>
         <UsageCount Value="112"/>
         <Loaded Value="True"/>
       </Unit2>
@@ -265,5 +266,9 @@
         <Caret Line="8" Column="45"/>
       </Position4>
     </JumpHistory>
+    <RunParams>
+      <FormatVersion Value="2"/>
+      <Modes Count="0" ActiveMode="default"/>
+    </RunParams>
   </ProjectSession>
 </CONFIG>

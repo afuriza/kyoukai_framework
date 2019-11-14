@@ -378,6 +378,10 @@ begin
       end;
     end;
   end;
+  for i := 0 to ARequest.Files.Count -1 do
+  begin
+    DeleteFile(ARequest.Files[i].LocalFileName);
+  end;
 end;
 
 constructor TKyCustHTTPHandler.Create;
