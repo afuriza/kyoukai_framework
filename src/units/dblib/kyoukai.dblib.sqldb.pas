@@ -15,10 +15,10 @@ unit Kyoukai.DBLib.SQLDB;
 interface
 
 uses
-  Classes, SysUtils, sqldb, db, sqldblib,
+  Classes, SysUtils, sqldb, db,
   {connectors}
   mysql50conn, mysql51conn, mysql55conn, mysql56conn, mysql57conn, mssqlconn,
-  sqlite3conn, dblib
+  sqlite3conn
   {/connectors};
 
 type
@@ -35,7 +35,6 @@ type
      SQLQuery: TSQLQuery;
      SQLConnection: TSQLConnection;
   private
-     //dblib: TSQLDBLibraryLoader;
      SQLTransaction: TSQLTransaction;
      fSQL: string;
      function GetEOF: Boolean;
@@ -69,24 +68,6 @@ implementation
 constructor TKySQL.Create(const ConnectionType: string);
 begin
   inherited Create;
-  //dblib := TSQLDBLibraryLoader.Create(nil);
-  {$IFDEF WINDOWS}
-
-  //try
-    //if FileExists(ExtractFilePath(ParamStr(0)) + 'libmysql.dll') then
-    //begin
-    //  dblib.LibraryName := ExtractFilePath(ParamStr(0)) + 'libmysql.dll';
-    //  dblib.ConnectionType := 'MySQL 5.1';
-    //  dblib.Enabled := true;
-    //  dblib.LoadLibrary;
-    //
-    //end;
-  //except
-  //end;
-  //if FileExists(ExtractFilePath(ParamStr(0)) + 'libmysql.dll') then
-  //  dblib.DefaultDBLibLibraryName := ExtractFilePath(ParamStr(0)) + 'libmysql.dll';
-  {$ENDIF}
-
   SQLQuery := TSQLQuery.Create(nil);
   case ConnectionType of
     'mysql50': SQLConnection := TMySQL50Connection.Create(nil);
@@ -98,10 +79,9 @@ begin
     'sqlserver': SQLConnection := TMSSQLConnection.Create(nil);
     'sqlite3': SQLConnection := TSQLite3Connection.Create(nil);
   end;
-  //{$IFDEF ANDROID}
+  {$IFDEF ANDROID}
   TConnectionName(SQLConnection).SkipLibraryVersionCheck := True;
-  //{$ENDIF}
-
+  {$ENDIF}
   SQLTransaction := TSQLTransaction.Create(nil);
   SQLQuery.SQLConnection := SQLConnection;
   SQLTransaction.DataBase := SQLConnection;
@@ -110,20 +90,12 @@ end;
 
 destructor TKySQL.Destroy;
 begin
-  if Assigned(SQLConnection) then
-  begin
-    if SQLConnection.Connected then
-      SQLConnection.Close();
 
-  end;
-  if Assigned(SQLQuery) then
-    SQLQuery.Free;
-  if Assigned(SQLConnection) then
-    SQLConnection.Free;
-  if Assigned(SQLTransaction) then
-    SQLTransaction.Free;
-  //if Assigned(dblib) then
-  //  dblib.Free;
+  SQLConnection.Close();
+  SQLQuery.Free;
+  SQLConnection.Free;
+  SQLTransaction.Free;
+
   inherited Destroy;
 end;
 

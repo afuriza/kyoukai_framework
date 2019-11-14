@@ -21,10 +21,7 @@ uses
   Kyoukai.Standard.WebModule,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.WebView,
-  Kyoukai.Standard.CGIApplication,
-  { DBLib Units }
-  Kyoukai.DBLib.SQLBuilder,
-  Kyoukai.DBLib.SQLDB
+  Kyoukai.Standard.CGIApplication
   { Kyoukai IDEIntf Units }
   ;
 

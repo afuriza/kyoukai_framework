@@ -20,7 +20,6 @@ type
     procedure _prepare;
     procedure _done;
     procedure MainHandle;
-    procedure test123;
   end;
 
 implementation
@@ -48,15 +47,6 @@ begin
   Data['shortinfo'] := 'Linux + Lazarus Free Pascal Rocks!';
   View.DataItems['shortabout'].Add(Data); // insert into view
   // to here
-  Data := TDataItem.Create; // create an item
-  Data['firstname'] := 'ryan';
-  Data['lastname'] := 'affriza';
-  Data['address'] := 'Bukit Cemara Tidar';
-  Data['city'] := 'Malang';
-  Data['phonenumber'] := '+6285785851539';
-  Data['email'] := 'dioaffriza@gmail.com';
-  Data['shortinfo'] := 'Linux + Lazarus Free Pascal Rocks!';
-  View.DataItems['shortabout'].Add(Data); // insert into view
 end;
 
 procedure THome.MainHandle;
@@ -67,12 +57,6 @@ begin
   DoParseShortAbout;
   // Then render the view to the web page
   Self.Render(View);
-  echo('test');
-end;
-
-procedure THome.test123;
-begin
-  echo('Ini test 124');
 end;
 
 procedure THome._done;

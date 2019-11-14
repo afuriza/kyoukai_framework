@@ -15,7 +15,7 @@ uses
   Kyoukai.Standard.HTTPServer, Kyoukai.Standard.WebView, 
   Kyoukai.Other.CommonUtil, Kyoukai.Standard.CGIUtil, 
   Kyoukai.Standard.CGIApplication, Kyoukai.DBLib.SQLDB, 
-  Kyoukai.Standard.WebHandler, kyoukai.dblib.sqlbuilder;
+  Kyoukai.Standard.WebHandler;
 
 implementation
 

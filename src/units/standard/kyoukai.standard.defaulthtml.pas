@@ -21,34 +21,18 @@ uses
   Kyoukai.Other.RengeMessages;
 
 function GetDefaultHTML(SiteName, SiteLink, Title, HeadingText, Content: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 function GetKyoukaiInformation(SiteName, SiteLink: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 function GetNotFoundInformation(SiteName, SiteLink, AMessage: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 function GetErrorInformation(SiteName, SiteLink, AMessage: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 
 const
   base64_nyanpasu_icon_35p = {$I 'nyanpasu_icon_35p.inc'};
 implementation
 
-Function DateTimeDiff(const ANow, AThen: TDateTime): TDateTime;
-begin
-  Result:= ANow - AThen;
-  if (ANow>0) and (AThen<0) then
-    Result:=Result-0.5
-  else if (ANow<-1.0) and (AThen>-1.0) then
-    Result:=Result+0.5;
-end;
-
-function msbetween(const ANow, AThen: TDateTime): Int64;
-//const
-//  TDateTimeEpsilon = 2.2204460493e-16;
-begin
-
-  Result:=Trunc((Abs(DateTimeDiff(ANow,AThen)))*MSecsPerDay);
-end;
 
 function DefaultCSS: String;
 begin
@@ -266,7 +250,7 @@ begin
 end;
 
 function GetDefaultHTML(SiteName, SiteLink, Title, HeadingText, Content: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 begin
   Result :=
   '<!DOCTYPE html>'+ LineEnding +
@@ -307,12 +291,12 @@ begin
   Result := StringReplace(Result, '$heading_text', HeadingText, [rfReplaceAll]);
   Result := StringReplace(Result, '$content', Content, [rfReplaceAll]);
   Result := StringReplace(Result, '$serving_time',
-    IntToStr(msbetween(Now, ServeStartTime)), [rfReplaceAll]);
+    IntToStr(MilliSecondsBetween(Now, ServeStartTime)), [rfReplaceAll]);
 
 end;
 
 function GetNotFoundInformation(SiteName, SiteLink, AMessage: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 begin
   Result := GetDefaultHTML(SiteName, SiteLink,
       'Kyoukai HTTP Server - Not Found', ':''( | 404 - PAGE NOT FOUND',
@@ -320,7 +304,7 @@ begin
 end;
 
 function GetKyoukaiInformation(SiteName, SiteLink: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 begin
   Result := GetDefaultHTML(SiteName, SiteLink,
       'Kyoukai HTTP Server', 'KYOUKAI HTTP SERVER INFORMATION',
@@ -332,7 +316,7 @@ begin
 end;
 
 function GetErrorInformation(SiteName, SiteLink, AMessage: string;
-  const ServeStartTime: TTime): string;
+  const ServeStartTime: TDateTime): string;
 var
   ReportStr: string;
 begin
