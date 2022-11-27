@@ -92,10 +92,12 @@ var
   UploadPath: string;
 begin
   //fKyoukaiCGI.Initialize;
+  if not DirectoryExists(ExtractFilePath(ParamStr(0)) +
+    'kyoukai_temp\uploadedfiles') then
+    ForceDirectories(ExtractFilePath(ParamStr(0)) +
+    'kyoukai_temp\uploadedfiles');
   UploadPath := ExtractFilePath(ParamStr(0)) +
     'kyoukai_temp\uploadedfiles';
-  If Not DirectoryExists(UploadPath) then
-    CreateDir(UploadPath);
   fKyoukaiCGI.Request.DefaultRequestUploadDir := UploadPath;
   fKyoukaiCGI.Run;
 end;
