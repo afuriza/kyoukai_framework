@@ -41,12 +41,13 @@ type
     function ReadSessionVar(const AVarName: string): string;
     procedure WriteSessionVar(const AVarName, AVarValue: string);
   public
-    procedure redirect(const ALocation: string);
-    destructor destroy; override;
+    procedure Redirect(const ALocation: string);
+    destructor Destroy; override;
+    constructor Create(AOwner: TComponent); override;
     Constructor Create(AOwner: TComponent; aRequest: TRequest;
       aResponse: TResponse); reintroduce; overload;
     Constructor Create(AOwner: TComponent; aRequest: TRequest;
-      aResponse: TResponse; ErrorStr: string); reintroduce; overload;
+      aResponse: TResponse; ErrorStr: string); reintroduce;
     procedure echo(const AMessage: String);
     procedure Render(ATemplate: TKTemplate);
     procedure Render(AView: TKyView);
@@ -98,7 +99,7 @@ begin
   fSession.Values[AVarName] := AVarValue;
 end;
 
-procedure TKyModule.redirect(const ALocation: string);
+procedure TKyModule.Redirect(const ALocation: string);
 begin
   Response.SendRedirect(ALocation);
 end;
@@ -133,6 +134,12 @@ begin
   Result := Request.ContentFields.Values[AVarName];
 end;
 
+Constructor TKyModule.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  fcgirootpath := CGIROOTPath;
+end;
+
 Constructor TKyModule.Create(AOwner: TComponent;
   aRequest: TRequest; aResponse: TResponse);
 begin
@@ -149,9 +156,10 @@ begin
   fRequest := ARequest;
   fResponse := AResponse;
   fErrorMsg := ErrorStr;
+  fcgirootpath := CGIROOTPath;
 end;
 
-destructor TKyModule.destroy;
+destructor TKyModule.Destroy;
 begin
   if Assigned(fSession) then
     FreeAndNil(fSession);

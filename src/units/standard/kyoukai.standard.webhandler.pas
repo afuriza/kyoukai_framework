@@ -233,8 +233,9 @@ begin
 
     if Router.Contains(URIStr) then
     begin
-      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(nil,
-        ARequest, AResponse);
+      ModuleWorker := TKyModuleClass(Router[URIStr]).Create(nil);
+      ModuleWorker.Request := ARequest;
+      ModuleWorker.Response := AResponse;
       ModuleWorker.Handled := True;
       try
         if ModuleWorker.MethodAddress('_prepare') <> nil then
