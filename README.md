@@ -47,7 +47,8 @@ Dependencies
 People Involved
 ---
 * Dio Affriza - Main Author
-* Luri Darmawan - Many Suggestion and Collaboration with ported FastPlaz unit into Kyoukai
+* Luri Darmawan - Many suggestions and collaboration with ported FastPlaz unit into Kyoukai
+* Aria Ghora Prabono - Helping many things, including writing dynamic router
 * Are you next? Get Involved!
 
 Roadmap
