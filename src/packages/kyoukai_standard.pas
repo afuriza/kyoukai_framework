@@ -8,14 +8,12 @@ unit kyoukai_standard;
 interface
 
 uses
-  Kyoukai.Standard.HTTPApplication, Kyoukai.Standard.WebModule, 
-  Kyoukai.Standard.WebRouter, Kyoukai.Standard.DefaultHTML, 
-  Kyoukai.Other.KTemplate, Kyoukai.Other.STLUtil, Kyoukai.Other.RengeMessages, 
-  Kyoukai.Other.Base64Util, Kyoukai.Standard.WebSession, 
-  Kyoukai.Standard.HTTPServer, Kyoukai.Standard.WebView, 
-  Kyoukai.Other.CommonUtil, Kyoukai.Standard.CGIUtil, 
-  Kyoukai.Standard.CGIApplication, Kyoukai.DBLib.SQLDB, 
-  Kyoukai.Standard.WebHandler;
+  Kyoukai.Base.HTTPApplication, Kyoukai.Base.Controller, 
+  Kyoukai.Base.WebRouter, Kyoukai.Base.DefaultHTML, Kyoukai.Core.KTemplate, 
+  Kyoukai.Core.STLUtil, Kyoukai.Core.RengeMessages, Kyoukai.Core.Base64Util, 
+  Kyoukai.Base.WebSession, Kyoukai.Base.HTTPServer, Kyoukai.Base.WebView, 
+  Kyoukai.Core.CommonUtil, Kyoukai.Base.CGIUtil, Kyoukai.Base.CGIApplication, 
+  Kyoukai.DBLib.SQLDB, Kyoukai.Base.WebHandler;
 
 implementation
 

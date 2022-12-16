@@ -11,14 +11,14 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Standard.DefaultHTML;
+unit Kyoukai.Base.DefaultHTML;
 
 {$mode objfpc}{$H+}
 
 interface
 uses
   Classes, SysUtils, DateUtils,
-  Kyoukai.Other.RengeMessages;
+  Kyoukai.Core.RengeMessages;
 
 function GetDefaultHTML(SiteName, SiteLink, Title, HeadingText, Content: string;
   const ServeStartTime: TDateTime): string;

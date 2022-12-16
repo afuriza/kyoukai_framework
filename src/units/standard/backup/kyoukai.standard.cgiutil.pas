@@ -8,20 +8,21 @@ uses
   cgiprotocol,
   Kyoukai.Standard.WebRouter,
   Kyoukai.Standard.WebHandler,
+  Kyoukai.Standard.Controller,
   Kyoukai.Standard.CGIDefs;
 
 type
   TKyoukaiCGIWrapper = TCGIHandler;
 
-  TKyCustCGIHandler = class(TComponent)
+  TKyoukaiCGIHandler = class(TComponent)
   private
     fKyoukaiCGI: TKyoukaiCGIWrapper;
-    fWebHandler: TKyCustHTTPHandler;
+    fWebHandler: TKyoukaiHTTPHandler;
     procedure WriteMimeTypesFile(AFileName: string);
     function ReadMimeTypesFile: string;
-    procedure WriteRouter(ARoutes: TKyRoutes);
-    function ReadRouter: TKyRoutes;
-    procedure WriteFileRouter(ARoutes: TKyFileRoutes);
+    procedure WriteRouter(AControllerList: TControllerList);
+    function ReadRouter: TControllerList;
+    procedure WriteFileRouter(AControllerList: TKyFileRoutes);
     function ReadFileRouter: TKyFileRoutes;
     procedure HandleRequest(ARequest: TRequest;
       AResponse: TResponse);
@@ -32,43 +33,43 @@ type
     procedure Terminate;
   published
     property MimeTypesFile: string read ReadMimeTypesFile write WriteMimeTypesFile;
-    property Router: TKyRoutes read ReadRouter write WriteRouter;
+    property Router: TControllerList read ReadRouter write WriteRouter;
     property FileRouter: TKyFileRoutes read ReadFileRouter write WriteFileRouter;
   end;
 
 implementation
 
-procedure TKyCustCGIHandler.WriteRouter(ARoutes: TKyRoutes);
+procedure TKyoukaiCGIHandler.WriteRouter(AControllerList: TControllerList);
 begin
-  fWebHandler.Router := ARoutes;
+  fWebHandler.ControllerList := AControllerList;
 end;
 
-function TKyCustCGIHandler.ReadRouter: TKyRoutes;
+function TKyoukaiCGIHandler.ReadRouter: TControllerList;
 begin
-  Result := fWebHandler.Router;
+  Result := fWebHandler.ControllerList;
 end;
 
-procedure TKyCustCGIHandler.WriteFileRouter(ARoutes: TKyFileRoutes);
+procedure TKyoukaiCGIHandler.WriteFileRouter(AControllerList: TKyFileRoutes);
 begin
-  fWebHandler.FileRouter := ARoutes;
+  fWebHandler.FileRouter := AControllerList;
 end;
 
-function TKyCustCGIHandler.ReadFileRouter: TKyFileRoutes;
+function TKyoukaiCGIHandler.ReadFileRouter: TKyFileRoutes;
 begin
   Result := fWebHandler.FileRouter;
 end;
 
-procedure TKyCustCGIHandler.WriteMimeTypesFile(AFileName: string);
+procedure TKyoukaiCGIHandler.WriteMimeTypesFile(AFileName: string);
 begin
   fWebHandler.MimeTypesFile := AFileName;
 end;
 
-function TKyCustCGIHandler.ReadMimeTypesFile: string;
+function TKyoukaiCGIHandler.ReadMimeTypesFile: string;
 begin
   Result := fWebHandler.MimeTypesFile;
 end;
 
-procedure TKyCustCGIHandler.HandleRequest(ARequest: TRequest;
+procedure TKyoukaiCGIHandler.HandleRequest(ARequest: TRequest;
   AResponse: TResponse);
 var
   APPROOT: string;
@@ -87,7 +88,7 @@ begin
   fWebHandler.DoHandleRequest(ARequest, AResponse);
 end;
 
-procedure TKyCustCGIHandler.Run;
+procedure TKyoukaiCGIHandler.Run;
 var
   UploadPath: string;
 begin
@@ -102,20 +103,20 @@ begin
   fKyoukaiCGI.Run;
 end;
 
-procedure TKyCustCGIHandler.Terminate;
+procedure TKyoukaiCGIHandler.Terminate;
 begin
   //fKyoukaiCGI.Terminate;
 end;
 
-constructor TKyCustCGIHandler.Create(AOwner: TComponent);
+constructor TKyoukaiCGIHandler.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  fWebHandler := TKyCustHTTPHandler.Create;
+  fWebHandler := TKyoukaiHTTPHandler.Create;
   fKyoukaiCGI := TKyoukaiCGIWrapper.Create(self);
   HTTPRouter.RegisterRoute('*',rmall,@HandleRequest,True);
 end;
 
-destructor TKyCustCGIHandler.Destroy;
+destructor TKyoukaiCGIHandler.Destroy;
 begin
   FreeAndNil(fWebHandler);
   FreeAndNil(fKyoukaiCGI);

@@ -42,11 +42,25 @@
         <PackageName Value="kyoukai_standard"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="1">
+    <Units Count="4">
       <Unit0>
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
       </Unit0>
+      <Unit1>
+        <Filename Value="src\units\standard\kyoukai.standard.cgiutil.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Kyoukai.Standard.CGIUtil"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="src\inc\nyanpasu_icon_35p.inc"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="src\units\standard\kyoukai.standard.cgiapplication.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Kyoukai.Standard.CGIApplication"/>
+      </Unit3>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -56,7 +70,7 @@
       <Filename Value="build\$(TargetCPU)-$(TargetOS)\kyoukai_framework"/>
     </Target>
     <SearchPaths>
-      <IncludeFiles Value="$(ProjOutDir)"/>
+      <IncludeFiles Value="$(ProjOutDir);src\inc"/>
       <OtherUnitFiles Value="src\units\standard"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>

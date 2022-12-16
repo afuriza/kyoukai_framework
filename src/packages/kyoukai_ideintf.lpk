@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
-  <Package Version="4">
+  <Package Version="5">
     <PathDelim Value="\"/>
     <Name Value="kyoukai_ideintf"/>
     <Type Value="RunAndDesignTime"/>
@@ -9,8 +9,8 @@
       <PathDelim Value="\"/>
       <SearchPaths>
         <IncludeFiles Value="..\ideintf"/>
-        <OtherUnitFiles Value="..\ideintf"/>
-        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)\"/>
+        <OtherUnitFiles Value="..\ideintf;units"/>
+        <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
       </SearchPaths>
     </CompilerOptions>
     <Files Count="6">
@@ -28,6 +28,7 @@
       </Item3>
       <Item4>
         <Filename Value="..\ideintf\kyoukai_projectutil.pas"/>
+        <HasRegisterProc Value="True"/>
         <UnitName Value="kyoukai_projectutil"/>
       </Item4>
       <Item5>
@@ -39,6 +40,7 @@
         <UnitName Value="kyoukai_dirstructures"/>
       </Item6>
     </Files>
+    <CompatibilityMode Value="True"/>
     <RequiredPkgs Count="3">
       <Item1>
         <PackageName Value="IDEIntf"/>

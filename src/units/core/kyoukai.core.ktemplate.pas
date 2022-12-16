@@ -13,14 +13,15 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Other.KTemplate;
+unit Kyoukai.Core.KTemplate;
 
 {$mode objfpc}{$H+}
 
 interface
 
 uses
-  Classes, SysUtils, StrUtils, fptemplate, dateutils, Kyoukai.Other.STLUtil;
+  Classes, SysUtils, StrUtils, fptemplate, dateutils,
+  Kyoukai.Core.STLUtil;
 
 function SQLParse(const SQLStr: string; AItemNames, AItemValues: array of string): string;
 

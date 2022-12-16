@@ -13,7 +13,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Standard.WebSession;
+unit Kyoukai.Base.WebSession;
 
 {$mode objfpc}{$H+}
 

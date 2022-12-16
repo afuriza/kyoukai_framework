@@ -14,6 +14,7 @@ const
   {$else}
   _APP_EXTENSION = '.bin';
   {$endif}
+  _APP_EXTENSION_CGI = '.cgi';
 
 implementation
 

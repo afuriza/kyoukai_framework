@@ -13,7 +13,6 @@ uses
   Kyoukai.Core.KTemplate,
   Kyoukai.Core.RengeMessages,
   Kyoukai.Core.STLUtil,
-  Kyoukai.DBLib.SQLDB,
   { Standard Framework Units }
   Kyoukai.Base.CGIUtil,
   Kyoukai.Base.DefaultHTML,

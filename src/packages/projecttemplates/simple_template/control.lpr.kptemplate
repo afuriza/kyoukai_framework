@@ -1,0 +1,21 @@
+program control;
+
+{$mode objfpc}{$H+}
+
+uses
+  {$IFNDEF WINDOWS}
+  cthreads,
+  {$ENDIF}
+  Classes, SysUtils,
+  // CGI Support
+  Kyoukai.Base.CGIApplication,
+  // Embedded Support
+  Kyoukai.Base.HTTPApplication,
+  {You must place your module units here or Kyoukai can't register anything!}
+  MainController
+  { you can add units after this };
+
+
+begin
+  KyoukaiApp.Run;
+end.

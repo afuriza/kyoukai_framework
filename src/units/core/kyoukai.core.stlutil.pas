@@ -1,4 +1,4 @@
-unit Kyoukai.Other.STLUtil;
+unit Kyoukai.Core.STLUtil;
 
 {$mode objfpc}{$H+}
 

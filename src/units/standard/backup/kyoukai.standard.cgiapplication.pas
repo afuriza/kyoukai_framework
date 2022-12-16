@@ -6,11 +6,12 @@ interface
 uses
   Classes, SysUtils,
   Kyoukai.Standard.WebRouter,
+  Kyoukai.Standard.Controller,
   Kyoukai.Standard.CGIUtil;
 
 type
 
-  TKyoukaiApp = TKyCustCGIHandler;
+  TKyoukaiApp = TKyoukaiCGIHandler;
 
 var
   KyoukaiApp: TKyoukaiApp;
@@ -18,7 +19,7 @@ implementation
 
 initialization
   KyoukaiApp := TKyoukaiApp.Create(nil);
-  KyoukaiApp.Router := Routes;
+  KyoukaiApp.ControllerList := Routes;
   KyoukaiApp.FileRouter := FileRoutes;
 
 finalization

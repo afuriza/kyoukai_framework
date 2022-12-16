@@ -15,6 +15,7 @@ implementation
 
 procedure Register;
 begin
+  RegisterUnit('kyoukai_projectutil', @kyoukai_projectutil.Register);
 end;
 
 initialization

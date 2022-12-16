@@ -1,0 +1,61 @@
+unit MainController;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils,
+  Kyoukai.Base.WebView,
+  Kyoukai.Base.Controller;
+
+type
+  TMain = class(TController)
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+  published
+    procedure BeforeHandle;
+    procedure MainHandle;
+    procedure AfterHandle;
+  end;
+
+implementation
+
+procedure TMain.BeforeHandle;
+begin
+  { prepare necessary things before method handling }
+end;
+
+procedure TMain.MainHandle;
+begin
+  {
+    similar to index, this is the method where's index is being called
+    i.e: localhost/
+  }
+  echo('Hello World');
+end;
+
+procedure TMain.AfterHandle;
+begin
+  { finish necessary thing after method handling }
+end;
+
+constructor TMain.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  { ... }
+end;
+
+destructor TMain.Destroy;
+begin
+  { ... }
+  inherited Destroy;
+end;
+
+initialization
+
+{ register your controller }
+Controllers['main'] := TMain;
+
+end.

@@ -1,4 +1,4 @@
-unit Kyoukai.Standard.CGIDefs;
+unit Kyoukai.Base.CGIDefs;
 {$mode objfpc}{$H+}
 
 interface

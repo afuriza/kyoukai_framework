@@ -11,7 +11,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Standard.WebView;
+unit Kyoukai.Base.WebView;
 
 {$mode objfpc}{$H+}
 { To do
@@ -25,8 +25,8 @@ interface
 
 uses
   Classes, SysUtils, fptemplate, fgl,
-  Kyoukai.Other.KTemplate,
-  Kyoukai.Other.STLUtil;
+  Kyoukai.Core.KTemplate,
+  Kyoukai.Core.STLUtil;
 
 type
 

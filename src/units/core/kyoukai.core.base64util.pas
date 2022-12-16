@@ -11,7 +11,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Other.Base64Util;
+unit Kyoukai.Core.Base64Util;
 
 {$mode objfpc}{$H+}
 

@@ -1,16 +1,18 @@
 object frmNewProject: TfrmNewProject
   Left = 0
-  Height = 361
+  Height = 451
   Top = 0
-  Width = 513
+  Width = 641
   ActiveControl = btnPrevWizard
-  Caption = 'frmNewProject'
-  ClientHeight = 361
-  ClientWidth = 513
+  Caption = 'Kyoukai New Project Wizar'
+  ClientHeight = 451
+  ClientWidth = 641
+  DesignTimePPI = 120
   OnCreate = FormCreate
-  Visible = False
+  Position = poScreenCenter
+  LCLVersion = '2.2.5.0'
   object imgHeaderLogo: TImage
-    Left = 246
+    Left = 374
     Height = 56
     Top = 0
     Width = 267
@@ -290,59 +292,60 @@ object frmNewProject: TfrmNewProject
     }
   end
   object lblDialogName: TLabel
-    Left = 24
-    Height = 28
-    Top = 16
-    Width = 172
+    Left = 30
+    Height = 35
+    Top = 20
+    Width = 218
     Caption = 'New Project Wizard'
     Font.Color = 9002107
-    Font.Height = -20
+    Font.Height = -25
     ParentColor = False
     ParentFont = False
   end
   object btnPrevWizard: TButton
-    Left = 320
-    Height = 28
-    Top = 320
-    Width = 77
+    Left = 400
+    Height = 35
+    Top = 400
+    Width = 96
     Anchors = [akRight, akBottom]
-    Caption = 'Previous'
+    Caption = 'Cancel'
     TabOrder = 0
   end
   object btnNextWizard: TButton
-    Left = 408
-    Height = 28
-    Top = 320
-    Width = 77
+    Left = 510
+    Height = 35
+    Top = 400
+    Width = 96
     Anchors = [akRight, akBottom]
-    Caption = 'Next'
+    Caption = 'Create'
+    OnClick = btnNextWizardClick
     TabOrder = 1
   end
   object nbStepWizard: TNotebook
-    Left = 16
-    Height = 232
-    Top = 72
-    Width = 483
+    Left = 20
+    Height = 290
+    Top = 90
+    Width = 603
     PageIndex = 0
     Anchors = [akTop, akLeft, akRight, akBottom]
     TabOrder = 2
     object pgFirstStep: TPage
       object ScrollBox1: TScrollBox
         Left = 0
-        Height = 232
+        Height = 290
         Top = 0
-        Width = 483
-        HorzScrollBar.Page = 475
-        VertScrollBar.Page = 103
+        Width = 603
+        HorzScrollBar.Page = 594
+        VertScrollBar.Page = 240
         Align = alClient
-        ClientHeight = 228
-        ClientWidth = 479
+        ClientHeight = 286
+        ClientWidth = 599
         TabOrder = 0
         object RadioGroup1: TRadioGroup
-          Left = 8
-          Height = 208
-          Top = 8
-          Width = 128
+          Left = 10
+          Height = 261
+          Top = 10
+          Width = 160
           Anchors = [akTop, akLeft, akBottom]
           AutoFill = False
           Caption = 'Aplication Type'
@@ -351,68 +354,97 @@ object frmNewProject: TfrmNewProject
           ChildSizing.ShrinkVertical = crsScaleChilds
           ChildSizing.Layout = cclLeftToRightThenTopToBottom
           ChildSizing.ControlsPerLine = 1
-          ClientHeight = 188
-          ClientWidth = 124
+          ClientHeight = 236
+          ClientWidth = 156
           ItemIndex = 0
           Items.Strings = (
             'Embedded HTTP'
+            'CGI HTTP'
           )
           TabOrder = 0
         end
-        object LabeledEdit1: TLabeledEdit
-          Left = 160
-          Height = 23
-          Top = 32
-          Width = 312
-          EditLabel.AnchorSideLeft.Control = LabeledEdit1
-          EditLabel.AnchorSideRight.Control = LabeledEdit1
-          EditLabel.AnchorSideRight.Side = asrBottom
-          EditLabel.AnchorSideBottom.Control = LabeledEdit1
-          EditLabel.Left = 160
-          EditLabel.Height = 15
-          EditLabel.Top = 14
-          EditLabel.Width = 312
+        object edProjectName: TLabeledEdit
+          Left = 200
+          Height = 28
+          Top = 40
+          Width = 390
+          EditLabel.Height = 20
+          EditLabel.Width = 390
           EditLabel.Caption = 'Application Name'
           EditLabel.ParentColor = False
           TabOrder = 1
         end
-        object DirectoryEdit1: TDirectoryEdit
-          Left = 160
-          Height = 23
-          Top = 80
-          Width = 315
+        object edProjectPath: TDirectoryEdit
+          Left = 200
+          Height = 28
+          Top = 156
+          Width = 394
           ShowHidden = False
-          ButtonWidth = 23
+          ButtonWidth = 29
           NumGlyphs = 1
           MaxLength = 0
           TabOrder = 2
+          OnChange = edProjectPathChange
         end
         object Label2: TLabel
-          Left = 160
-          Height = 15
-          Top = 64
-          Width = 64
+          Left = 200
+          Height = 20
+          Top = 136
+          Width = 78
           Caption = 'Project Path'
           ParentColor = False
+        end
+        object edWebRootPath: TDirectoryEdit
+          Left = 200
+          Height = 28
+          Top = 212
+          Width = 394
+          ShowHidden = False
+          ButtonWidth = 29
+          NumGlyphs = 1
+          Enabled = False
+          MaxLength = 0
+          TabOrder = 3
+        end
+        object Label3: TLabel
+          Left = 200
+          Height = 20
+          Top = 192
+          Width = 98
+          Caption = 'Web Root Path'
+          ParentColor = False
+        end
+        object edOutputFile: TLabeledEdit
+          Left = 200
+          Height = 28
+          Top = 96
+          Width = 390
+          EditLabel.Height = 20
+          EditLabel.Width = 390
+          EditLabel.Caption = 'Output File'
+          EditLabel.ParentColor = False
+          Enabled = False
+          TabOrder = 4
+          Text = 'control'
         end
       end
     end
     object SecondStep: TPage
       object CheckBox1: TCheckBox
-        Left = 8
+        Left = 10
         Height = 19
-        Top = 8
+        Top = 10
         Width = 149
         Caption = 'Generate structure paths'
         TabOrder = 0
       end
       object ValueListEditor1: TValueListEditor
-        Left = 8
-        Height = 160
-        Top = 32
-        Width = 472
+        Left = 10
+        Height = 200
+        Top = 40
+        Width = 590
         Anchors = [akTop, akLeft, akRight, akBottom]
-        DefaultColWidth = 150
+        DefaultColWidth = 188
         FixedCols = 0
         RowCount = 4
         TabOrder = 1
@@ -428,24 +460,24 @@ object frmNewProject: TfrmNewProject
           'Value'
         )
         ColWidths = (
-          150
-          322
+          188
+          402
         )
       end
       object btnPrevWizard1: TButton
-        Left = 336
-        Height = 28
-        Top = 200
-        Width = 45
+        Left = 420
+        Height = 35
+        Top = 250
+        Width = 56
         Anchors = [akRight, akBottom]
         Caption = 'Add'
         TabOrder = 2
       end
       object btnPrevWizard2: TButton
-        Left = 392
-        Height = 28
-        Top = 200
-        Width = 69
+        Left = 490
+        Height = 35
+        Top = 250
+        Width = 86
         Anchors = [akRight, akBottom]
         Caption = 'Remove'
         TabOrder = 3
@@ -453,15 +485,15 @@ object frmNewProject: TfrmNewProject
     end
   end
   object lblVersion: TLabel
-    Left = 446
-    Height = 12
+    Left = 591
+    Height = 13
     Top = 40
-    Width = 46
+    Width = 24
     Alignment = taRightJustify
     Anchors = [akTop, akRight]
-    Caption = '0.0.0alpha3'
+    Caption = '1.2.0'
     Font.Color = clWhite
-    Font.Height = -9
+    Font.Height = -11
     ParentColor = False
     ParentFont = False
   end

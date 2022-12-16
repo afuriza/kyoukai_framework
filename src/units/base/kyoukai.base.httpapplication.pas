@@ -11,7 +11,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Standard.HTTPApplication;
+unit Kyoukai.Base.HTTPApplication;
 
 {$mode objfpc}{$H+}
 
@@ -19,19 +19,23 @@ interface
 
 uses
   Classes, SysUtils, custapp,
-  Kyoukai.Standard.HTTPServer,
-  Kyoukai.Standard.WebRouter;
+  Kyoukai.Base.HTTPServer,
+  Kyoukai.Base.Controller,
+  Kyoukai.Base.WebRouter;
 
 type
 
   TKyoukaiApp = class(TCustomApplication)
   private
-    fServer: TKyCustHTTPServer;
+    fServer: TKyoukaiHTTPServer;
     fMimeTypesFile: string;
-    function ReadRouter: TKyRoutes;
-    procedure WriteRouter(ARouter: TKyRoutes);
-    function ReadFileRoutes: TKyFileRoutes;
-    procedure WriteFileRoutes(AFileRoute: TKyFileRoutes);
+    procedure WriteControllerList(AControllerList: TControllerList);
+    function ReadControllerList: TControllerList;
+    procedure WriteRouter(ARouter: TKyoukaiRouteHandler);
+    function ReadRouter: TKyoukaiRouteHandler;
+
+    function ReadFileRouter: TKyFileRoutes;
+    procedure WriteFileRouter(AFileRoute: TKyFileRoutes);
     function ReadIsActive: boolean;
     procedure WriteToActive(AState: boolean);
     function ReadPort: word;
@@ -41,8 +45,9 @@ type
   public
     property Threaded: boolean read ReadThreaded write WriteThreaded; experimental;
     property Port: word read ReadPort write WritePort;
-    property Router: TKyRoutes read ReadRouter write WriteRouter;
-    property FileRouter: TKyFileRoutes read ReadFileRoutes write WriteFileRoutes;
+    property ControllerList: TControllerList read ReadControllerList write WriteControllerList;
+    property FileRouter: TKyFileRoutes read ReadFileRouter write WriteFileRouter;
+    property Router: TKyoukaiRouteHandler read ReadRouter write WriteRouter;
     property Active: boolean read ReadIsActive write WriteToActive; deprecated;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
     procedure Run;
@@ -65,22 +70,32 @@ begin
   fServer.Threaded := IsThreaded;
 end;
 
-function TKyoukaiApp.ReadRouter: TKyRoutes;
+procedure TKyoukaiApp.WriteControllerList(AControllerList: TControllerList);
 begin
-  Result := fServer.Router;
+  fServer.ControllerList := AControllerList;
 end;
 
-procedure TKyoukaiApp.WriteRouter(ARouter: TKyRoutes);
+function TKyoukaiApp.ReadControllerList: TControllerList;
+begin
+  Result := fServer.ControllerList;
+end;
+
+procedure TKyoukaiApp.WriteRouter(ARouter: TKyoukaiRouteHandler);
 begin
   fServer.Router := ARouter;
 end;
 
-function TKyoukaiApp.ReadFileRoutes: TKyFileRoutes;
+function TKyoukaiApp.ReadRouter: TKyoukaiRouteHandler;
+begin
+  Result := fServer.Router;
+end;
+
+function TKyoukaiApp.ReadFileRouter: TKyFileRoutes;
 begin
   Result := fServer.FileRouter;
 end;
 
-procedure TKyoukaiApp.WriteFileRoutes(AFileRoute: TKyFileRoutes);
+procedure TKyoukaiApp.WriteFileRouter(AFileRoute: TKyFileRoutes);
 begin
   fServer.FileRouter := AFileRoute;
 end;
@@ -117,7 +132,7 @@ end;
 constructor TKyoukaiApp.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  fServer := TKyCustHTTPServer.Create(Self);
+  fServer := TKyoukaiHTTPServer.Create(Self);
 end;
 
 destructor TKyoukaiApp.Destroy;
@@ -128,8 +143,8 @@ end;
 
 initialization
   KyoukaiApp := TKyoukaiApp.Create(nil);
-  KyoukaiApp.Router := Routes;
-  KyoukaiApp.FileRouter := FileRoutes;
+  KyoukaiApp.ControllerList := Controllers;
+  KyoukaiApp.FileRouter := FileRoute;
 
 finalization
   FreeAndNil(KyoukaiApp);

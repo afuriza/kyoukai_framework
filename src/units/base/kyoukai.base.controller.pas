@@ -11,7 +11,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Standard.WebModule;
+unit Kyoukai.Base.Controller;
 
 {$mode objfpc}{$H+}
 
@@ -19,18 +19,20 @@ interface
 
 uses
   Classes, SysUtils, fphttpserver, httpdefs, fphttp, TypInfo,
-  Kyoukai.Standard.WebSession,
-  Kyoukai.Standard.WebView,
-  Kyoukai.Other.KTemplate,
-  Kyoukai.Standard.CGIDefs;
+  Kyoukai.Core.STLUtil,
+  Kyoukai.Base.WebSession,
+  Kyoukai.Base.WebView,
+  Kyoukai.Core.KTemplate,
+  Kyoukai.Base.CGIDefs;
 
 type
 
-  TKyModule = class(TComponent)
+  TController = class(TComponent)
   private
     HandleMethod: Boolean;
     fcgirootpath: string;
 
+    fParams: TStringList;
     fRequest: TRequest;
     fResponse: TResponse;
     fSession: TSessionController;
@@ -65,6 +67,7 @@ type
   published
     property ErrorString: string read fErrorMsg;
     property Session: TSessionController read fSession write fSession;
+    property Params: TStringList read fParams write fParams;
     property WebWritings: string read fWebWritings write fWebWritings;
     property Request: TRequest read fRequest write fRequest;
     property Response: TResponse read fResponse write fResponse;
@@ -72,84 +75,107 @@ type
     property MainPath: string read fCGIROOTPath;
   end;
 
-  TKyModuleClass = class of TKyModule;
+  TControllerClass = class of TController;
 
+  TControllerList = class(TObject)
+  private
+    type
+      TControllerClassMap = specialize TStringHashMap<TControllerClass>;
+  private
+    ControllerMap: TControllerClassMap;
+    function GetURL(const AURL: string): TControllerClass;
+    procedure SetURL(const AURL: string; AValue: TControllerClass);
+  public
+    class function MakeOther: TControllerList;
+    function GetRouteAliasList: TStringList;
+    function Contains(AKey: string): Boolean;
+    constructor Create;
+    destructor Destroy; override;
+    property Routes[const AURL: String]: TControllerClass read GetURL write SetURL;default;
+  end;
+
+  TControllerListClass = class of TControllerList;
+
+var
+  Controllers: TControllerList;
 implementation
 
-procedure TKyModule.StartSession;
+procedure TController.StartSession;
 begin
   fSession := TSessionController.Create(fRequest);
   fSession.StartSession;
 end;
 
-procedure TKyModule.TerminateSession;
+procedure TController.TerminateSession;
 begin
   fSession.Terminate;
 end;
 
-function TKyModule.ReadSessionVar(const AVarName: string): string;
+function TController.ReadSessionVar(const AVarName: string): string;
 begin
   if Assigned(fSession) then
   Result := fSession.Values[AVarName];
 end;
 
-procedure TKyModule.WriteSessionVar(const AVarName, AVarValue: string);
+procedure TController.WriteSessionVar(const AVarName, AVarValue: string);
 begin
   if Assigned(fSession) then
   fSession.Values[AVarName] := AVarValue;
 end;
 
-procedure TKyModule.Redirect(const ALocation: string);
+procedure TController.Redirect(const ALocation: string);
 begin
   Response.SendRedirect(ALocation);
 end;
 
-procedure TKyModule.Render(ATemplate: TKTemplate);
+procedure TController.Render(ATemplate: TKTemplate);
 begin
   Response.Contents.Text := ATemplate.GetContent;
 end;
 
-procedure TKyModule.Render(AView: TKyView; AGlobalViewName: String);
+procedure TController.Render(AView: TKyView; AGlobalViewName: String);
 begin
   Response.Content := Response.Content + AView.GetContent(AGlobalViewName);
 end;
 
-procedure TKyModule.Render(AView: TKyView);
+procedure TController.Render(AView: TKyView);
 begin
   Response.Content := Response.Content + AView.GetContent;
 end;
 
-procedure TKyModule.echo(const AMessage: String);
+procedure TController.echo(const AMessage: String);
 begin
   Response.Content := Response.Content + AMessage;
 end;
 
-function TKyModule.ReadGetVar(const AVarName: string): string;
+function TController.ReadGetVar(const AVarName: string): string;
 begin
   Result := Request.QueryFields.Values[AVarName];
 end;
 
-function TKyModule.ReadPostVar(const AVarName: string): string;
+function TController.ReadPostVar(const AVarName: string): string;
 begin
   Result := Request.ContentFields.Values[AVarName];
 end;
 
-Constructor TKyModule.Create(AOwner: TComponent);
+Constructor TController.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   fcgirootpath := CGIROOTPath;
+  fParams := TStringList.Create;
 end;
 
-Constructor TKyModule.Create(AOwner: TComponent;
+Constructor TController.Create(AOwner: TComponent;
   aRequest: TRequest; aResponse: TResponse);
 begin
   inherited Create(AOwner);
   fRequest := ARequest;
   fResponse := AResponse;
   fcgirootpath := CGIROOTPath;
+  fParams := TStringList.Create;
 end;
 
-Constructor TKyModule.Create(AOwner: TComponent; aRequest: TRequest;
+Constructor TController.Create(AOwner: TComponent; aRequest: TRequest;
       aResponse: TResponse; ErrorStr: string);
 begin
   inherited Create(AOwner);
@@ -157,13 +183,66 @@ begin
   fResponse := AResponse;
   fErrorMsg := ErrorStr;
   fcgirootpath := CGIROOTPath;
+  fParams := TStringList.Create;
 end;
 
-destructor TKyModule.Destroy;
+destructor TController.Destroy;
 begin
   if Assigned(fSession) then
     FreeAndNil(fSession);
+  FreeAndNil(fParams);
   inherited Destroy;
 end;
+
+
+{ Controller List }
+
+class function TControllerList.MakeOther: TControllerList;
+begin
+  Result := Create;
+end;
+
+function TControllerList.GetRouteAliasList: TStringList;
+begin
+  //Result := TStringList.Create;
+end;
+
+function TControllerList.Contains(AKey: string): Boolean;
+begin
+  {$if fpc_fullversion >= 20701}
+  Result := ControllerMap.contains(AKey);
+  {$else fpc_fullversion >= 20701}
+  Result := ControllerMap.IndexOf('main') >= 0;
+  {$endif fpc_fullversion >= 20701}
+end;
+
+function TControllerList.GetURL(const AURL: string): TControllerClass;
+begin
+  Result := ControllerMap[AURL];
+end;
+
+procedure TControllerList.SetURL(const AURL: string; AValue: TControllerClass);
+begin
+  ControllerMap[AURL] := AValue;
+end;
+
+constructor TControllerList.Create;
+begin
+  ControllerMap := TControllerClassMap.create;
+end;
+
+destructor TControllerList.Destroy;
+begin
+  FreeAndNil(ControllerMap);
+  inherited;
+end;
+
+initialization
+
+Controllers := TControllerList.Create;
+
+finalization
+
+FreeAndNil(Controllers);
 
 end.

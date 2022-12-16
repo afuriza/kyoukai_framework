@@ -11,7 +11,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Standard.HTTPServer;
+unit Kyoukai.Base.HTTPServer;
 
 {$mode objfpc}{$H+}
 
@@ -21,18 +21,22 @@ uses
   cmem,
   Classes, SysUtils, fphttp, fphttpserver, httpdefs,
   fpmimetypes, fphttpclient,
-  Kyoukai.Standard.WebRouter,
-  Kyoukai.Standard.WebHandler;
+  Kyoukai.Base.WebRouter,
+  Kyoukai.Base.Controller,
+  Kyoukai.Base.WebHandler;
 
 type
 
-  TKyCustHTTPServer = class(TFPHTTPServer)
+  TKyoukaiHTTPServer = class(TFPHTTPServer)
   private
-    fWebHandler: TKyCustHTTPHandler;
+    fWebHandler: TKyoukaiHTTPHandler;
     procedure WriteMimeTypesFile(AFileName: string);
     function ReadMimeTypesFile: string;
-    procedure WriteRouter(ARoutes: TKyRoutes);
-    function ReadRouter: TKyRoutes;
+     procedure WriteControllerList(AControllerList: TControllerList);
+    function ReadControllerList: TControllerList;
+    procedure WriteRouter(ARouter: TKyoukaiRouteHandler);
+    function ReadRouter: TKyoukaiRouteHandler;
+
     procedure WriteFileRouter(ARoutes: TKyFileRoutes);
     function ReadFileRouter: TKyFileRoutes;
   protected
@@ -44,32 +48,34 @@ type
     destructor Destroy; override;
   published
     property MimeTypesFile: string read ReadMimeTypesFile write WriteMimeTypesFile;
-    property Router: TKyRoutes read ReadRouter write WriteRouter;
+    property ControllerList: TControllerList read ReadControllerList write WriteControllerList;
     property FileRouter: TKyFileRoutes read ReadFileRouter write WriteFileRouter;
+    property Router: TKyoukaiRouteHandler read ReadRouter write WriteRouter;
   end;
 
-  TKyCustHTTPServerClass = class of TKyCustHTTPServer;
+  TKyoukaiHTTPServerClass = class of TKyoukaiHTTPServer;
 
-  TKyCustHTTPServerThread = class(TThread)
+  TKyoukaiHTTPServerThread = class(TThread)
   private
     _Error: string;
 
   protected
     procedure Execute; override;
   public
-    fServer: TKyCustHTTPServer;
-    constructor Create(APort: word; ARouter: TKyRoutes; AMimeFileName: string;
+    fServer: TKyoukaiHTTPServer;
+    constructor Create(APort: word; ARouter: TKyoukaiRouteHandler; AControllerList: TControllerList; AMimeFileName: string;
       var AFileRouter: TKyFileRoutes);
     destructor Destroy; override;
     property Error: string read _Error;
-    //property Server: TKyCustHTTPServer read fServer write fServer;
+    //property Server: TKyoukaiHTTPServer read fServer write fServer;
   end;
 
   TKyHTTPServer = class(TComponent)
   private
-    fServerThread: TKyCustHTTPServerThread;
+    fServerThread: TKyoukaiHTTPServerThread;
     fMimeTypesFile: string;
-    fRouter: TKyRoutes;
+    fRouter: TKyoukaiRouteHandler;
+    fControllerList: TControllerList;
     fFileRouter: TKyFileRoutes;
     fPort: word;
   public
@@ -82,13 +88,14 @@ type
   published
     property Port: word read fPort write fPort;
     property MimeTypesFile: string read fMimeTypesFile write fMimeTypesFile;
-    property Router: TKyRoutes read fRouter write fRouter;
+    property Router: TKyoukaiRouteHandler read fRouter write fRouter;
+    property ControllerList: TControllerList read fControllerList write fControllerList;
     property FileRouter: TKyFileRoutes read fFileRouter write fFileRouter;
   end;
 
 implementation
 
-procedure TKyCustHTTPServer.Notification(AComponent: TComponent; Operation: TOperation);
+procedure TKyoukaiHTTPServer.Notification(AComponent: TComponent; Operation: TOperation);
 begin
   inherited Notification(AComponent, Operation);
   if (Operation = opRemove) and (AComponent.ClassParent.ClassName = 'TKyModule') then
@@ -99,56 +106,66 @@ begin
 
 end;
 
-procedure TKyCustHTTPServer.WriteRouter(ARoutes: TKyRoutes);
+procedure TKyoukaiHTTPServer.WriteControllerList(AControllerList: TControllerList);
 begin
-  fWebHandler.Router := ARoutes;
+  fWebHandler.ControllerList := AControllerList;
 end;
 
-function TKyCustHTTPServer.ReadRouter: TKyRoutes;
+function TKyoukaiHTTPServer.ReadControllerList: TControllerList;
+begin
+  Result := fWebHandler.ControllerList;
+end;
+
+procedure TKyoukaiHTTPServer.WriteRouter(ARouter: TKyoukaiRouteHandler);
+begin
+  fWebHandler.Router := ARouter;
+end;
+
+function TKyoukaiHTTPServer.ReadRouter: TKyoukaiRouteHandler;
 begin
   Result := fWebHandler.Router;
 end;
 
-procedure TKyCustHTTPServer.WriteFileRouter(ARoutes: TKyFileRoutes);
+procedure TKyoukaiHTTPServer.WriteFileRouter(ARoutes: TKyFileRoutes);
 begin
   fWebHandler.FileRouter := ARoutes;
 end;
 
-function TKyCustHTTPServer.ReadFileRouter: TKyFileRoutes;
+function TKyoukaiHTTPServer.ReadFileRouter: TKyFileRoutes;
 begin
   Result := fWebHandler.FileRouter;
 end;
 
-procedure TKyCustHTTPServer.WriteMimeTypesFile(AFileName: string);
+procedure TKyoukaiHTTPServer.WriteMimeTypesFile(AFileName: string);
 begin
   fWebHandler.MimeTypesFile := AFileName;
 end;
 
-function TKyCustHTTPServer.ReadMimeTypesFile: string;
+function TKyoukaiHTTPServer.ReadMimeTypesFile: string;
 begin
   Result := fWebHandler.MimeTypesFile;
 end;
 
-procedure TKyCustHTTPServer.HandleRequest(var ARequest: TFPHTTPConnectionRequest;
+procedure TKyoukaiHTTPServer.HandleRequest(var ARequest: TFPHTTPConnectionRequest;
   var AResponse: TFPHTTPConnectionResponse);
 begin
   fWebHandler.DoHandleRequest(ARequest, AResponse);
 end;
 
-constructor TKyCustHTTPServer.Create(AOwner: TComponent);
+constructor TKyoukaiHTTPServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
-  fWebHandler := TKyCustHTTPHandler.Create;
+  fWebHandler := TKyoukaiHTTPHandler.Create;
 end;
 
-destructor TKyCustHTTPServer.Destroy;
+destructor TKyoukaiHTTPServer.Destroy;
 begin
   FreeAndNil(fWebHandler);
   inherited Destroy;
 end;
 
 // KyServerThread
-procedure TKyCustHTTPServerThread.Execute;
+procedure TKyoukaiHTTPServerThread.Execute;
 begin
   try
     try
@@ -164,12 +181,13 @@ begin
   end;
 end;
 
-constructor TKyCustHTTPServerThread.Create(APort: word; ARouter: TKyRoutes;
-  AMimeFileName: string; var AFileRouter: TKyFileRoutes);
+constructor TKyoukaiHTTPServerThread.Create(APort: word; ARouter: TKyoukaiRouteHandler;
+  AControllerList: TControllerList; AMimeFileName: string; var AFileRouter: TKyFileRoutes);
 begin
   inherited Create(False);
-  fServer := TKyCustHTTPServer.Create(nil);
+  fServer := TKyoukaiHTTPServer.Create(nil);
   fServer.Port := APort;
+  fServer.ControllerList := AControllerList;
   fServer.Router := ARouter;
   fServer.MimeTypesFile := AMimeFileName;
   fServer.FileRouter := AFileRouter;
@@ -177,7 +195,7 @@ begin
   _Error := 'nil';
 end;
 
-destructor TKyCustHTTPServerThread.Destroy;
+destructor TKyoukaiHTTPServerThread.Destroy;
 begin
   inherited Destroy;
 end;
@@ -187,7 +205,7 @@ end;
 procedure TKyHTTPServer.Start;
 begin
 
-  fServerThread := TKyCustHTTPServerThread.Create(fPort, fRouter,
+  fServerThread := TKyoukaiHTTPServerThread.Create(fPort, fRouter, fControllerList,
     fMimeTypesFile, fFileRouter);
 end;
 
@@ -210,13 +228,11 @@ constructor TKyHTTPServer.Create(AOwner: TComponent);
 begin
   inherited Create(AOwner);
   fPort := 80;
-  //fFileRouter := TKyFileRoutes.Create;
 end;
 
 destructor TKyHTTPServer.Destroy;
 begin
   inherited Destroy;
-  //FreeAndNil(fFileRouter);
 end;
 
 initialization

@@ -11,7 +11,7 @@ but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 *******************************************************************************}
-unit Kyoukai.Other.CommonUtil;
+unit Kyoukai.Core.CommonUtil;
 
 {$mode objfpc}{$H+}
 
@@ -26,8 +26,35 @@ type
 
 procedure Split (const Delimiter: Char; Input: string; const Strings: TStrings);
 function DumpExceptionCallStack(E: Exception): string;
+operator in(str: string; strlist: TStringList): boolean;
+operator in(str: string; strarr: array of string): boolean;
+
 
 implementation
+
+operator in(str: string; strarr: array of string): boolean;
+var
+  s: string;
+begin
+  Result := False;
+  for s in strarr do
+  begin
+    Result := s = str;
+    if Result then Break;
+  end;
+end;
+
+operator in(str: string; strlist: TStringList): boolean;
+var
+  s: string;
+begin
+  Result := False;
+  for s in strlist do
+  begin
+    Result := s = str;
+    if Result then Break;
+  end;
+end;
 
 procedure Split (const Delimiter: Char; Input: string; const Strings: TStrings);
 begin
