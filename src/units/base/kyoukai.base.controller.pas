@@ -52,8 +52,8 @@ type
       aResponse: TResponse; ErrorStr: string); reintroduce;
     procedure echo(const AMessage: String);
     procedure Render(ATemplate: TKTemplate);
-    procedure Render(AView: TKyView);
-    procedure Render(AView: TKyView; AGlobalViewName: String);
+    procedure Render(AView: TWebView);
+    procedure Render(AView: TWebView; AGlobalViewName: String);
     procedure StartSession;
     procedure TerminateSession;
     property InputGet[const AVarName: string]: string read ReadGetVar;
@@ -133,12 +133,12 @@ begin
   Response.Contents.Text := ATemplate.GetContent;
 end;
 
-procedure TController.Render(AView: TKyView; AGlobalViewName: String);
+procedure TController.Render(AView: TWebView; AGlobalViewName: String);
 begin
   Response.Content := Response.Content + AView.GetContent(AGlobalViewName);
 end;
 
-procedure TController.Render(AView: TKyView);
+procedure TController.Render(AView: TWebView);
 begin
   Response.Content := Response.Content + AView.GetContent;
 end;

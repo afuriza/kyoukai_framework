@@ -42,7 +42,11 @@ type
     procedure WritePort(APort: word);
     function ReadThreaded: boolean;
     procedure WriteThreaded(IsThreaded: boolean);
+
+    procedure WriteAutoRouting(AValue: boolean);
+    function ReadAutoRouting: boolean;
   public
+    property AutoRouting: boolean read ReadAutoRouting write WriteAutoRouting;
     property Threaded: boolean read ReadThreaded write WriteThreaded; experimental;
     property Port: word read ReadPort write WritePort;
     property ControllerList: TControllerList read ReadControllerList write WriteControllerList;
@@ -98,6 +102,16 @@ end;
 procedure TKyoukaiApp.WriteFileRouter(AFileRoute: TKyFileRoutes);
 begin
   fServer.FileRouter := AFileRoute;
+end;
+
+procedure TKyoukaiApp.WriteAutoRouting(AValue: boolean);
+begin
+  fServer.AutoRouting := AValue;
+end;
+
+function TKyoukaiApp.ReadAutoRouting: boolean;
+begin
+  Result := fServer.AutoRouting;
 end;
 
 procedure TKyoukaiApp.Run;

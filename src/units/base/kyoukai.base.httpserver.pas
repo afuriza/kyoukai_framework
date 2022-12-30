@@ -39,6 +39,9 @@ type
 
     procedure WriteFileRouter(ARoutes: TKyFileRoutes);
     function ReadFileRouter: TKyFileRoutes;
+
+    procedure WriteAutoRouting(AValue: boolean);
+    function ReadAutoRouting: boolean;
   protected
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
     procedure HandleRequest(var ARequest: TFPHTTPConnectionRequest;
@@ -47,6 +50,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
+    property AutoRouting: boolean read ReadAutoRouting write WriteAutoRouting;
     property MimeTypesFile: string read ReadMimeTypesFile write WriteMimeTypesFile;
     property ControllerList: TControllerList read ReadControllerList write WriteControllerList;
     property FileRouter: TKyFileRoutes read ReadFileRouter write WriteFileRouter;
@@ -144,6 +148,16 @@ end;
 function TKyoukaiHTTPServer.ReadMimeTypesFile: string;
 begin
   Result := fWebHandler.MimeTypesFile;
+end;
+
+procedure TKyoukaiHTTPServer.WriteAutoRouting(AValue: boolean);
+begin
+  fWebHandler.AutoRouting := AValue;
+end;
+
+function TKyoukaiHTTPServer.ReadAutoRouting: boolean;
+begin
+  Result := fWebHandler.AutoRouting;
 end;
 
 procedure TKyoukaiHTTPServer.HandleRequest(var ARequest: TFPHTTPConnectionRequest;

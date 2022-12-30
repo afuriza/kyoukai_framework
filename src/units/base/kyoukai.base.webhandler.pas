@@ -459,7 +459,7 @@ constructor TKyoukaiHTTPHandler.Create;
 begin
   inherited Create;
   KMime := TFPMimeTypes.Create(nil);
-  AutoRouting := False;
+  AutoRouting := True;
 end;
 
 destructor TKyoukaiHTTPHandler.Destroy;

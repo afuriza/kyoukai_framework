@@ -52,7 +52,7 @@ type
 
   TDataItemMap = specialize TStringHashMap<TDataItems>;
 
-  TKyView = class(TObject)
+  TWebView = class(TObject)
   private
     fKTemplate: TFPTemplate;
     fDataItem: TStringList;
@@ -142,17 +142,17 @@ end;
 
 {view}
 
-function TKyView.ReadDataItem(AName: string): string;
+function TWebView.ReadDataItem(AName: string): string;
 begin
   Result := fDataItem.Values[AName];
 end;
 
-procedure TKyView.WriteDataItem(AName, AValue: string);
+procedure TWebView.WriteDataItem(AName, AValue: string);
 begin
   fDataItem.Values[AName] := AValue;
 end;
 
-procedure TKyView.ReplaceTag(Sender : TObject; Const TagString : String;
+procedure TWebView.ReplaceTag(Sender : TObject; Const TagString : String;
       TagParams:TStringList; Out ReplaceText : String);
 var
   ParamNames, ParamValues: array of string;
@@ -191,7 +191,7 @@ begin
   end;
 end;
 
-function TKyView.ReadDataItems(AName: string): TDataItems;
+function TWebView.ReadDataItems(AName: string): TDataItems;
 var
   ffDataItems: TDataItems;
 begin
@@ -205,7 +205,7 @@ begin
   end;
 end;
 
-procedure TKyView.WriteDataItems(AName: string; AValues: TDataItems);
+procedure TWebView.WriteDataItems(AName: string; AValues: TDataItems);
 var
   ffDataItems: TDataItems;
 begin
@@ -218,17 +218,17 @@ begin
   end;
 end;
 
-function TKyView.GetContent: string;
+function TWebView.GetContent: string;
 begin
   Result := fKTemplate.GetContent;
 end;
 
-function TKyView.GetContent(GlobalViewName: string): string;
+function TWebView.GetContent(GlobalViewName: string): string;
 begin
   Result := GlobalView[GlobalViewName].GetContent(fKTemplate.GetContent);
 end;
 
-constructor TKyView.Create(const AFileName: String);
+constructor TWebView.Create(const AFileName: String);
 begin
   fKTemplate := TFPTemplate.Create;
   fDataItem := TStringList.Create;
@@ -246,7 +246,7 @@ begin
   fKTemplate.OnReplaceTag := @ReplaceTag;
 end;
 
-destructor TKyView.Destroy;
+destructor TWebView.Destroy;
 var
   i, j: integer;
 begin

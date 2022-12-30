@@ -27,6 +27,10 @@ type
 
     procedure WriteFileRouter(AControllerList: TKyFileRoutes);
     function ReadFileRouter: TKyFileRoutes;
+
+    procedure WriteAutoRouting(AValue: boolean);
+    function ReadAutoRouting: boolean;
+
     procedure HandleRequest(ARequest: TRequest;
       AResponse: TResponse);
   public
@@ -35,6 +39,7 @@ type
     procedure Run;
     procedure Terminate;
   published
+    property AutoRouting: boolean read ReadAutoRouting write WriteAutoRouting;
     property MimeTypesFile: string read ReadMimeTypesFile write WriteMimeTypesFile;
     property ControllerList: TControllerList read ReadControllerList write WriteControllerList;
     property FileRouter: TKyFileRoutes read ReadFileRouter write WriteFileRouter;
@@ -63,7 +68,15 @@ begin
   Result := fWebHandler.Router;
 end;
 
+procedure TKyoukaiCGIHandler.WriteAutoRouting(AValue: boolean);
+begin
+  fWebHandler.AutoRouting := AValue;
+end;
 
+function TKyoukaiCGIHandler.ReadAutoRouting: boolean;
+begin
+  Result := fWebHandler.AutoRouting;
+end;
 
 procedure TKyoukaiCGIHandler.WriteFileRouter(AControllerList: TKyFileRoutes);
 begin
