@@ -52,7 +52,7 @@ begin
   //RegisterProjectFileDescriptor(TFileControllerDesc.Create,
   //                              FileDescGroupName);
   //RegisterProjectDescriptor(TKyoukaiWebAppDescriptor.Create);
-  RegisterIDEMenuCommand(mnuFile, 'newkyoukaifile', 'New Kyoukai File',
+  RegisterIDEMenuCommand(mnuProject, 'newkyoukaifile', 'New Kyoukai Project',
    @frmNewProject.StartDlg);
 
 end;
