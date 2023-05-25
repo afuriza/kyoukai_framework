@@ -102,7 +102,8 @@ implementation
 
 procedure TController.StartSession;
 begin
-  fSession := TSessionController.Create(fRequest);
+  if not Assigned(fSession) then
+    fSession := TSessionController.Create(fRequest);
   fSession.StartSession;
 end;
 

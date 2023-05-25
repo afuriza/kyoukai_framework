@@ -396,6 +396,7 @@ begin
   end
   else
   begin
+
     if ARequest.PathInfo = '' then
       DynRouteValues := Router.GetRouteMatch('/')
     else
@@ -410,6 +411,7 @@ begin
 
       // method@controller
       DynHandler := TStringList.Create;
+
       Split('@', DynRouteValues.Handler.ToLower, DynHandler);
       if ControllerList.Contains(DynHandler[1]) then
       begin
@@ -420,8 +422,9 @@ begin
         ModuleWorker.Handled := True;
         //ModuleWorker.Params := ;
         i := 0;
+
         ARouteSplit := DynRouteValues.RouteStr.Split('/');
-        CurrentRouteSplit := HTTPDecode(ARequest.PathInfo).ToLower.Split('/');
+        CurrentRouteSplit := HTTPDecode(ARequest.PathInfo).Split('/');
         for s in ARouteSplit do
         begin
           if s.StartsWith('<') and s.EndsWith('>') then

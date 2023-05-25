@@ -4,7 +4,7 @@
     <PathDelim Value="\"/>
     <Version Value="12"/>
     <BuildModes Active="Default"/>
-    <Units Count="48">
+    <Units Count="25">
       <Unit0>
         <Filename Value="kyoukai_framework.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -15,11 +15,10 @@
       <Unit1>
         <Filename Value="src\units\base\kyoukai.base.cgiutil.pas"/>
         <UnitName Value="Kyoukai.Base.CGIUtil"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="7"/>
-        <TopLine Value="28"/>
+        <TopLine Value="133"/>
         <CursorPos X="66" Y="42"/>
-        <UsageCount Value="92"/>
+        <UsageCount Value="160"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -28,14 +27,14 @@
         <WindowIndex Value="-1"/>
         <TopLine Value="-1"/>
         <CursorPos X="-1" Y="-1"/>
-        <UsageCount Value="92"/>
+        <UsageCount Value="78"/>
       </Unit2>
       <Unit3>
         <Filename Value="src\units\base\kyoukai.base.cgiapplication.pas"/>
         <UnitName Value="Kyoukai.Base.CGIApplication"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="16" Y="10"/>
-        <UsageCount Value="91"/>
+        <UsageCount Value="77"/>
       </Unit3>
       <Unit4>
         <Filename Value="src\ideintf\kyfrmnewproject.pas"/>
@@ -55,22 +54,21 @@
         <UnitName Value="Kyoukai.IDEIntf.RegisterKyoukai"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="32" Y="8"/>
-        <UsageCount Value="17"/>
+        <UsageCount Value="3"/>
       </Unit5>
       <Unit6>
         <Filename Value="src\units\base\kyoukai.base.httpapplication.pas"/>
         <UnitName Value="Kyoukai.Base.HTTPApplication"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="92"/>
+        <TopLine Value="142"/>
         <CursorPos Y="107"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="133"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="src\units\base\kyoukai.base.httpserver.pas"/>
         <UnitName Value="Kyoukai.Base.HTTPServer"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="148"/>
         <CursorPos X="24" Y="160"/>
         <UsageCount Value="105"/>
         <Loaded Value="True"/>
@@ -81,15 +79,15 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="4"/>
         <CursorPos X="15" Y="25"/>
-        <UsageCount Value="86"/>
+        <UsageCount Value="72"/>
       </Unit8>
       <Unit9>
         <Filename Value="src\units\base\kyoukai.base.webrouter.pas"/>
         <UnitName Value="Kyoukai.Base.WebRouter"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="104"/>
+        <TopLine Value="112"/>
         <CursorPos X="22" Y="126"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="126"/>
         <Loaded Value="True"/>
       </Unit9>
       <Unit10>
@@ -98,7 +96,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="13"/>
         <CursorPos X="15" Y="21"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="43"/>
       </Unit10>
       <Unit11>
         <Filename Value="src\units\core\kyoukai.core.ktemplate.pas"/>
@@ -106,7 +104,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="10"/>
         <CursorPos X="15" Y="24"/>
-        <UsageCount Value="74"/>
+        <UsageCount Value="60"/>
       </Unit11>
       <Unit12>
         <Filename Value="src\units\core\kyoukai.core.stlutil.pas"/>
@@ -114,258 +112,95 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="3"/>
         <CursorPos X="18"/>
-        <UsageCount Value="65"/>
+        <UsageCount Value="51"/>
       </Unit12>
       <Unit13>
         <Filename Value="src\units\core\kyoukai.core.rengemessages.pas"/>
         <UnitName Value="Kyoukai.Core.RengeMessages"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="18" Y="14"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="37"/>
       </Unit13>
       <Unit14>
-        <Filename Value="examples\simple_server\simple_server.lpr"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="2"/>
-      </Unit14>
-      <Unit15>
         <Filename Value="src\units\core\kyoukai.core.base64util.pas"/>
         <UnitName Value="Kyoukai.Core.Base64Util"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="18" Y="14"/>
-        <UsageCount Value="49"/>
-      </Unit15>
-      <Unit16>
+        <UsageCount Value="35"/>
+      </Unit14>
+      <Unit15>
         <Filename Value="src\units\base\kyoukai.base.websession.pas"/>
         <UnitName Value="Kyoukai.Base.WebSession"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="18" Y="16"/>
-        <UsageCount Value="42"/>
-      </Unit16>
-      <Unit17>
+        <UsageCount Value="28"/>
+      </Unit15>
+      <Unit16>
         <Filename Value="src\units\base\kyoukai.base.webview.pas"/>
         <UnitName Value="Kyoukai.Base.WebView"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="5"/>
         <CursorPos X="15" Y="29"/>
-        <UsageCount Value="75"/>
-      </Unit17>
-      <Unit18>
+        <UsageCount Value="61"/>
+      </Unit16>
+      <Unit17>
         <Filename Value="src\units\core\kyoukai.core.commonutil.pas"/>
         <UnitName Value="Kyoukai.Core.CommonUtil"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="22"/>
         <CursorPos X="60" Y="30"/>
-        <UsageCount Value="54"/>
-      </Unit18>
-      <Unit19>
-        <Filename Value="src\ideintf\kyoukai.ideintf.pkgutil.pas"/>
-        <UnitName Value="Kyoukai.IDEIntf.PkgUtil"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos Y="10"/>
-        <UsageCount Value="7"/>
-      </Unit19>
-      <Unit20>
-        <Filename Value="D:\LazPkg\fastplaz-development\tools\src\fastplaz_tools_register.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="19"/>
-        <CursorPos X="32" Y="30"/>
-        <UsageCount Value="6"/>
-      </Unit20>
-      <Unit21>
+        <UsageCount Value="40"/>
+      </Unit17>
+      <Unit18>
         <Filename Value="src\packages\kyoukai_ideintf.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="38" Y="20"/>
-        <UsageCount Value="39"/>
-      </Unit21>
-      <Unit22>
-        <Filename Value="C:\lazarus\components\ideintf\newitemintf.pas"/>
-        <UnitName Value="NewItemIntf"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="3" Y="35"/>
-        <UsageCount Value="6"/>
-      </Unit22>
-      <Unit23>
-        <Filename Value="D:\LazPkg\fastplaz-development\tools\src\project_lib.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="163"/>
-        <CursorPos X="39" Y="8"/>
-        <UsageCount Value="6"/>
-      </Unit23>
-      <Unit24>
+        <UsageCount Value="25"/>
+      </Unit18>
+      <Unit19>
         <Filename Value="src\ideintf\kyoukai_projectutil.pas"/>
         <EditorIndex Value="1"/>
         <CursorPos X="25" Y="3"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="114"/>
         <Loaded Value="True"/>
-      </Unit24>
-      <Unit25>
+      </Unit19>
+      <Unit20>
         <Filename Value="src\ideintf\kyoukai_projectconsts.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos X="25" Y="15"/>
-        <UsageCount Value="39"/>
-      </Unit25>
-      <Unit26>
-        <Filename Value="D:\LazPkg\fastplaz-development\tools\src\webstructure_lib.pas"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="121"/>
-        <CursorPos X="6"/>
-        <UsageCount Value="6"/>
-      </Unit26>
-      <Unit27>
+        <UsageCount Value="25"/>
+      </Unit20>
+      <Unit21>
         <Filename Value="src\ideintf\kyoukai_dirstructures.pas"/>
         <EditorIndex Value="-1"/>
         <CursorPos Y="6"/>
-        <UsageCount Value="39"/>
-      </Unit27>
-      <Unit28>
-        <Filename Value="C:\lazarus\components\ideintf\lazideintf.pas"/>
-        <UnitName Value="LazIDEIntf"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="543"/>
-        <CursorPos X="3" Y="556"/>
-        <UsageCount Value="5"/>
-      </Unit28>
-      <Unit29>
-        <Filename Value="D:\LazPkg\fastplaz-development\tools\src\modsimple_lib.pas"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="3" Y="42"/>
-        <UsageCount Value="5"/>
-      </Unit29>
-      <Unit30>
-        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-web\src\base\fpcgi.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="16"/>
-        <CursorPos X="48" Y="26"/>
-        <UsageCount Value="5"/>
-      </Unit30>
-      <Unit31>
-        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-web\src\base\httproute.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="58"/>
-        <CursorPos X="3" Y="74"/>
-        <UsageCount Value="5"/>
-      </Unit31>
-      <Unit32>
-        <Filename Value="C:\lazarus\fpc\3.0.4\source\packages\fcl-web\src\base\custweb.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="136"/>
-        <CursorPos X="15" Y="150"/>
-        <UsageCount Value="5"/>
-      </Unit32>
-      <Unit33>
+        <UsageCount Value="25"/>
+      </Unit21>
+      <Unit22>
         <Filename Value="C:\fpcup\files\lazarus\components\ideintf\lazideintf.pas"/>
         <UnitName Value="LazIDEIntf"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="79"/>
         <CursorPos X="3" Y="100"/>
-        <UsageCount Value="42"/>
-      </Unit33>
-      <Unit34>
+        <UsageCount Value="28"/>
+      </Unit22>
+      <Unit23>
         <Filename Value="C:\fpcup\files\lazarus\components\buildintf\projectintf.pas"/>
         <UnitName Value="ProjectIntf"/>
         <EditorIndex Value="-1"/>
         <TopLine Value="220"/>
-        <UsageCount Value="42"/>
-      </Unit34>
-      <Unit35>
+        <UsageCount Value="28"/>
+      </Unit23>
+      <Unit24>
         <Filename Value="src\units\base\kyoukai.base.webhandler.pas"/>
         <UnitName Value="Kyoukai.Base.WebHandler"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="20"/>
+        <TopLine Value="83"/>
         <CursorPos X="40" Y="403"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="81"/>
         <Loaded Value="True"/>
-      </Unit35>
-      <Unit36>
-        <Filename Value="C:\fpcup\files\fpcsrc\packages\fcl-web\src\base\custcgi.pp"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="78"/>
-        <CursorPos X="3" Y="91"/>
-        <UsageCount Value="10"/>
-      </Unit36>
-      <Unit37>
-        <Filename Value="C:\fpcup\files\lazarus\components\buildintf\packageintf.pas"/>
-        <UnitName Value="PackageIntf"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="113"/>
-        <CursorPos X="3" Y="126"/>
-        <UsageCount Value="10"/>
-      </Unit37>
-      <Unit38>
-        <Filename Value="C:\fpcup\files\lazarus\components\buildintf\projpackintf.pas"/>
-        <UnitName Value="ProjPackIntf"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="57"/>
-        <CursorPos X="26" Y="46"/>
-        <UsageCount Value="10"/>
-      </Unit38>
-      <Unit39>
-        <Filename Value="C:\fpcup\files\fpcsrc\rtl\objpas\classes\classesh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="105"/>
-        <CursorPos X="3" Y="118"/>
-        <UsageCount Value="10"/>
-      </Unit39>
-      <Unit40>
-        <Filename Value="C:\fpcup\files\lazarus\components\ideintf\menuintf.pas"/>
-        <UnitName Value="MenuIntf"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="429"/>
-        <CursorPos X="10" Y="442"/>
-        <UsageCount Value="10"/>
-      </Unit40>
-      <Unit41>
-        <Filename Value="src\packages\units\copydir.pas"/>
-        <UnitName Value="CopyDir"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="121"/>
-        <CursorPos X="3" Y="66"/>
-        <UsageCount Value="10"/>
-      </Unit41>
-      <Unit42>
-        <Filename Value="C:\fpcup\files\lazarus\components\lazutils\fileutil.pas"/>
-        <UnitName Value="FileUtil"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="200"/>
-        <CursorPos X="27" Y="200"/>
-        <UsageCount Value="11"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="C:\fpcup\files\fpcsrc\rtl\inc\systemh.inc"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="773"/>
-        <CursorPos X="11" Y="781"/>
-        <UsageCount Value="11"/>
-      </Unit43>
-      <Unit44>
-        <Filename Value="C:\fpcup\files\lazarus\lcl\editbtn.pas"/>
-        <UnitName Value="EditBtn"/>
-        <EditorIndex Value="-1"/>
-        <TopLine Value="551"/>
-        <CursorPos X="14" Y="562"/>
-        <UsageCount Value="10"/>
-      </Unit44>
-      <Unit45>
-        <Filename Value="src\units\dblib\kyoukai.dblib.sqldb.pas"/>
-        <UnitName Value="Kyoukai.DBLib.SQLDB"/>
-        <EditorIndex Value="-1"/>
-        <UsageCount Value="10"/>
-      </Unit45>
-      <Unit46>
-        <Filename Value="src\units\base\kyoukai.base.cgidefs.pas"/>
-        <UnitName Value="Kyoukai.Base.CGIDefs"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="18"/>
-        <UsageCount Value="11"/>
-      </Unit46>
-      <Unit47>
-        <Filename Value="src\packages\kyoukai_standard.pas"/>
-        <EditorIndex Value="-1"/>
-        <CursorPos X="43" Y="14"/>
-        <UsageCount Value="10"/>
-      </Unit47>
+      </Unit24>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>

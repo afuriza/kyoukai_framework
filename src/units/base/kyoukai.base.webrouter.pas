@@ -73,8 +73,11 @@ end;
 
 function RouteToPattern(ARoute: string): string;
 begin
+
   Result := Format('^(%s)(\?[a-zA-Z0-9]+=[a-zA-Z0-9]+)?$', [ARoute]);
-  Result := ReplaceRegExpr('<[a-zA-Z0-9_]+>', Result, '[a-zA-Z0-9_]+', True);
+  Result := ReplaceRegExpr('<[a-zA-Z0-9_]+>', Result,
+    '[a-zA-Z0-9_ ]+',
+    True);
 end;
 
 function RoutePatternMatches(CurrentRoute: string;
@@ -83,7 +86,9 @@ var
   regexobj: TRegExpr;
   RoutePattern: string;
 begin
+
   RoutePattern := RouteToPattern(DefinedRoute);
+   //WriteLn('f: ',CurrentRoute, ', ', DefinedRoute, ', ', RoutePattern);
   regexobj := TRegExpr.Create(RoutePattern);
   Result := regexobj.Exec(CurrentRoute);
   regexobj.Free;

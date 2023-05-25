@@ -4,13 +4,12 @@ object frmNewProject: TfrmNewProject
   Top = 0
   Width = 641
   ActiveControl = btnPrevWizard
-  Caption = 'Kyoukai New Project Wizar'
+  Caption = 'Kyoukai New Project Wizard'
   ClientHeight = 451
   ClientWidth = 641
   DesignTimePPI = 120
   OnCreate = FormCreate
   Position = poScreenCenter
-  LCLVersion = '2.2.5.0'
   object imgHeaderLogo: TImage
     Left = 374
     Height = 56
@@ -341,7 +340,7 @@ object frmNewProject: TfrmNewProject
         ClientHeight = 286
         ClientWidth = 599
         TabOrder = 0
-        object RadioGroup1: TRadioGroup
+        object rgType: TRadioGroup
           Left = 10
           Height = 261
           Top = 10
@@ -373,6 +372,7 @@ object frmNewProject: TfrmNewProject
           EditLabel.Caption = 'Application Name'
           EditLabel.ParentColor = False
           TabOrder = 1
+          OnChange = edProjectNameChange
         end
         object edProjectPath: TDirectoryEdit
           Left = 200

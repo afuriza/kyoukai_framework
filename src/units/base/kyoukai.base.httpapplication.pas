@@ -158,6 +158,7 @@ end;
 initialization
   KyoukaiApp := TKyoukaiApp.Create(nil);
   KyoukaiApp.ControllerList := Controllers;
+  KyoukaiApp.Router := Route;
   KyoukaiApp.FileRouter := FileRoute;
 
 finalization

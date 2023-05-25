@@ -30,10 +30,11 @@ type
     nbStepWizard: TNotebook;
     SecondStep: TPage;
     pgFirstStep: TPage;
-    RadioGroup1: TRadioGroup;
+    rgType: TRadioGroup;
     ScrollBox1: TScrollBox;
     ValueListEditor1: TValueListEditor;
     procedure btnNextWizardClick(Sender: TObject);
+    procedure edProjectNameChange(Sender: TObject);
     procedure edProjectPathChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
   private
@@ -59,8 +60,18 @@ end;
 
 procedure TfrmNewProject.btnNextWizardClick(Sender: TObject);
 begin
-  CreatePrj;
-  Close;
+  if DirectoryExists(IncludeTrailingBackslash(edProjectPath.Text)) and
+    (edProjectName.Text <> '') then
+  begin
+    CreatePrj;
+    Close;
+  end;
+end;
+
+procedure TfrmNewProject.edProjectNameChange(Sender: TObject);
+begin
+  if edProjectPath.Text <> '' then
+    edProjectPathChange(Sender);
 end;
 
 procedure TfrmNewProject.edProjectPathChange(Sender: TObject);
@@ -68,11 +79,13 @@ var
   AppName: string;
 begin
   AppName := StringReplace(edProjectName.Text, ' ', '_', [rfReplaceAll]).ToLower;
-  edWebRootPath.Text := edProjectPath.Text + AppName +
+  edWebRootPath.Text := IncludeTrailingBackslash(edProjectPath.Text) + AppName +
     PathDelim + 'public';
 end;
 
 procedure TfrmNewProject.PreparePrj(TargetPath: string);
+var
+  SL: TStringList;
 begin
   RenameFile(TargetPath + PathDelim + 'control.lpi.kptemplate',
     TargetPath + PathDelim + 'control.lpi');
@@ -84,6 +97,17 @@ begin
     'maincontroller.pas.kptemplate',
     TargetPath + PathDelim + 'controllers' + PathDelim +
     'maincontroller.pas');
+
+  SL := TStringList.Create;
+  SL.LoadFromFile(TargetPath + PathDelim + 'control.lpr');
+  if rgType.ItemIndex = 0 then
+    SL.Text := StringReplace(SL.Text, 'Kyoukai.Base.CGIApplication,',
+      '{Kyoukai.Base.CGIApplication,}', [rfReplaceAll])
+  else
+    SL.Text := StringReplace(SL.Text, 'Kyoukai.Base.HTTPApplication,',
+      '{Kyoukai.Base.HTTPApplication,}', [rfReplaceAll]);
+  SL.SaveToFile(TargetPath + PathDelim + 'control.lpr');
+  SL.Free;
 end;
 
 procedure TfrmNewProject.CreatePrj;
@@ -96,9 +120,18 @@ begin
   KyoukaiPath := Pkg.DirectoryExpanded;
   AppName := StringReplace(edProjectName.Text, ' ', '_', [rfReplaceAll]).ToLower;
 
+  if
+    DirectoryExists(
+    IncludeTrailingBackslash(edProjectPath.Text) + PathDelim + AppName) then
+  begin
+    ShowMessage('Folder already exists');
+    Abort;
+  end;
+
+
 
   CopyDirTree(KyoukaiPath + 'projecttemplates' + PathDelim + 'simple_template',
-    edProjectPath.Text + PathDelim + AppName, [cffCreateDestDirectory]
+    IncludeTrailingBackslash(edProjectPath.Text) + PathDelim + AppName, [cffCreateDestDirectory]
   );
 
   PreparePrj(edProjectPath.Text + PathDelim + AppName);
